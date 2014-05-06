@@ -24,13 +24,20 @@ class DatabaseSeeder extends Seeder {
         'subscriptions',
         'users',
         'types',
-        'statuses'
+        'statuses',
+        'certificate_types',
+        'certificate_metas',
+        'certificate_options',
+        'certificate_requests',
+        'certificate_statuses',
+        'certificate_option_type',
+        'certificate_request_options'
+
     ];
     public function run()
     {
         Eloquent::unguard();
         $this->cleanDatabase();
-
         // Add calls to Seeders here
         $this->call('UsersTableSeeder');
         $this->call('RolesTableSeeder');
@@ -49,6 +56,13 @@ class DatabaseSeeder extends Seeder {
         $this->call('ContactsTableSeeder');
         $this->call('StatusesTableSeeder');
         $this->call('TypesTableSeeder');
+        $this->call('CertificateTypesTableSeeder');
+        $this->call('CertificateMetasTableSeeder');
+        $this->call('CertificateOptionsTableSeeder');
+        $this->call('CertificateOptionTypeTableSeeder');
+        $this->call('CertificatesTableSeeder');
+        $this->call('CertificateStatusesTableSeeder');
+        $this->call('CertificateRequestOptionTableSeeder');
 	}
 
     private function cleanDatabase()

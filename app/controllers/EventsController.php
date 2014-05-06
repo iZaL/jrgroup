@@ -57,26 +57,26 @@ class EventsController extends BaseController
         // perform search
         if(!empty($search) || !empty($category) || !empty($author) || !empty($country)) {
             $events = $this->model->with(array('category','location.country','photos','author'))
-                    ->where('date_start','>',$this->currentTime)
-                    ->where(function($query) use ($search, $category, $author, $country)
-            {
-                if (!empty($search)) {
-                    $query->where('title','LIKE',"%$search%")
-                          ->orWhere('title_en','LIKE',"%$search%");
-                    //  ->orWhere('description','LIKE',"%$search%")
-                    //  ->orWhere('description_en','LIKE',"%$search%");
-                }
-                if (!empty($category)) {
-                    $query->where('category_id', $category);
-                }
-                if (!empty($author)) {
-                    $query->where('user_id', $author);
-                }
-                if (!empty($country)) {
-                    $locations = Country::find($country)->locations()->lists('id');
-                    $query->whereIn('location_id',$locations);
-                }
-            })->orderBy('date_start', 'DESC')->paginate($perPage);
+                ->where('date_start','>',$this->currentTime)
+                ->where(function($query) use ($search, $category, $author, $country)
+                {
+                    if (!empty($search)) {
+                        $query->where('title','LIKE',"%$search%")
+                            ->orWhere('title_en','LIKE',"%$search%");
+                        //  ->orWhere('description','LIKE',"%$search%")
+                        //  ->orWhere('description_en','LIKE',"%$search%");
+                    }
+                    if (!empty($category)) {
+                        $query->where('category_id', $category);
+                    }
+                    if (!empty($author)) {
+                        $query->where('user_id', $author);
+                    }
+                    if (!empty($country)) {
+                        $locations = Country::find($country)->locations()->lists('id');
+                        $query->whereIn('location_id',$locations);
+                    }
+                })->orderBy('date_start', 'DESC')->paginate($perPage);
 
         } else {
             $events = $this->getEvents($perPage);
@@ -97,14 +97,14 @@ class EventsController extends BaseController
     {
         //        $events = parent::all();
         // get only 4 images for slider
-        $events = $this->getSliderEvents();
-        $this->layout->events = View::make('site.layouts.event', ['events'=>$events]); // slider section
+//        $events = $this->getSliderEvents();
+//        $this->layout->events = View::make('site.layouts.event', ['events'=>$events]); // slider section
         $this->layout->login = View::make('site.layouts.login');
-        $this->layout->ads = view::make('site.layouts.ads');
+//        $this->layout->ads = view::make('site.layouts.ads');
         $this->layout->nav = view::make('site.layouts.nav');
-        $this->layout->slider = view::make('site.layouts.event', ['events' => $events] );
-        $this->layout->maincontent = view::make('site.layouts.dashboard');
-        $this->layout->sidecontent = view::make('site.layouts.sidebar');
+//        $this->layout->slider = view::make('site.layouts.event', ['events' => $events] );
+//        $this->layout->maincontent = view::make('site.layouts.dashboard');
+//        $this->layout->sidecontent = view::make('site.layouts.sidebar');
         $this->layout->footer = view::make('site.layouts.footer');
     }
 
@@ -143,7 +143,7 @@ class EventsController extends BaseController
         }
     }
 
-     /* @param eventId $id
+    /* @param eventId $id
      * @return boolean
      * Subscribe an User to the Event
      */

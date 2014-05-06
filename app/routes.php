@@ -21,7 +21,6 @@ Route::pattern('token', '[0-9a-z]+');
 /**
  * Route Group for Localized url
  */
-
 Route::group(
     array(
         'prefix' => LaravelLocalization::setLocale(), // default : English === it will set the local language according to the session
@@ -149,6 +148,7 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
 
     Route::get('event/{id}/requests',array('uses'=>'AdminEventsController@getRequests'));
     Route::resource('requests','AdminStatusesController');
+    Route::resource('certificates','AdminCertificateRequestsController');
 
     Route::get('/', 'AdminEventsController@index');
 });
@@ -161,3 +161,4 @@ Route::get('/', array('as'=>'base', 'uses' => 'EventsController@dashboard'));
 Route::post('queue/mails',function(){
    return Queue::marshal();
 });
+
