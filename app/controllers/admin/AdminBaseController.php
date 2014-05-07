@@ -36,4 +36,12 @@ abstract class AdminBaseController extends BaseController
         return Redirect::to('admin/blogs');
     }
 
+    protected function getUserId()
+    {
+        if (Auth::check()) {
+            return Auth::user()->getAuthIdentifier();
+        } else {
+            return NULL;
+        }
+    }
 }

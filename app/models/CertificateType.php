@@ -7,7 +7,7 @@ class CertificateType extends BaseModel {
 
     public static $rules = array(
         'name' => 'required',
-        'price' => 'required'
+        'price' => 'required | integer'
     );
 
     /**

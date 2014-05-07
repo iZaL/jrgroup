@@ -14,7 +14,7 @@
 <div class="form-group">
     <?php $i = 1; ?>
     @foreach($metas as $meta)
-        <?php $option = [0 => 'Select Certificate options'] + $meta->options->lists('name','id'); ?>
+        <?php $option = ['' => 'Select Certificate options'] + $meta->options->lists('name','id'); ?>
         @if($option)
             <label>{{ $meta->name }} </label>
             <div class="form-group">
@@ -35,9 +35,9 @@
 {{ Form::close() }}
 
 @if ($errors->any())
-<ul>
+<div class="alert alert-danger alert-block">
     {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-</ul>
+</div>
 @endif
 
 @stop

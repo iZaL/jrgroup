@@ -1,7 +1,29 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: ZaL
- * Date: 5/4/14
- * Time: 7:18 PM
- */ 
+@extends('admin.layouts.default')
+
+{{-- Content --}}
+@section('content')
+
+<h1>Add Certificate Type</h1>
+
+{{ Form::model($type, array('method' => 'PATCH', 'role'=>'form', 'action' => array('AdminCertificateTypesController@update', $type->id))) }}
+
+<div class="form-group">
+    {{ Form::label('type', 'Type:') }}
+    {{ Form::text('name',NULL,array('class'=>'form-control')) }}
+</div>
+<div class="form-group">
+    {{ Form::label('price', 'Price:') }}
+    {{ Form::text('price', NULL,array('class'=>'form-control')) }}
+</div>
+<div class="form-group">
+    {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+</div>
+{{ Form::close() }}
+
+@if ($errors->any())
+<div class="alert alert-danger alert-block">
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+</div>
+@endif
+
+@stop

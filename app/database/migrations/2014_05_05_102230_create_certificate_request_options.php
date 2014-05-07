@@ -19,8 +19,6 @@ class CreateCertificateRequestOptions extends Migration {
             $table->integer('option_id')->unsigned()->index();
             $table->float('price');
 			$table->timestamps();
-            $table->foreign('request_id')->references('id')->on('certificate_requests')->onDelete('cascade');
-            $table->foreign('option_id')->references('id')->on('certificate_options')->onDelete('cascade');
 		});
 	}
 

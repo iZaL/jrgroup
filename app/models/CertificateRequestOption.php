@@ -5,6 +5,7 @@ class CertificateRequestOption extends BaseModel {
     protected $table = "certificate_request_options";
 
     public static $rules = array(
+        'option_id' => 'required  | integer'
     );
 
     public function user() {

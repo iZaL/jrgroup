@@ -5,7 +5,8 @@
 
 <h1>Add Certificate Type</h1>
 
-{{ Form::model($record, array('method' => 'PATCH', 'role'=>'form', 'action' => array('AdminCertificateMetasController@update', $record->id))) }}
+{{ Form::open(array('action' => 'AdminCertificateMetasController@store')) }}
+
 <div class="form-group">
     {{ Form::label('type', 'Meta Title:') }}
     {{ Form::text('name',NULL,array('class'=>'form-control')) }}

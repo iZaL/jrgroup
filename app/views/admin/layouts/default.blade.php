@@ -48,8 +48,9 @@
     <!--    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">-->
     <style>
         body {
-            padding: 60px 0;
+            margin: 100px 0;
         }
+
     </style>
 
     @yield('styles')

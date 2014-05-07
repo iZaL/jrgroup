@@ -5,7 +5,9 @@ class CertificateRequest extends BaseModel {
     protected $table = "certificate_requests";
 
     public static $rules = array(
-        'type_id' => 'required | integer'
+        'type_id' => 'required | integer',
+        'user_id' => 'required | integer',
+        'quantity' => 'required | integer',
     );
 
     public function user() {

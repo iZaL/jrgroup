@@ -19,8 +19,6 @@ class CreateCertificateRequests extends Migration {
             $table->integer('user_id')->unsigned()->index();
             $table->string('status');
 			$table->timestamps();
-            $table->foreign('request_id')->references('id')->on('certificate_requests')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
 

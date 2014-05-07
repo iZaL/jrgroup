@@ -20,8 +20,7 @@ class CreateCertificates extends Migration {
             $table->float('amount');
             $table->integer('quantity');
 			$table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('option_id')->references('id')->on('certificate_options')->onDelete('cascade');
+
 		});
 	}
 

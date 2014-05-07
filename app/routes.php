@@ -148,7 +148,12 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
 
     Route::get('event/{id}/requests',array('uses'=>'AdminEventsController@getRequests'));
     Route::resource('requests','AdminStatusesController');
+
+    //certificates
     Route::resource('certificates','AdminCertificateRequestsController');
+    Route::resource('certificate-type','AdminCertificateTypesController');
+    Route::resource('certificate-meta','AdminCertificateMetasController');
+    Route::resource('certificate-option','AdminCertificateOptionsController');
 
     Route::get('/', 'AdminEventsController@index');
 });

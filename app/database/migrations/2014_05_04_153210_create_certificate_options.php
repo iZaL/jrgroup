@@ -18,7 +18,6 @@ class CreateCertificateOptions extends Migration {
             $table->integer('meta_id')->unsigned()->index();
             $table->string('name');
 			$table->timestamps();
-            $table->foreign('meta_id')->references('id')->on('certificate_metas')->onDelete('cascade');
 		});
 	}
 
