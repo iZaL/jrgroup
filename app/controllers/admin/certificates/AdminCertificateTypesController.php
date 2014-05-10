@@ -33,13 +33,14 @@ class AdminCertificateTypesController extends AdminBaseController {
     }
 
     public function index() {
-        return View::make('admin.certificates.types.create');
+        $records = $this->type->all();
+        return View::make('admin.certificates.types.index',compact('records'));
     }
 
 
 
     public function create() {
-//        return View::make('admin.certificates.requests.edit',compact('types','metas','request'));
+        return View::make('admin.certificates.types.create');
     }
     public function store() {
         $validation = new $this->type(Input::all());

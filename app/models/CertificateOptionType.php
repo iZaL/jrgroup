@@ -6,7 +6,8 @@ class CertificateOptionType extends BaseModel {
 
     public static $rules = array(
         'option_id' => 'required | integer',
-        'type_id' => 'required | integer'
+        'type_id' => 'required | integer',
+        'price' => 'required | integer'
     );
 
     public function type() {

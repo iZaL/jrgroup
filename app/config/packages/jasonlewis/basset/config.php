@@ -54,6 +54,7 @@ return array(
                 $collection->add('datatables-bootstrap.css');
                 $collection->add('colorbox.css');
                 $collection->add('jquery.datetimepicker.css');
+                $collection->add('style.css');
             })->apply('UriRewriteFilter')->apply('CssMin');
 
             $collection->directory('assets/js', function($collection)

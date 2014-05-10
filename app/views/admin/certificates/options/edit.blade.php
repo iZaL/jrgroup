@@ -4,10 +4,8 @@
 @section('content')
 
 <h1>Add Certificate Type</h1>
-
 {{ Form::model($record, array('method' => 'PATCH', 'role'=>'form', 'action' => array('AdminCertificateOptionsController@update', $record->id))) }}
 <div class="form-group">
-    {{ Form::label('type', 'Choose Option Category:') }}
     {{ Form::select('meta_id',$metas,NULL,array('class'=>'form-control')) }}
 </div>
 <div class="form-group">

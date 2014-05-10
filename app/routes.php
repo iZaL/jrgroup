@@ -150,10 +150,12 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
     Route::resource('requests','AdminStatusesController');
 
     //certificates
-    Route::resource('certificates','AdminCertificateRequestsController');
+    Route::resource('certificate-request','AdminCertificateRequestsController');
     Route::resource('certificate-type','AdminCertificateTypesController');
     Route::resource('certificate-meta','AdminCertificateMetasController');
     Route::resource('certificate-option','AdminCertificateOptionsController');
+    Route::resource('certificate-option-type','AdminCertificateOptionTypesController');
+    Route::resource('certificates','AdminCertificateDashboardController');
 
     Route::get('/', 'AdminEventsController@index');
 });

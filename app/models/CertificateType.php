@@ -15,7 +15,7 @@ class CertificateType extends BaseModel {
      * Find all the options by Id
      */
     public function options() {
-        return $this->belongsToMany('CertificateOption', 'certificate_option_type', 'type_id', 'option_id');
+        return $this->belongsToMany('CertificateOption', 'certificate_option_type', 'type_id', 'option_id')->withPivot(array('option_id','type_id','price'));
     }
 
 

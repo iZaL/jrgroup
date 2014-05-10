@@ -1,6 +1,6 @@
 <?php
 
-class AdminCertificateMetasController extends AdminBaseController {
+class AdminCertificateDashboardController extends AdminBaseController {
 
     protected $layout = 'site.layouts.home';
 
@@ -17,14 +17,12 @@ class AdminCertificateMetasController extends AdminBaseController {
     }
 
     public function index() {
-        $records = $this->model->all();
-        return View::make('admin.certificates.metas.index',compact('records'));
+        return View::make('admin.certificates.index');
     }
 
 
     public function create() {
-        $records = ['' => 'Select Certificate Meta'] + $this->model->all()->lists('name','id');
-        return View::make('admin.certificates.metas.create',compact('records'));
+
     }
     public function store() {
         $validation = new $this->model(Input::all());

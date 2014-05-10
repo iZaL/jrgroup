@@ -9,7 +9,8 @@ class CertificateOption extends BaseModel {
         'name' => 'required'
     );
 
-    public function types() {
+    public function type() {
+//        return $this->hasMany('CertificateOptionType','option_id');
         return $this->belongsToMany('CertificateType', 'certificate_option_type', 'option_id', 'type_id');
     }
 
