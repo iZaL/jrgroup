@@ -24,12 +24,14 @@ class ConfideSetupUsersTable extends Migration {
             $table->integer('phone');
             $table->integer('civilid');
             $table->string('country_id');
+            $table->text('address');
             $table->string('gender');
             $table->string('instagram');
             $table->string('twitter');
             $table->string('confirmation_code');
             $table->boolean('member')->default(false);
             $table->boolean('confirmed')->default(false);
+            $table->timstamp('expires_at');
             $table->timestamps();
         });
 

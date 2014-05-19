@@ -197,4 +197,14 @@ class User extends ConfideUser implements PresentableInterface {
         $query = Subscription::where('user_id', '=', $userId)->where('event_id', '=', $id)->count();
         return ($query >= 1 ) ? true : false;
     }
+
+    public function getDates()
+    {
+        return array_merge(array(static::CREATED_AT, static::UPDATED_AT, static::DELETED_AT), array('expires_at'));
+    }
+
+    public function setExpiresAtAttribute($value)
+    {
+        $this->attributes['expires_at'] = $this->dateStringToCarbon($value);
+    }
 }
