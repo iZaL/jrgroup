@@ -29,8 +29,12 @@ class AdminCertificateRequestsController extends AdminBaseController {
      * @var CertificateStatus
      */
     private $status;
+    /**
+     * @var CertificateOptionType
+     */
+    private $optionType;
 
-    public function __construct(CertificateType $type,CertificateMeta $meta, CertificateRequestOption $request_option, CertificateRequest $model, CertificateOption $option, AdminCertificateStatusesController $statusCtrl, CertificateStatus $status)
+    public function __construct(CertificateType $type,CertificateMeta $meta, CertificateRequestOption $request_option, CertificateRequest $model, CertificateOption $option, AdminCertificateStatusesController $statusCtrl, CertificateStatus $status, CertificateOptionType $optionType)
     {
         $this->type = $type;
         $this->meta = $meta;
@@ -40,6 +44,7 @@ class AdminCertificateRequestsController extends AdminBaseController {
         parent::__construct();
         $this->statusCtrl = $statusCtrl;
         $this->status = $status;
+        $this->optionType = $optionType;
     }
 
     public function index() {
@@ -57,15 +62,20 @@ class AdminCertificateRequestsController extends AdminBaseController {
     }
 
     public function update($id){
+        $typePrice = $this->type->findOrFail(Input::get('type_id'));
         $options = array();
         foreach(Input::all() as $key=>$value) {
             if(substr($key,0,9) == "option_id") {
                 $options[$key] = $value ;
+                //@todo check whether the price has value in the db table i.e if price is empty or not or has a record or not
+                $db_price[] = $value; // arrays to send for SUM ( addition on options tables )
             }
         }
+        $total = $this->calculateTotal($db_price, $typePrice);
+
         $validation = $this->model->find($id);
 //        $validation = new $this->model(array_merge(array('user_id' => $this->getUserId()),Input::except(array_keys($options))));
-        $validation->fill(Input::except(array_keys($options)));
+        $validation->fill(array_merge(array('amount' => $total), Input::except(array_keys($options))));
         if(!$validation->save()) {
             return Redirect::back()->withInput()->withErrors($validation->getErrors());
         }
@@ -95,13 +105,17 @@ class AdminCertificateRequestsController extends AdminBaseController {
         return View::make('admin.certificates.requests.create',compact('types','metas'));
     }
     public function store() {
+        $typePrice = $this->type->findOrFail(Input::get('type_id'));
         $options = array();
         foreach(Input::all() as $key=>$value) {
-            if(substr($key,0,9) == "option_id") {
-                $options[$key] = $value ;
-            }
+            if(!empty($value))
+                if(substr($key,0,9) == "option_id") {
+                    $options[$key] = $value ;
+                    $db_price[] = $value; // arrays to send for SUM ( addition on options tables )
+                }
+            $total = $this->calculateTotal($db_price, $typePrice);
         }
-        $validation = new $this->model(array_merge(array('user_id' => $this->getUserId()),Input::except(array_keys($options))));
+        $validation = new $this->model(array_merge(array('user_id' => $this->getUserId(),'amount' => $total ),Input::except(array_keys($options))));
         if (!$validation->save())
         {
             return Redirect::back()->withInput()->withErrors($validation->getErrors());
@@ -123,6 +137,16 @@ class AdminCertificateRequestsController extends AdminBaseController {
                 }
             }
         }
+
+        // do calculations
+        // get the type and its price
+        // get all the selected options
+        // get quantity
+        // multiply
+
+
+
+
         //create pending status
         $request = $this->model->find($validation->id);
         $status = new $this->status;
@@ -130,5 +154,22 @@ class AdminCertificateRequestsController extends AdminBaseController {
         $status->user_id = $this->getUserId();
         $this->statusCtrl->create(new \Acme\Repo\CertificateStatuses\Pending())->setStatus($request,Auth::user(), $status,'');
         return parent::redirectToAdmin()->with('success','Certificate Requested');
+    }
+
+    /**
+     * @param $db_price
+     * @param $typePrice
+     * @return mixed
+     */
+    public function calculateTotal($db_price, $typePrice)
+    {
+        $optionPrice = $this->optionType->getPrice($db_price);
+
+        $typePrice = $typePrice->price;
+        $optionPrice = (float)round($optionPrice->total);
+        $quantity = Input::get('quantity');
+
+        $total = ($typePrice + $optionPrice) * $quantity;
+        return $total;
     }
 }

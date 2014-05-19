@@ -22,5 +22,6 @@ class CertificateOption extends BaseModel {
         return $this->belongsTo('CertificateMeta','meta_id');
     }
 
+
 }
 

@@ -16,5 +16,15 @@ class CertificateOptionType extends BaseModel {
     public function option() {
         return $this->belongsTo('CertificateOption');
     }
+
+    public function getPrice($ids = array()) {
+        $price = DB::table('certificate_option_type')
+                    ->select(DB::raw('SUM(price) as total'))
+//                    ->whereIn('option_id',$ids)
+                    ->whereIn('option_id',$ids)
+                    ->first()
+                    ;
+        return $price;
+    }
 }
 
