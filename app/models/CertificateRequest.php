@@ -22,8 +22,8 @@ class CertificateRequest extends BaseModel {
         return $this->belongsTo('CertificateOption','option_id');
     }
 
-    public function statuses() {
-        return $this->hasMany('CertificateStatus','certificate_id');
+    public function status() {
+        return $this->hasOne('CertificateStatus','request_id');
     }
 }
 

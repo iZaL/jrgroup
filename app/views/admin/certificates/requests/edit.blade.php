@@ -14,14 +14,14 @@
 <div class="form-group">
     <?php $i = 1; ?>
     @foreach($metas as $meta)
-    <?php $option = [0 => 'Select Certificate options'] + $meta->options->lists('name','id'); ?>
-    @if($option)
-    <label>{{ $meta->name }} </label>
-    <div class="form-group">
-        {{ Form::select('option_id'.$i,$option,NULL,array('class'=>'form-control')) }}
-    </div>
-    @endif
-    <?php $i++; ?>
+        <?php $option = [0 => 'Select Certificate options'] + $meta->options->lists('name','id'); ?>
+        @if($option)
+            <label>{{ $meta->name }} </label>
+            <div class="form-group">
+                {{ Form::select('option_id'.$i,$option,$option,array('class'=>'form-control')) }}
+            </div>
+        @endif
+        <?php $i++; ?>
     @endforeach
 </div>
 

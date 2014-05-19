@@ -56,12 +56,16 @@ class Photo extends BaseModel {
                 Image::make($image->getRealPath())->resize(715,400)->save($large_path_name);
             }
 
+            if($type == 'Gallery') {
+                $data= false;
+            } else {
+                $data = Photo::where('imageable_id',$id)->where('imageable_type',$type)->where('featured', $featured)->first();
+            }
             // if the featured image is already exists in the db, replace it with the new image
-            $data = Photo::where('imageable_id',$id)->where('imageable_type',$type)->where('featured', $featured)->first();
 
             if($data) {
                 //delete old files
-                $this->destroyFile($image_path,$data->name);
+                $this->destroyFile($data->name);
                 // set the image name to save in database
                 $data->name = $image_name;
             } else {

@@ -9,12 +9,14 @@
 namespace Acme\Repo\Statuses;
 
 
+use Redirect;
+
 class Approved extends Status implements StatusInterface{
 
     public function __construct() {
         parent::__construct();
     }
-    public function setAction($event, $user, $status)
+    public function setAction($event, $user, $status,$reason)
     {
         $type = $event->type;
         switch($type->type) {
@@ -23,7 +25,7 @@ class Approved extends Status implements StatusInterface{
                 switch($type->approval_type) {
                     // If Direct, Whenever Admin Changes The Status To Approved Subscribe Him
                     case 'DIRECT':
-                        return $this->create(new Confirmed())->setStatus($event,$user,$status);
+                        return $this->create(new Confirmed())->setStatus($event,$user,$status,$reason);
                         break;
                     // If Mod, Whever Admin Changes The Status To Approves, Send User an Email to Subscribe
                     case 'MOD':
@@ -32,8 +34,16 @@ class Approved extends Status implements StatusInterface{
                             $event->subscriptions()->detach($user);
                             $event->updateSeats();
                             $args['subject'] = 'Kaizen Event Subscription';
-                            $args['body'] = 'You have been approved for the event ' . $event->title. '. Please '. link_to_action('SubscriptionsController@subscribe', 'Click Here', $event->id).' to confirm the subscriptions';
-                            return ($this->mailer->sendMail($user, $args)) ? 'done' : 'not done';
+                            if(!empty($reason)) {
+                                $args['body'] = $reason;
+                            } else {
+                                $args['body'] = 'You have been approved for the event ' . $event->title. '. Please '. link_to_action('SubscriptionsController@subscribe', 'Click Here', $event->id).' to confirm the subscriptions';
+                            }
+                            if($this->mailer->sendMail($user, $args)) {
+                                return Redirect::action('AdminStatusesController@index')->with(array('success'=>'Success'));
+                            } else {
+                                return Redirect::action('AdminStatusesController@index')->with(array('error'=>'Error please try again'));
+                            }
                         }
                         break;
                 }

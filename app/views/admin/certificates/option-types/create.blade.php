@@ -5,17 +5,15 @@
 
 <h1>Add Certificate Option</h1>
 
-{{ Form::open(array('action' => 'AdminCertificateOptionsController@store')) }}
+{{ Form::open(array('action' => 'AdminCertificateOptionTypesController@store')) }}
 
 <div class="form-group">
+    {{ Form::label('type_id', 'Type') }}
     {{ Form::select('type_id',$types,NULL,array('class'=>'form-control')) }}
 </div>
 <div class="form-group">
-    {{ Form::select('meta_id',$metas,NULL,array('class'=>'form-control')) }}
-</div>
-<div class="form-group">
-    {{ Form::label('name', 'Option Name:') }}
-    {{ Form::text('name',NULL,array('class'=>'form-control')) }}
+    {{ Form::label('option_id', 'Option') }}
+    {{ Form::select('option_id',$options,NULL,array('class'=>'form-control')) }}
 </div>
 <div class="form-group">
     {{ Form::label('name', 'Price:') }}

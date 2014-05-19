@@ -16,10 +16,15 @@ class Category extends BaseModel {
         return DB::table('categories')->where('type','=', 'EventModel');
     }
     public static function getPostCategories() {
-//        return $this->morphedByMany('EventModel','Post');
-//        return $this->morphedByMany('EventModel','categorizable','categories','id');
-//        return $this->hasMany('Post');
         return DB::table('categories')->where('type','=', 'Post');
+    }
+
+    public static function getGalleryCategories() {
+        return DB::table('galleries')->where('type','=', 'Post');
+    }
+
+    public  function galleries(){
+        return $this->hasMany('Gallery');
     }
 
     public function type() {

@@ -151,19 +151,31 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
 
     //certificates
     Route::resource('certificate-request','AdminCertificateRequestsController');
+    Route::resource('certificate-status','AdminCertificateStatusesController');
     Route::resource('certificate-type','AdminCertificateTypesController');
     Route::resource('certificate-meta','AdminCertificateMetasController');
     Route::resource('certificate-option','AdminCertificateOptionsController');
     Route::resource('certificate-option-type','AdminCertificateOptionTypesController');
     Route::resource('certificates','AdminCertificateDashboardController');
-
+    Route::resource('gallery','AdminGalleriesController');
+    Route::get('gallery/{id}/photos','AdminGalleriesController@getPhotos');
+    Route::post('gallery/{id}/photos','AdminGalleriesController@postPhotos');
     Route::get('/', 'AdminEventsController@index');
 });
 
 Route::get('forbidden',function() {
    return View::make('error.forbidden');
 });
+
+
 Route::get('/', array('as'=>'base', 'uses' => 'EventsController@dashboard'));
+
+Route::get('/test',function(){
+//    $query = Category::with('galleries')->find(1);
+    $query = Gallery::with('category')->find(13);
+    dd($query->toArray());
+});
+
 //push queue worker
 Route::post('queue/mails',function(){
    return Queue::marshal();

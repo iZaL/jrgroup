@@ -31,7 +31,8 @@ class DatabaseSeeder extends Seeder {
         'certificate_requests',
         'certificate_statuses',
         'certificate_option_type',
-        'certificate_request_options'
+        'certificate_request_options',
+        'galleries'
 
     ];
     public function run()
@@ -63,6 +64,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('CertificatesTableSeeder');
         $this->call('CertificateStatusesTableSeeder');
         $this->call('CertificateRequestOptionTableSeeder');
+        $this->call('GalleriesTableSeeder');
 	}
 
     private function cleanDatabase()

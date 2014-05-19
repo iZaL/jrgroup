@@ -32,7 +32,7 @@ class AdminCertificateOptionsController extends AdminBaseController {
     }
 
     public function index() {
-        $records = $this->model->with(array('meta'))->get();
+        $records = $this->model->with(array('type'))->get();
 //        $records = $this->model->with(array('meta','type'))->get();
         return View::make('admin.certificates.options.index',compact('records'));
     }

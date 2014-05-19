@@ -6,14 +6,18 @@ class CertificateStatus extends BaseModel {
     protected $table = "certificate_statuses";
 
     public static $rules = array(
-        'certificate_id' => 'required | integer'
+        'request_id' => 'required | integer'
     );
 
     public function user() {
         return $this->belongsTo('User');
     }
 
-    public function certificate() {
+//    public function certificate() {
+//        return $this->belongsTo('CertificateRequest');
+//    }
+
+    public function request() {
         return $this->belongsTo('CertificateRequest');
     }
 

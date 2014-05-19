@@ -9,15 +9,26 @@ class AdminCertificateDashboardController extends AdminBaseController {
      * @var CertificateOption
      */
     private $option;
+    /**
+     * @var CertificateRequest
+     */
+    private $request;
+    /**
+     * @var CertificateStatus
+     */
+    private $status;
 
-    public function __construct(CertificateMeta $model)
+    public function __construct(CertificateMeta $model,CertificateRequest $request,CertificateStatus $status)
     {
         $this->model = $model;
         parent::__construct();
+        $this->request = $request;
+        $this->status = $status;
     }
 
     public function index() {
-        return View::make('admin.certificates.index');
+        $requests = $this->request->with(array('user','type','status'))->latest()->get();
+        return View::make('admin.certificates.index',compact('requests'));
     }
 
 

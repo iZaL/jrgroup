@@ -21,8 +21,16 @@ class AdminCertificateRequestsController extends AdminBaseController {
      * @var CertificateOption
      */
     private $option;
+    /**
+     * @var AdminCertificateStatusesController
+     */
+    private $statusCtrl;
+    /**
+     * @var CertificateStatus
+     */
+    private $status;
 
-    public function __construct(CertificateType $type,CertificateMeta $meta, CertificateRequestOption $request_option, CertificateRequest $model, CertificateOption $option)
+    public function __construct(CertificateType $type,CertificateMeta $meta, CertificateRequestOption $request_option, CertificateRequest $model, CertificateOption $option, AdminCertificateStatusesController $statusCtrl, CertificateStatus $status)
     {
         $this->type = $type;
         $this->meta = $meta;
@@ -30,6 +38,8 @@ class AdminCertificateRequestsController extends AdminBaseController {
         $this->model = $model;
         $this->option = $option;
         parent::__construct();
+        $this->statusCtrl = $statusCtrl;
+        $this->status = $status;
     }
 
     public function index() {
@@ -41,7 +51,6 @@ class AdminCertificateRequestsController extends AdminBaseController {
 
     public function edit($id) {
         $request = $this->model->findOrFail($id);
-
         $types = ['' => 'Select Certificate type'] + $this->type->all()->lists('name','id');
         $metas = $this->meta->all();
         return View::make('admin.certificates.requests.edit',compact('types','metas','request'));
@@ -81,11 +90,9 @@ class AdminCertificateRequestsController extends AdminBaseController {
     }
 
     public function create() {
-//        $types = [0 => 'Select Certificate type'] + $this->type->all()->lists('name','id');
-//        $metas = $this->meta->all();
-//
-//        return View::make('admin.certificates.requests.create',compact('types','metas'));
-
+        $types = ['' => 'Select Certificate type'] + $this->type->all()->lists('name','id');
+        $metas = $this->meta->all();
+        return View::make('admin.certificates.requests.create',compact('types','metas'));
     }
     public function store() {
         $options = array();
@@ -116,6 +123,12 @@ class AdminCertificateRequestsController extends AdminBaseController {
                 }
             }
         }
+        //create pending status
+        $request = $this->model->find($validation->id);
+        $status = new $this->status;
+        $status->request_id = $validation->id;
+        $status->user_id = $this->getUserId();
+        $this->statusCtrl->create(new \Acme\Repo\CertificateStatuses\Pending())->setStatus($request,Auth::user(), $status,'');
         return parent::redirectToAdmin()->with('success','Certificate Requested');
     }
 }

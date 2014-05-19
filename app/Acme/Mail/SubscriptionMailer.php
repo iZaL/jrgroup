@@ -20,8 +20,8 @@ class SubscriptionMailer  extends  Mailer {
     public function sendMail($model,$args)
     {
         $view = 'emails.subscription';
-        $args['email'] = 'noreply@Kaizen.com';
-        $args['name']  = 'noreply@Kaizen.com';
+        $args['email'] = 'noreply@jrgroup.com';
+        $args['name']  = 'noreply@jrgroup.com';
 
         //admin email
         if ($this->send($view,$args,$model)) {

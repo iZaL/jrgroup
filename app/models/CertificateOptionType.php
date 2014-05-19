@@ -7,7 +7,7 @@ class CertificateOptionType extends BaseModel {
     public static $rules = array(
         'option_id' => 'required | integer',
         'type_id' => 'required | integer',
-        'price' => 'required | integer'
+        'price' => array('required', 'regex:/^\d*(\.\d{2})?$/')
     );
 
     public function type() {

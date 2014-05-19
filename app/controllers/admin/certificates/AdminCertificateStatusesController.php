@@ -3,28 +3,26 @@
 use Acme\Mail\SubscriptionMailer;
 use Acme\Repo\Statuses\StatusInterface;
 
-class AdminStatusesController extends AdminBaseController {
-    protected $model;
+class AdminCertificateStatusesController extends AdminBaseController {
+
     protected $user;
     protected $mailer;
     protected $category;
     protected $status;
     protected $repo;
+    /**
+     * @var CertificateRequest
+     */
+    private $request;
 
-    function __construct(Subscription $model, User $user, EventModel $event, User $user, Status $status, SubscriptionMailer  $mailer )
+    function __construct( User $user,  User $user, CertificateStatus $status, SubscriptionMailer  $mailer, CertificateRequest $request )
     {
-        $this->model = $model;
         $this->user = $user;
-        $this->event = $event;
         $this->status = $status;
         $this->mailer = $mailer;
         parent::__construct();
         $this->beforeFilter('admin');
-    }
-
-    public function index(){
-        $requests = $this->status->with(array('user','event'))->latest()->get();
-        return View::make('admin.requests.index', compact('requests'));
+        $this->request = $request;
     }
 
     public function create(StatusInterface $repo)
@@ -35,14 +33,13 @@ class AdminStatusesController extends AdminBaseController {
 
     public function edit($id)
     {
-        $request = $this->status->with(array('user','event'))->find($id);
-
+        $request = $this->status->with(array('user','request','request.type'))->find($id);
         if (is_null($request))
         {
             return parent::redirectToAdmin();
         }
 
-        return View::make('admin.requests.edit', compact('request'));
+        return View::make('admin.certificates.statuses.edit', compact('request'));
     }
     /**
      * Update the specified resource in storage.
@@ -55,24 +52,23 @@ class AdminStatusesController extends AdminBaseController {
         $setStatus = Input::get('status');
         $reason = Input::get('body');
         $status = $this->status->findOrFail($id);
-        $event  = $this->event->findOrFail($status->event_id);
-        $user   = $this->user->findOrFail($status->user_id);
+        $request  = $this->request->findOrFail($status->request_id);
+        $user   = $this->user->findOrFail($request->user_id);
         // filter the input value ..
         // make the input value classname convention
         // instantiate the class
         // set status
-        $class = 'Acme\\Repo\\Statuses\\'. ucfirst(strtolower($setStatus));
-        return $this->create(new $class)->setStatus($event,$user,$status,$reason);
+        $class = 'Acme\\Repo\\CertificateStatuses\\'. ucfirst(strtolower($setStatus));
+        return $this->create(new $class)->setStatus($request,$user,$status,$reason);
     }
 
     public function destroy($id)
     {
         $status = $this->status->findOrFail($id);
-        $event  = $this->event->findOrFail($status->event_id);
+        $request  = $this->request->findOrFail($status->request_id);
         $user   = $this->user->findOrFail($status->user_id);
-        if ($status->find($id)->delete()) {
-            $event->subscriptions()->detach($user);
-            $event->updateSeats();
+        if ($request->find($id)->delete()) {
+            $request->subscriptions()->detach($user);
             return Redirect::action('AdminStatusesController@index')->with(array('success'=>'Request Deleted'));
         } else {
             return Redirect::action('AdminStatusesController@index')->with(array('error'=>'Request Could not be Deleted'));
@@ -87,8 +83,7 @@ class AdminStatusesController extends AdminBaseController {
      * @return mixed
      * Set the Status of an Event
      */
-    public function setStatus($event,$user,$status,$reason) {
-        return $this->repo->setAction($event,$user,$status,$reason);
+    public function setStatus($request,$user,$status,$reason) {
+        return $this->repo->setAction($request,$user,$status,$reason);
     }
-
 }

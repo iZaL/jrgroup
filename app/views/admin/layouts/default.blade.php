@@ -101,6 +101,7 @@
                 <ul class="nav navbar-nav">
                     <li{{ (Request::is('admin/event*') ? ' class="active"' : '') }}><a href="{{{ URL::to('admin/') }}}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                     <li{{ (Request::is('admin/certificates*') ? ' class="active"' : '') }}><a href="{{{ URL::to('admin/certificates') }}}"><span class="glyphicon glyphicon-pushpin"></span> Certificates</a></li>
+                    <li{{ (Request::is('admin/gallery*') ? ' class="active"' : '') }}><a href="{{{ URL::to('admin/gallery') }}}"><span class="glyphicon glyphicon-pushpin"></span> Gallery</a></li>
                     <li{{ (Request::is('admin/requests*') ? ' class="active"' : '') }}><a href="{{{ URL::to('admin/requests') }}}"><span class="glyphicon glyphicon-lock"></span> Requests</a></li>
                     <li{{ (Request::is('admin/blogs*') ? ' class="active"' : '') }}><a href="{{{ URL::to('admin/blogs') }}}"><span class="glyphicon glyphicon-list-alt"></span> Blog</a></li>
                     <li{{ (Request::is('admin/category*') ? ' class="active"' : '') }}><a href="{{{ URL::to('admin/category') }}}"><span class="glyphicon glyphicon-tag"></span> Category</a></li>
