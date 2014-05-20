@@ -187,7 +187,7 @@ class AdminUsersController extends AdminBaseController {
             $user->username = Input::get( 'username' );
             $user->email = Input::get( 'email' );
             $user->confirmed = Input::get( 'confirm' );
-
+            $user->expires_at = Input::get('expires_at');
             $password = Input::get( 'password' );
             $passwordConfirmation = Input::get( 'password_confirmation' );
 
@@ -291,11 +291,12 @@ class AdminUsersController extends AdminBaseController {
     {
         $users = User::leftjoin('assigned_roles', 'assigned_roles.user_id', '=', 'users.id')
                     ->leftjoin('roles', 'roles.id', '=', 'assigned_roles.role_id')
-                    ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.confirmed', 'users.created_at'))
-                    ->groupBy('users.email');
-
+                    ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.civilid','users.confirmed', 'users.created_at','users.expires_at'))
+                    ->orderBy('users.expires_at','ASC')
+                    ->groupBy('users.email')
+        ;
         return Datatables::of($users)
-//         ->edit_column('created_at','{{{ Carbon::now()->diffForHumans(Carbon::createFromFormat(\'Y-m-d H\', $test)) }}}')
+//         ->edit_column('created_at','{{{ Carbon::createFromFormat(\'Y-m-d H:i:s\', $created_at)->diffForHumans() }}}')
 
         ->edit_column('confirmed','@if($confirmed)
                             Yes
@@ -311,6 +312,7 @@ class AdminUsersController extends AdminBaseController {
         ->remove_column('id')
 
         ->make();
+
     }
 
     public function getReport($id)

@@ -66,7 +66,7 @@ class AdminEventsController extends AdminBaseController
     public function store()
     {
         //validate and save
-        $validation = new $this->model(Input::except(array('thumbnail','addresspicker_map','type','approval_type')));
+        $validation = new $this->model(Input::except(array('thumbnail','addresspicker_map','type')));
         if (!$validation->save()) {
             return Redirect::back()->withInput()->withErrors($validation->getErrors());
         }
@@ -80,7 +80,6 @@ class AdminEventsController extends AdminBaseController
 
         $type = new Type();
         $type->event_id= $validation->id;
-        $type->type = Input::get('type');
         $type->approval_type = Input::get('approval_type');
 
         if (!$type->save()) {
@@ -123,7 +122,7 @@ class AdminEventsController extends AdminBaseController
     public function update($id)
     {
         $validation = $this->model->find($id);
-        $validation->fill(Input::except(array('thumbnail','addresspicker_map','type','approval_type')));
+        $validation->fill(Input::except(array('thumbnail','addresspicker_map','type')));
         if (!$validation->save()) {
             return Redirect::back()->withInput()->withErrors($validation->getErrors());
         }
@@ -140,7 +139,6 @@ class AdminEventsController extends AdminBaseController
             $type->event_id = $id;
         }
         $type->type = Input::get('type');
-        $type->approval_type = Input::get('approval_type');
         if (!$type->save()) {
             return Redirect::to('admin/event/' . $validation->id . '/edit')->withErrors($type->getErrors());
         }

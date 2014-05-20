@@ -6,8 +6,10 @@ class UsersTableSeeder extends Seeder {
 
     public function run()
     {
+        $dt = Carbon::now();
+        $faker = Faker\Factory::create();
+        $dateNow = $dt->toDateTimeString();
 
-//        DB::table('users')->truncate();
         $users = array(
             array(
                 'username'      => 'ad_user',
@@ -15,8 +17,10 @@ class UsersTableSeeder extends Seeder {
                 'password'   => Hash::make('admin'),
                 'confirmed'   => 1,
                 'confirmation_code' => md5(microtime().Config::get('app.key')),
-                'created_at' => new DateTime,
-                'updated_at' => new DateTime,
+                'expires_at' => $dt->addYear()->toDateTimeString(),
+                'created_at' => $dateNow,
+                'updated_at' => $dateNow,
+                'member' => $faker->boolean()
             ),
             array(
                 'username'      => 'mo_user',
@@ -24,8 +28,10 @@ class UsersTableSeeder extends Seeder {
                 'password'   => Hash::make('abc'),
                 'confirmed'   => 1,
                 'confirmation_code' => md5(microtime().Config::get('app.key')),
-                'created_at' => new DateTime,
-                'updated_at' => new DateTime,
+                'expires_at' => $dt->addYear()->toDateTimeString(),
+                'created_at' => $dateNow,
+                'updated_at' => $dateNow,
+                'member' => $faker->boolean()
             ),
             array(
                 'username'      => 'au_user',
@@ -33,8 +39,10 @@ class UsersTableSeeder extends Seeder {
                 'password'   => Hash::make('abc'),
                 'confirmed'   => 1,
                 'confirmation_code' => md5(microtime().Config::get('app.key')),
-                'created_at' => new DateTime,
-                'updated_at' => new DateTime,
+                'expires_at' => $dt->addYear()->toDateTimeString(),
+                'created_at' => $dateNow,
+                'updated_at' => $dateNow,
+                'member' => $faker->boolean()
             ),
             array(
                 'username'      => 'ad_user1',
@@ -42,8 +50,10 @@ class UsersTableSeeder extends Seeder {
                 'password'   => Hash::make('admin'),
                 'confirmed'   => 1,
                 'confirmation_code' => md5(microtime().Config::get('app.key')),
-                'created_at' => new DateTime,
-                'updated_at' => new DateTime,
+                'expires_at' => $dt->addYear()->toDateTimeString(),
+                'created_at' => $dateNow,
+                'updated_at' => $dateNow,
+                'member' => $faker->boolean()
             ),
             array(
                 'username'      => 'mo_user1',
@@ -51,8 +61,10 @@ class UsersTableSeeder extends Seeder {
                 'password'   => Hash::make('abc'),
                 'confirmed'   => 1,
                 'confirmation_code' => md5(microtime().Config::get('app.key')),
-                'created_at' => new DateTime,
-                'updated_at' => new DateTime,
+                'expires_at' => $dt->addYear()->toDateTimeString(),
+                'created_at' => $dateNow,
+                'updated_at' => $dateNow,
+                'member' => $faker->boolean()
             ),
             array(
                 'username'      => 'au_user1',
@@ -60,8 +72,10 @@ class UsersTableSeeder extends Seeder {
                 'password'   => Hash::make('abc'),
                 'confirmed'   => 1,
                 'confirmation_code' => md5(microtime().Config::get('app.key')),
-                'created_at' => new DateTime,
-                'updated_at' => new DateTime,
+                'expires_at' => $dt->addYear()->toDateTimeString(),
+                'created_at' => $dateNow,
+                'updated_at' => $dateNow,
+                'member' => $faker->boolean()
             ),
             array(
                 'username'      => 'no_user',
@@ -69,8 +83,10 @@ class UsersTableSeeder extends Seeder {
                 'password'   => Hash::make('abc'),
                 'confirmed'   => 1,
                 'confirmation_code' => md5(microtime().Config::get('app.key')),
-                'created_at' => new DateTime,
-                'updated_at' => new DateTime,
+                'expires_at' => $dt->addYear()->toDateTimeString(),
+                'created_at' => $dateNow,
+                'updated_at' => $dateNow,
+                'member' => $faker->boolean()
             ),
             array(
                 'username'      => 'no_user1',
@@ -78,8 +94,10 @@ class UsersTableSeeder extends Seeder {
                 'password'   => Hash::make('abc'),
                 'confirmed'   => 1,
                 'confirmation_code' => md5(microtime().Config::get('app.key')),
-                'created_at' => new DateTime,
-                'updated_at' => new DateTime,
+                'expires_at' => $dt->addYear()->toDateTimeString(),
+                'created_at' => $dateNow,
+                'updated_at' => $dateNow,
+                'member' => $faker->boolean()
             )
         );
 
@@ -98,8 +116,8 @@ class UsersTableSeeder extends Seeder {
 //                'phone' => $faker->phoneNumber,
 //                'mobile'=> $faker->phoneNumber,
 //                'gender' => $faker->randomElement(['male', 'female']),
-//                'created_at' => new DateTime,
-//                'updated_at' => new DateTime
+//                'created_at' => $dateNow,
+//                'updated_at' => $dateNow
 //            ]);
 //            DB::table('users')->insert( $users );
 //        }

@@ -207,4 +207,31 @@ class User extends ConfideUser implements PresentableInterface {
     {
         $this->attributes['expires_at'] = $this->dateStringToCarbon($value);
     }
+    protected function dateStringToCarbon($date, $format = 'm/d/Y')
+    {
+        if(!$date instanceof Carbon) {
+            $validDate = false;
+            try {
+                $date = Carbon::createFromFormat($format, $date);
+                $validDate = true;
+            } catch(Exception $e) { }
+
+            if(!$validDate) {
+                try {
+                    $date = Carbon::parse($date);
+                    $validDate = true;
+                } catch(Exception $e) { }
+            }
+
+            if(!$validDate) {
+                $date = NULL;
+            }
+        }
+        return $date;
+    }
+
+//    protected function getDateFormat()
+//    {
+//        return 'Y-m-d';
+//    }
 }

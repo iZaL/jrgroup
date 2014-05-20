@@ -143,6 +143,7 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
     Route::resource('contact-us','AdminContactsController',array('only'=>array('index','store')));
 
     Route::resource('photo','AdminPhotosController');
+    Route::resource('video','AdminVideosController');
     Route::resource('requests','AdminStatusesController');
     Route::resource('type','AdminTypesController');
 
@@ -160,6 +161,7 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
     Route::resource('gallery','AdminGalleriesController');
     Route::get('gallery/{id}/photos','AdminGalleriesController@getPhotos');
     Route::post('gallery/{id}/photos','AdminGalleriesController@postPhotos');
+    Route::post('gallery/{id}/video','AdminGalleriesController@postVideos');
     Route::get('/', 'AdminEventsController@index');
 });
 
@@ -168,6 +170,17 @@ Route::get('forbidden',function() {
 });
 
 
+Route::get('/',
+//    array('as'=>'base', 'uses' => 'EventsController@dashboard')
+    function() {
+        $carbon = new \Carbon\Carbon();
+        $date = $carbon->addYear()->toDateTimeString();
+        $dt = Carbon::now();
+        $dateNow = $dt->toDateTimeString();
+//        dd($dateNow);
+        dd($date);
+    }
+);
 Route::get('/', array('as'=>'base', 'uses' => 'EventsController@dashboard'));
 
 Route::get('/test',function(){

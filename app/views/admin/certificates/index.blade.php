@@ -126,10 +126,20 @@
                     <tr>
                         <td>{{ $request->type->name }}</a></td>
                         <td>{{ $request->user->username }}</td>
+
                         <td>{{ (float)round($request->amount) }} KD</td>
-                        <td>{{ $request->status->status }} </td>
+                        <td>
+                            @if(count($request->status))
+                                {{ $request->status->status }}
+                            @endif
+                        </td>
                         <td>Requested {{ $request->getHumanCreatedAtAttribute() }} </td>
-                        <td><a href="{{ URL::action('AdminCertificateStatusesController@edit',  array($request->status->id), array('class' => 'btn btn-info')) }}">Edit</a></td>
+
+                        <td>
+                            @if(count($request->status))
+                                <a href="{{ URL::action('AdminCertificateStatusesController@edit',  array($request->status->id), array('class' => 'btn btn-info')) }}">Edit</a>
+                            @endif
+                        </td>
                         <td><a href="{{ URL::action('AdminCertificateRequestsController@edit',  array($request->id), array('class' => 'btn btn-info')) }}">Edit Request</a></td>
                         <td>
                             {{ Form::open(array('method' => 'DELETE', 'action' => array('AdminCertificateStatusesController@destroy', $request->id))) }}

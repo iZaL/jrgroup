@@ -31,11 +31,9 @@ class ConfideSetupUsersTable extends Migration {
             $table->string('confirmation_code');
             $table->boolean('member')->default(false);
             $table->boolean('confirmed')->default(false);
-            $table->timstamp('expires_at');
+            $table->timestamp('expires_at');
             $table->timestamps();
         });
-
-
         // Creates password reminders table
         Schema::create('password_reminders', function($table)
         {

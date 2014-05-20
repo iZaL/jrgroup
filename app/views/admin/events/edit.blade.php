@@ -6,27 +6,23 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script src="{{ asset('js/address.picker.js') }}"></script>
-<h1>Edit Event</h1>
+<h1>Edit Course</h1>
 {{ Form::model($event, array('method' => 'PATCH', 'action' => array('AdminEventsController@update', $event->id), 'role'=>'form', 'files' => true)) }}
 <div class="row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12">
         <?php
         if($event->type) {
             $type = $event->type->type;
-            $approval_type = $event->type->approval_type;
+//            $approval_type = $event->type->approval_type;
         } else {
             $type = NULL;
-            $approval_type = NULL;
+//            $approval_type = NULL;
         }
         ?>
-        {{ Form::label('approval_type', 'Event Type:') }}
-        {{ Form::select('type', array(''=>'Select','FREE' => 'FREE', 'PAID' => 'PAID'),$type,array('class'=>'form-control')) }}
+        {{ Form::label('approval_type', 'Course Type:') }}
+        {{ Form::select('type', array(''=>'Select','PUBLIC' => 'PUBLIC', 'MEMBERS' => 'MEMBERS'),$type,array('class'=>'form-control')) }}
     </div>
 
-    <div class="form-group col-md-6">
-        {{ Form::label('approval_type', 'Approval Type:') }}
-        {{ Form::select('approval_type', array(''=>'Select','DIRECT' => 'DIRECT', 'MOD' => 'MOD'),$approval_type,array('class'=>'form-control')) }}
-    </div>
     <div class="form-group col-md-4">
         {{ Form::label('user_id', 'Author:',array('class'=>'control-label')) }}
         {{ Form::select('user_id', $author,NULL,array('class'=>'form-control')) }}
@@ -60,7 +56,7 @@
 <div class="row">
     <div class="form-group col-md-12">
         {{ Form::label('description', 'Description in Arabic:*') }}
-        {{ Form::textarea('description',NULL,array('class'=>'form-control')) }}
+        {{ Form::textarea('description',NULL,array('class'=>'form-control wysihtml5')) }}
     </div>
 </div>
 
@@ -73,25 +69,25 @@
 
 <div class="row">
     <div class="form-group col-md-12">
-        {{ Form::label('total_seats', 'Total Seats For this Event:') }}
+        {{ Form::label('total_seats', 'Total Seats For this Course:') }}
         {{ Form::text('total_seats',NULL,array('class'=>'form-control')) }}
     </div>
 </div>
 <div class="row">
     <div class="form-group col-md-2 col-sm-4 col-xs-4">
-        {{ Form::label('free_event', 'Is this a Free Event ?:') }}
+        {{ Form::label('free_event', 'Is this a Free Course ?:') }}
         <br/>
         {{ Form::checkbox('free', '1', true) }}
     </div>
     <div class="form-group col-md-10 col-sm-8 col-xs-8">
-        {{ Form::label('price', 'Event Price:') }}
+        {{ Form::label('price', 'Course Price:') }}
         {{ Form::text('price',NULL,array('class'=>'form-control')) }}
     </div>
 </div>
 
 <div class="row">
     <div class="form-group col-md-6">
-        {{ Form::label('date_start', 'Event Start Date:') }}
+        {{ Form::label('date_start', 'Course Start Date:') }}
         <div class="input-group">
             {{ Form::text('date_start',NULL,array('class'=>'form-control')) }}
             <span class="input-group-addon">
@@ -100,7 +96,7 @@
         </div>
     </div>
     <div class="form-group col-md-6">
-        {{ Form::label('date_end', 'Event End Date:') }}
+        {{ Form::label('date_end', 'Course End Date:') }}
         <div class="input-group">
             {{ Form::text('date_end',NULL,array('class'=>'form-control')) }}
             <span class="input-group-addon">
@@ -156,13 +152,6 @@
 
 <div class="row">
     <div class="form-group col-md-12">
-        {{ Form::label('button_en', 'Is this a Featured Event ? : (Featured Event Will be included in Slider)') }}
-        <br>
-        {{ Form::checkbox('featured', '1', false) }}
-    </div>
-</div>
-<div class="row">
-    <div class="form-group col-md-12">
         <div class="map-wrapper">
             <div id="map" style="height: 400px;"></div>
             <div class="small">You can drag and drop the marker to the correct location</div>
@@ -172,19 +161,10 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="form-group col-md-6">
-        {{ Form::label('button', 'Event Button Text in Arabic:') }}
-        {{ Form::text('button',NULL,array('class'=>'form-control')) }}
-    </div>
-    <div class="form-group col-md-6">
-        {{ Form::label('button_en', 'Event Button Text English:') }}
-        {{ Form::text('button_en',NULL,array('class'=>'form-control')) }}
-    </div>
-</div>
+
 <div class="row">
     <div class="form-group col-md-12">
-        {{ Form::label('thumbnail', 'Event Thumbnail:') }}
+        {{ Form::label('thumbnail', 'Course Thumbnail:') }}
         {{ Form::file('thumbnail',NULL,array('class'=>'form-control')) }}
     </div>
 </div>

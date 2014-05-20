@@ -57,6 +57,18 @@
 					</div>
 				</div>
 				<!-- ./ password confirm -->
+                <div class="form-group {{{ $errors->has('expires_on') ? 'error' : '' }}}">
+                    <label class="col-md-2 control-label" for="password_confirmation">User Expires On</label>
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                <input class="form-control" type="text" name="expires_at" id="expires_at" value="{{{ Input::old('expires_at', isset($user) ? $user->expires_at : null) }}}" />
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 				<!-- Activation Status -->
 				<div class="form-group {{{ $errors->has('activated') || $errors->has('confirm') ? 'error' : '' }}}">
@@ -114,4 +126,16 @@
 		</div>
 		<!-- ./ form actions -->
 	</form>
+<script>
+    $(function(){
+        $('#expires_at').datetimepicker({
+            format:'Y-m-d',
+            onShow:function( ct ){
+//                this.setOptions({
+//                    maxDate:$('#date_end').val()?$('#date_end').val():false
+//                })
+            }
+        });
+    });
+</script>
 @stop

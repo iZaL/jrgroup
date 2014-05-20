@@ -6,7 +6,7 @@
 {{ HTML::style('css/dropzone.css') }}
 {{ HTML::script('js/dropzone.js') }}
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-<h1 style="margin-top: 100px;">Create Gallery</h1>
+<h1 >Create Gallery</h1>
 
 {{ Form::model($category, array('method' => 'PATCH', 'role'=>'form', 'action' => array('AdminGalleriesController@update', $category->id))) }}
 

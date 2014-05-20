@@ -9,7 +9,9 @@ return array(
 	'email'      => 'Email',
 	'groups'     => 'Groups',
 	'roles'     => 'Roles',
-	'activated'  => 'Activated',
+	'activated'  => 'Activate',
 	'created_at' => 'Created at',
+    'expires_at' => 'Expires On',
+    'civilid' => 'Civil Id'
 
 );

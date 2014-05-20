@@ -20,8 +20,12 @@ class AdminGalleriesController extends AdminBaseController {
      * @var Photo
      */
     private $photo;
+    /**
+     * @var Video
+     */
+    private $video;
 
-    public function __construct(Gallery $model, EventModel $event, Category $category, Photo $photo)
+    public function __construct(Gallery $model, EventModel $event, Category $category, Photo $photo, Video $video)
 	{
 		$this->model = $model;
         parent::__construct();
@@ -29,6 +33,7 @@ class AdminGalleriesController extends AdminBaseController {
         $this->event = $event;
         $this->category = $category;
         $this->photo = $photo;
+        $this->video = $video;
     }
 
 	/**
@@ -174,11 +179,19 @@ class AdminGalleriesController extends AdminBaseController {
         if(Input::hasFile('file')) {
             // call the attach image function from Photo class
             if(!$this->photo->attachImage($gallery->id,Input::file('file'),'Gallery','1')) {
-                return Redirect::to('admin/gallery/' . $gallery->id . '/photo')->withErrors($this->photo->getErrors());
+                return Redirect::to('admin/gallery/' . $gallery->id . '/photos')->withErrors($this->photo->getErrors());
             }
         }
         // attach images
         // foreach new images upload the image
+    }
+
+    public function postVideos($id) {
+        $gallery = $this->model->find($id);
+        if(!$this->video->attachVideo($gallery->id,Input::get('url'),'Gallery','1','youtube')) {
+            return Redirect::to('admin/gallery/' . $gallery->id . '/photos')->withErrors($this->photo->getErrors());
+        }
+        return Redirect::back()->with('success','Gallery Added');
     }
 
 }
