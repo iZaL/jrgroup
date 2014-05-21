@@ -1,22 +1,17 @@
 <?php
 
 use Acme\Mail\EventsMailer;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class EventsController extends BaseController
 {
-
     protected $model;
     protected $user;
     protected $mailer;
     protected $category;
     protected $photo;
     protected $currentTime;
-
 
     function __construct(EventModel $model, User $user, EventsMailer $mailer, Category $category, Photo $photo)
     {
@@ -34,62 +29,12 @@ class EventsController extends BaseController
      * @return Response
      */
 
-    // master layout
-    protected $layout = 'site.layouts.home';
+
 
     public function index()
     {
-
-        $perPage = 10;
-        //find countries,authors,and categories to display in search form
-        $categories = [0 => Lang::get('site.event.choose_category')] + $this->category->getEventCategories()->lists('name', 'id');
-        $authors = [0 => Lang::get('site.event.choose_author')] +$this->user->getRoleByName('author')->lists('username', 'id');
-        $countries = [0 => Lang::get('site.event.choose_country')] + Country::all()->lists('name','id');
-
-        // find selected form values
-        $search = trim(Input::get('search'));
-        $category = Request::get('category');
-        $author = Request::get('author');
-        $country = Request::get('country');
-        $this->currentTime = Carbon::now()->toDateTimeString();
-
-        // if the form is selected
-        // perform search
-        if(!empty($search) || !empty($category) || !empty($author) || !empty($country)) {
-            $events = $this->model->with(array('category','location.country','photos','author'))
-                ->where('date_start','>',$this->currentTime)
-                ->where(function($query) use ($search, $category, $author, $country)
-                {
-                    if (!empty($search)) {
-                        $query->where('title','LIKE',"%$search%")
-                            ->orWhere('title_en','LIKE',"%$search%");
-                        //  ->orWhere('description','LIKE',"%$search%")
-                        //  ->orWhere('description_en','LIKE',"%$search%");
-                    }
-                    if (!empty($category)) {
-                        $query->where('category_id', $category);
-                    }
-                    if (!empty($author)) {
-                        $query->where('user_id', $author);
-                    }
-                    if (!empty($country)) {
-                        $locations = Country::find($country)->locations()->lists('id');
-                        $query->whereIn('location_id',$locations);
-                    }
-                })->orderBy('date_start', 'DESC')->paginate($perPage);
-
-        } else {
-            $events = $this->getEvents($perPage);
-        }
-
-        //  $this->layout->events = View::make('site.layouts.event', ['events'=>$events]); // slider section
-        $this->layout->login = View::make('site.layouts.login');
-        $this->layout->nav = view::make('site.layouts.nav');
-        //  $this->layout->slider = view::make('site.layouts.event', ['events' => $events] );
-        $this->layout->maincontent = view::make('site.events.index', compact('events','authors','categories','countries','search','category','author','country'));
-        $this->layout->sidecontent = view::make('site.layouts.sidebar');
-        $this->layout->footer = view::make('site.layouts.footer');
-
+        $courses = $this->model->all();
+        return $this->view('site.courses.index',compact('courses'));
     }
 
 

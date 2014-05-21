@@ -1,25 +1,20 @@
-@extends('site.layouts.home')
-@section('footer')
-<!--footer start-->
-<div id="footer">
-    <div class="col-md-4 col-xs-12 ">
-        <div class="col-md-1 col-xs-3 social-icons"><a href="http://www.twiiter.com"><i class="fa fa-twitter "></i></a> </div>
-        <div class="col-md-1 col-xs-3 social-icons"><a href="http://www.twiiter.com"><i class="fa fa-facebook "></i></a></div>
-        <div class="col-md-1 col-xs-3 social-icons"><a href="http://www.twiiter.com"><i class="fa fa-youtube "></i></a></div>
-        <div class="col-md-1 col-xs-3 social-icons"><a href="http://www.twiiter.com"><i class="fa fa-instagram "></i></a></div>
-    </div>
-    <div class="col-md-8 col-xs-12 copyright">
-        <div class="row">
-            <div class="col-md-6">
-                Copyrights &copy; Kaizen <?php echo date('Y'); ?>
-            </div>
-            <div class="col-md-6">
-                جميع الحقوق محفوظة ـ شركة كايزن للمؤتمرات والمعارض
-            </div>
-            <div class="col-md-12">
-                Site Developed By <a href="http://ideasowners.net" target="_blank">IdeasOwners.net</a>
-            </div>
+<!--FOOTER-->
+<div class="col-lg-12 col-md-12" id="footer">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 visable-lg pull-right" style="padding-top: 3%;">
+            تابعونا على وسائل التواصل الإجتماعي
         </div>
     </div>
-</div><!-- end of footer-->
-@stop
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-7 col-xs-12 pull-right">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 img-social"><img class="img-responsive" src="{{ asset('images/Instagram.png') }}" alt=""/></div>
+            <div class="col-lg-3  col-md-3 col-sm-3  col-xs-6 img-social"><img class="img-responsive" src="{{ asset('images/Facebook.png') }}" alt=""/></div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 img-social"><img class="img-responsive" src="{{ asset('images/Twitter.png') }}" alt=""/></div>
+            <div class="col-lg-3 col-md-3 col-sm-3  col-xs-6 img-social"><img class="img-responsive" src="{{ asset('images/Youtube.png') }}" alt=""/></div>
+        </div>
+    </div>
+
+</div>
+
+
+

@@ -19,7 +19,6 @@ class BlogsController extends BaseController {
      * @param Post $post
      * @param User $user
      */
-    protected $layout = 'site.layouts.home';
     public function __construct(Post $model, User $user)
     {
         parent::__construct();
@@ -36,13 +35,7 @@ class BlogsController extends BaseController {
 	{
 		// Get all the blog posts
         $posts = $this->model->with(array('category','photos','author'))->paginate(10);
-		// Show the page
-        $this->layout->login = View::make('site.layouts.login');
-        $this->layout->ads = view::make('site.layouts.ads');
-        $this->layout->nav = view::make('site.layouts.nav');
-        $this->layout->maincontent = view::make('site.blog.index', compact('posts'));
-        $this->layout->sidecontent = view::make('site.layouts.sidebar');
-        $this->layout->footer = view::make('site.layouts.footer');
+        return $this->view('site.galleries.index',compact('posts'));
 
 	}
 

@@ -2,6 +2,18 @@
 
 class HomeController extends BaseController {
 
+
+    /**
+     * @var EventModel
+     */
+    private $event;
+
+    public function __construct(EventModel $event){
+
+        $this->event = $event;
+        parent::__construct();
+
+    }
 	/*
 	|--------------------------------------------------------------------------
 	| Default Home Controller
@@ -15,9 +27,18 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
-	{
-		return View::make('hello');
-	}
-
+    public function index()
+    {
+        $event = $this->event->with('photos')->whereHas('photos',function($q) {
+                $q->where('photos.id','>','1');
+            })
+            ->where('events.date_start','<', Carbon::now()->toDateTimeString())
+            ->orderBy('events.date_start','DESC')
+            ->limit(1)
+            ->get(array('events.id','events.title'))
+            ->first()
+        ;
+//        dd($event->toArray());
+        return $this->view('site.home',compact('event'));
+    }
 }

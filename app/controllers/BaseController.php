@@ -2,11 +2,10 @@
 
 abstract class BaseController extends Controller
 {
-
     //Inject the Model into the Constructor method of the controller
-
     protected $model;
-//    protected $layout = 'site.layouts.default';
+
+    protected $layout = 'site.master';
 
     /**
      * Initializer.
@@ -21,11 +20,29 @@ abstract class BaseController extends Controller
         $this->getAds();
     }
 
-    public function sidebarPosts() {
-        View::composer('site.layouts.sidebar', function($view)
+    /**
+     * Setup the layout used by the controller.
+     *
+     * @return void
+     */
+    protected function setupLayout()
+    {
+        if ( ! is_null($this->layout))
         {
-            $latest_event_posts = EventModel::latest(4);
-            $latest_blog_posts  = Post::latest(4);
+            $this->layout = View::make($this->layout);
+        }
+    }
+
+    protected function view($path, $data = [])
+    {
+        $this->layout->content = View::make($path, $data);
+    }
+
+    public function sidebarPosts() {
+        View::composer(array('site.partials.latest-news','site.partials.latest-courses'), function($view)
+        {
+            $latest_event_posts = App::make('EventModel')->latestSidebarPosts(4);
+            $latest_blog_posts  = App::make('Post')->latestSidebarPosts(4);
             $view->with(array('latest_event_posts'=>$latest_event_posts,'latest_blog_posts'=>$latest_blog_posts));
         });
     }
@@ -42,12 +59,6 @@ abstract class BaseController extends Controller
         return $this->model->find($id)->where($type_string, '=', $type);
     }
 
-    protected function setupLayout()
-    {
-        if (!is_null($this->layout)) {
-            $this->layout = View::make($this->layout);
-        }
-    }
 
     /**
      * @param int $perPage
@@ -93,13 +104,6 @@ abstract class BaseController extends Controller
     {
         $location = $this->model->find($id)->location;
         return $location;
-    }
-    /*
-     *Helper Functions
-     */
-    protected function view($path, $data = [])
-    {
-        $this->layout->content = View::make($path, $data);
     }
 
     protected function redirectTo($url, $statusCode = 302)

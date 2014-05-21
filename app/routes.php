@@ -7,7 +7,6 @@ Route::model('comment', 'Comment');
 Route::model('role', 'Role');
 Route::model('user', 'User');
 
-
 /** ------------------------------------------
  *  Route constraint patterns
  *  ------------------------------------------
@@ -23,33 +22,17 @@ Route::pattern('token', '[0-9a-z]+');
  */
 Route::group(
     array(
-        'prefix' => LaravelLocalization::setLocale(), // default : English === it will set the local language according to the session
+        'prefix' => LaravelLocalization::setLocale(),
         'before' => 'LaravelLocalizationRedirectFilter' // LaravelLocalization filter
     ),
     function() {
-        //Event Routes
-        Route::get('event/{id}/category', 'EventsController@getCategory');
-        Route::get('event/{id}/author', 'EventsController@getAuthor');
-        Route::get('event/{id}/subscribe',array('as'=>'event.subscribe','uses'=>'SubscriptionsController@subscribe'));
-        Route::get('event/{id}/unsubscribe',array('as'=>'event.unsubscribe','uses'=>'EventsController@unsubscribe'));
-        Route::get('event/{id}/follow',array('as'=>'event.follow','uses'=>'EventsController@follow'));
-        Route::get('event/{id}/unfollow',array('as'=>'event.unfollow','uses'=>'EventsController@unfollow'));
-        Route::get('event/{id}/favorite',array('as'=>'event.favorite','uses'=>'EventsController@favorite'));
-        Route::get('event/{id}/unfavorite',array('as'=>'event.unfavorite','uses'=>'EventsController@unfavorite'));
-        Route::get('events/featured',array('as'=>'event.featured','uses'=>'EventsController@getSliderEvents'));
-        Route::get('event/{id}/country','EventsController@getCountry');
-        Route::resource('event','EventsController', array('only' => array('index', 'show')));
+        Route::get('/', array('as'=>'home', 'uses' => 'HomeController@index'));
+        Route::resource('/gallery', 'GalleriesController', array('index','view') );
+        Route::resource('/courses','EventsController', array('index','view'));
+        Route::resource('/news', 'BlogsController@index', array('index','view'));
 
-        // Contact Us Page
-        Route::resource('contact-us','ContactsController', array('only' => array('index')));
-        Route::post('contact-us/contact','ContactsController@contact');
 
-        # Posts - Second to last set, match slug
-        Route::get('consultancy',array('as'=>'consultancy','uses'=>'BlogsController@consultancy'));
         Route::resource('blog','BlogsController', array('only' => array('index', 'show','view')));
-
-        // Post Comment
-        Route::resource('event.comments', 'CommentsController', array('only' => array('store')));
 
         // User reset routes
         Route::get ('user/reset/{token}', 'UserController@getReset');
@@ -62,28 +45,17 @@ Route::group(
         Route::get ('user/register', array('as'=>'register','uses'=>'UserController@create'));
         Route::post('user/register', array('uses'=>'UserController@store'));
         Route::get ('user/forgot', array('as'=>'forgot','uses'=>'UserController@getForgot'));
-        Route::post('user/forgot', array('as'=>'forgot','uses'=>'UserController@postForgot'));
-        Route::get('user/{id}/edit', array('uses'=>'UserController@edit'));
-        Route::get('user/confirm/{token}', array('uses'=>'UserController@confirm'));
-        Route::resource('user', 'UserController');
-
-        //Category Routes
-        Route::get('category/{id}/events',array('as'=>'CategoryEvents','uses'=>'CategoriesController@getEvents'));
-        Route::get('category/{id}/posts',array('as'=>'CategoryPosts','uses'=>'CategoriesController@getPosts'));
-
-        //country
-        Route::get('country/{id}/events', array('uses' => 'CountriesController@getEvents'));
-
-        // Newsletter Route
-        Route::post('newsletter','NewslettersController@store');
-
-        Route::get('/', array('as'=>'home', 'uses' => 'EventsController@dashboard'));
+        Route::post('user/forgot', array('uses'=>'UserController@postForgot'));
+        Route::get('user/{id}/edit', array('as'=>'user.edit','uses'=>'UserController@edit'));
+        Route::get('user/confirm/{token}', array('as'=>'token','uses'=>'UserController@confirm'));
+//        Route::resource('user', 'UserController');
     }
 );
 
-///* Admin Route Group */
+/* Admin Route Group */
 Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), function() {
     # Comment Management
+
     Route::get('comments/{comment}/edit', 'AdminCommentsController@getEdit');
     Route::post('comments/{comment}/edit', 'AdminCommentsController@postEdit');
     Route::get('comments/{comment}/delete', 'AdminCommentsController@getDelete');
@@ -171,23 +143,10 @@ Route::get('forbidden',function() {
 
 
 Route::get('/',
-//    array('as'=>'base', 'uses' => 'EventsController@dashboard')
     function() {
-        $carbon = new \Carbon\Carbon();
-        $date = $carbon->addYear()->toDateTimeString();
-        $dt = Carbon::now();
-        $dateNow = $dt->toDateTimeString();
-//        dd($dateNow);
-        dd($date);
     }
 );
-Route::get('/', array('as'=>'base', 'uses' => 'EventsController@dashboard'));
-
-Route::get('/test',function(){
-//    $query = Category::with('galleries')->find(1);
-    $query = Gallery::with('category')->find(13);
-    dd($query->toArray());
-});
+Route::get('/', array('uses' => 'HomeController@index', 'as'=>'home'));
 
 //push queue worker
 Route::post('queue/mails',function(){

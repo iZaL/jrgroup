@@ -109,3 +109,16 @@ Route::filter('owner', function($route, $request)
         }
     return Redirect::action('UserController@getLogin')->with('error','Please login');
 });
+
+View::composer('site.master',function($view){
+//    View::composer(array('site.partials.latest-news','site.partials.latest-courses'), function($view)
+//    {
+//        $latest_event_posts = EventModel::latest(4);
+//        $latest_blog_posts  = Post::latest(4);
+//        $view->with(array('latest_event_posts'=>$latest_event_posts,'latest_blog_posts'=>$latest_blog_posts));
+//    });
+//    $latest_event_posts = App::make('EventModel')->latestSidebarPosts(4);
+//    $latest_blog_posts  = App::make('Post')->latestSidebarPosts(4);
+//    $view->with(array('latest_event_posts'=>$latest_event_posts,'latest_blog_posts'=>$latest_blog_posts));
+
+});

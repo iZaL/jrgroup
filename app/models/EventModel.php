@@ -210,7 +210,7 @@ class EventModel extends BaseModel {
         return $dt->format('g a');
     }
 
-    public static function latest($count) {
+    public static function latestSidebarPosts($count) {
         return EventModel::orderBy('created_at', 'DESC')->select('id','title','slug','title_en')->remember(10)->limit($count)->get();
     }
 

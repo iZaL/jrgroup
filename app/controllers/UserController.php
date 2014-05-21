@@ -9,7 +9,6 @@ class UserController extends BaseController {
      * @var User
      */
     protected $user;
-    protected $layout = 'site.layouts.home';
     /**
      * Inject the models.
      * @param User $user
@@ -164,10 +163,7 @@ class UserController extends BaseController {
         if(!empty($user->id)){
             return Redirect::to('/');
         }
-        $this->layout->nav = view::make('site.layouts.nav');
-        $this->layout->maincontent = view::make('site.user.login');
-        $this->layout->sidecontent = view::make('site.layouts.sidebar');
-        $this->layout->footer = view::make('site.layouts.footer');
+        $this->view('site.user.login');
     }
 
     /**
@@ -200,7 +196,7 @@ class UserController extends BaseController {
             } else {
                 $err_msg = Lang::get('confide::confide.alerts.wrong_credentials');
             }
-            return Redirect::intended(LaravelLocalization::localizeUrl('user/login'))
+            return Redirect::intended('user/login')
                 ->withInput(Input::except('password'))
                 ->with('error', $err_msg );
 

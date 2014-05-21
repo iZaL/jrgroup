@@ -24,6 +24,9 @@ class AdminBlogsController extends AdminBaseController {
     /**
      * Inject the models.
      * @param Post $post
+     * @param Category $category
+     * @param User $user
+     * @param Photo $photo
      */
     public function __construct(Post $post,Category $category, User $user, Photo $photo)
     {

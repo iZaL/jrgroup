@@ -1,0 +1,120 @@
+@media (min-width: 768px) and (max-width:2500px) {
+
+    .navbar-default {
+        background-color: white;
+        height: 22%;
+        min-height: 140px;
+        max-height: 150px;
+        border: none;
+        font-weight: bold;
+    }
+    .navbar-header {
+        width: 13%;
+        padding: 5px;
+        height: auto;
+    }
+    .navbar-brand  {
+        padding: 0px;
+        width: auto;
+        min-height: 150px;
+    }
+    .navbar-nav img {
+        width: 100%;
+        height: 100%;
+    }
+    .navbar-nav {
+        width: 80%;
+        height:100%;
+    }
+    .navbar-nav>li{
+        width: 14%;
+        height:100%;
+        text-align: center;
+    }
+    .navbar-nav>li>a {
+
+        height: 100%;
+        position: relative;
+        padding: 0px;
+        padding-top:80%;
+        border-bottom-left-radius: 50px;
+    }
+    .navbar-nav>li>a:hover {
+/*        background-color: #e32115 !important;*/
+        background-image: url(../images/empty.png);
+        background-size: cover;
+    }
+    .navbar-nav>li>a.ads  {
+        width: 50%;
+        color: white;
+        background-color: #e32115 !important;
+    }
+    .img-social {
+        padding-top:3%;
+        width: 13.333333%;
+    }
+    #footer {
+        min-height: 150px;
+    }
+
+}
+
+@media (max-width: 767px)  {
+    .navbar-brand img {
+        padding: 0px;
+        border: 1px solid gray;
+        width: 25%;
+        height: auto;
+    }
+    .img-social {
+        padding: 2px;
+       box-shadow: #2B2B2B 2px 2px 10px;
+    }
+    #footer {
+        height: auto;
+    }
+}
+
+#footer {
+    background-image: url(../images/footer.png);
+    background-size: 100% 100%;
+    color: #e32115;
+    font-weight: bold;
+}
+.panel {
+    border:none;
+}
+.panel-heading {
+    border-top-left-radius: 30px;
+    border:none;
+    background-color: #e32115 !important;
+}
+
+
+.img-social:hover {
+    opacity: 0.8;
+}
+.btn {
+    color:#e32115 !important;
+    font-weight: bold;
+}
+.gallery, .gallery a {
+    border:none;
+    background-color: #bb3333;
+    border-bottom-left-radius: 25px;
+    color:white;
+}
+.thumbnail .caption {
+    padding: 17px;
+}
+.news-image {
+    border-bottom-right-radius: 40px;
+    padding:10px;
+}
+p {
+    font-weight: bold;
+    line-height: 25px;
+}
+h1,h2,h3,h4 {
+    font-size: 150%;
+}
