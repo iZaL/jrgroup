@@ -5,11 +5,16 @@
     <title>@yield('title') | JR Group</title>
     <meta name="description" content="Jrgroup">
     <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
     @yield('meta')
 
     @section('style')
     {{ HTML::style('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css') }}
-    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.1.2/css/bootstrap-rtl.min.css') }}
+
+    @if ( LaravelLocalization::getCurrentLocaleName() == 'Arabic')
+        {{-- HTML::style('css/bootstrap-rtl.min.css') --}}
+        {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.1.2/css/bootstrap-rtl.min.css') }}
+    @endif
     {{ HTML::style('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css') }}
     {{ HTML::style(asset('css/custom.css')) }}
     <style type="text/css">
@@ -24,9 +29,10 @@
 <body>
 <div class="container">
     <!-- HEADER & NAV -->
+
     @include('site.partials.nav')
     <!-- END OF HEADER -->
-
+    @include('site.partials.notifications')
     <!-- CONTENT -->
     @section('content')
 

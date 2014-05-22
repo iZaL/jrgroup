@@ -126,7 +126,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{{ URL::to('admin/ads') }}}"><span class="glyphicon glyphicon-pushpin"></span> Ads</a></li>
                             <li><a href="{{{ URL::to('admin/comments') }}}"><span class="glyphicon glyphicon-comment"></span> Comments</a></li>
-                            <li><a href="{{{ URL::to('/') }}}"><span class="glyphicon glyphicon-upload"></span> Homepage</a></li>
+                            <li><a href="{{{ URL::to('/') }}}" target="_blank"><span class="glyphicon glyphicon-upload"></span> Homepage</a></li>
                             <li><a href="{{{ URL::to('user/logout') }}}"><span class="glyphicon glyphicon-share"></span> Logout</a></li>
                         </ul>
                     </li>
@@ -137,7 +137,7 @@
     <!-- ./ navbar -->
 
     <!-- Notifications -->
-    @include('notifications')
+    @include('admin.layouts.notifications')
     <!-- ./ notifications -->
 
     <!-- Content -->

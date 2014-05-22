@@ -33,8 +33,8 @@ class EventsController extends BaseController
 
     public function index()
     {
-        $courses = $this->model->all();
-        return $this->view('site.courses.index',compact('courses'));
+        $events = $this->model->with('photos')->paginate(9);
+        return $this->view('site.courses.index',compact('events'));
     }
 
 

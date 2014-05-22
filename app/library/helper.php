@@ -37,15 +37,16 @@ class Helper {
         return false;
     }
 
-    public function getLocaledEn($col_en,$col_ar) {
-       if(LaravelLocalization::getCurrentLocaleName() == 'English') {
-          if(!empty($col_en)) {
-              return $col_en;
+    public static function localed_en($col_en,$col_ar) {
+       if(App::getLocale() == 'en') {
+          if($col_en) {
+              $title= $col_en;
           }
-          return $col_ar;
+          $title= $col_ar;
        } else {
-           return $col_ar;
+           $title = $col_ar;
        }
+       return $title;
 
 //        @if ( LaravelLocalization::getCurrentLocaleName() == 'English')
 //            @if(!$event->description_en)

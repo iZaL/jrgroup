@@ -1,15 +1,15 @@
 @if (count($errors->all()) > 0)
 <div class="alert alert-danger alert-block">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<h4>Error</h4>
-	Please check the form below for errors
+    <h4><i class="fa fa-times"></i> {{ Lang::get('messages.error') }} </h4>
+    {{ Lang::get('messages.error-message') }}
 </div>
 @endif
 
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-block">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<h4>Success</h4>
+    <h4><i class="fa fa-check"></i> {{ Lang::get('messages.success') }} </h4>
     @if(is_array($message))
         @foreach ($message as $m)
             {{ $m }}
@@ -23,7 +23,7 @@
 @if ($message = Session::get('error'))
 <div class="alert alert-danger alert-block">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<h4>Error</h4>
+    <h4><i class="fa fa-times"></i> {{ Lang::get('messages.error') }} </h4>
     @if(is_array($message))
         @foreach ($message as $m)
             {{ $m }}
@@ -37,7 +37,7 @@
 @if ($message = Session::get('warning'))
 <div class="alert alert-warning alert-block">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<h4>Warning</h4>
+	<h4><i class="fa fa-warning"></i> {{Lang::get('messages.warning') }} </h4>
     @if(is_array($message))
         @foreach ($message as $m)
             {{ $m }}
@@ -51,7 +51,7 @@
 @if ($message = Session::get('info'))
 <div class="alert alert-info alert-block">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<h4>Info</h4>
+    <h4><i class="fa fa-info"></i> {{ Lang::get('messages.info') }} </h4>
     @if(is_array($message))
         @foreach ($message as $m)
             {{ $m }}

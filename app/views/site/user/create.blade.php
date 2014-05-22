@@ -1,6 +1,13 @@
-@extends('site.layouts.home')
-@section('maincontent')
-
+@extends('site.master')
+@section('title')
+{{ Lang::get('confide.login.submit') }}
+@stop
+@section('content')
+<div class="col-md-3 col-sm-3">
+    @include('site.partials.latest-courses')
+    @include('site.partials.latest-news')
+</div>
+<div class="col-md-9 col-sm-9">
     <div class="alert alert-warning">{{ Lang::get('site.general.warning_msg')}}</div>
 
     {{ Form::open(array('method' => 'POST', 'action'=>array('UserController@store'),'class'=>'form')) }}
@@ -27,14 +34,16 @@
     </br>
     {{ Form::text('civilid',NULL,array('class'=>'form-control input-lg','placeholder'=> Lang::get('site.general.civilid'))) }}
     </br>
-    {{ Form::text('phone',NULL,array('class'=>'form-control input-lg','placeholder'=> Lang::get('site.general.mobile'))) }}
+    {{ Form::text('mobile',NULL,array('class'=>'form-control input-lg','placeholder'=> Lang::get('site.general.mobile'))) }}
     </br>
     {{ Form::text('address',NULL,array('class'=>'form-control input-lg','placeholder'=> Lang::get('site.general.address'))) }}
     </br>
-    <button class="btn btn-lg btn-primary btn-block signup-btn" type="submit">
-        Create my account
+    <button class="btn btn-lg btn-success btn-block" type="submit">
+        {{ Lang::get('confide.signup.title') }}
     </button>
     <br>
 
     {{ Form::close() }}
+
+</div>
 @stop

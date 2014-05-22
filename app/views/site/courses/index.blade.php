@@ -8,26 +8,36 @@
 @stop
 
 @section('content')
-<div class="col-lg-12">
-    <div class="row">
-        @for ($i = 0; $i < 10; $i++)
-        <div class="col-sm-6 col-lg-4">
-            <div class="thumbnail gallery">
-                <img src="http://placehold.it/350x150" alt="...">
-                <div class="caption">
-                    <p class="text-center">
-                        هنا يوضع العنوان
-                    </p>
-                    <a href="#" class="pull-right"><span class="glyphicon glyphicon-camera"></span>
-                        5 ابريل
+<div class="row">
+    @foreach($events as $event)
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail gallery">
+            @if(count($event->photos))
+            <a href="{{ action('EventsController@show',$event->id) }}" >
+                {{ HTML::image('uploads/medium/'.$event->photos[0]->name.'','image1',array('class'=>'img-responsive img-thumbnail')) }}
+            </a>
+            @else
+            <a href="{{ action('EventsController@show',$event->id) }}">
+                <img src="http://placehold.it/350x310" class="img-responsive img-thumbnail" >
+            </a>
+            @endif
+            <div class="caption">
+                <p class="text-center">
+                    <a href="{{ action('EventsController@show',$event->id) }}" >
+                        {{ App::make('Acme\\Services\\LangHelper')->getLocaled($event->title,$event->title_en) }}
                     </a>
-                    <a href="#" class="pull-left"><span class="glyphicon glyphicon-camera"></span>
-                        K.D 345
-                    </a>
-                </div>
+                </p>
+                <a href="#" class="pull-right"><span class="glyphicon glyphicon-camera"></span>
+
+                    {{ $event->date_start->format('Y m D') }}
+                </a>
+                <a href="#" class="pull-left"><span class="glyphicon glyphicon-camera"></span>
+                    K.D 345
+                </a>
             </div>
         </div>
-        @endfor
     </div>
+    @endforeach
+    <?php echo $events->appends(Request::except('page'))->links(); ?>
 </div>
 @stop

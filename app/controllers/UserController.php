@@ -34,23 +34,28 @@ class UserController extends BaseController {
     }
 
     /**
+     * Displays the form for user creation
+     *
+     */
+    public function create()
+    {
+        $this->view('site.user.create');
+    }
+
+    /**
      * Stores new user
      *
      */
     public function store()
     {
-        $this->user->username = Input::get( 'username' );
-        $this->user->email = Input::get( 'email' );
-        $password = Input::get( 'password' );
-        $passwordConfirmation = Input::get( 'password_confirmation' );
-        $this->user->first_name = Input::get('first_name');
-        $this->user->last_name = Input::get('last_name');
+        $this->user->username = Input::get('username');
+        $this->user->email = Input::get('email');
+        $password = Input::get('password');
+        $passwordConfirmation = Input::get('password_confirmation');
+        $this->user->name_en = Input::get('name_en');
+        $this->user->name_ar = Input::get('name_ar');
+        $this->user->civilid = Input::get('civilid');
         $this->user->mobile = Input::get('mobile');
-        $this->user->phone = Input::get('phone');
-        $this->user->country_id = Input::get('country_id');
-        $this->user->twitter = Input::get('twitter');
-        $this->user->instagram = Input::get('instagram');
-        $this->user->prev_event_comment = Input::get('prev_event_comment');
 
         if(!empty($password)) {
             if($password === $passwordConfirmation) {
@@ -72,9 +77,7 @@ class UserController extends BaseController {
         // Save if valid. Password field will be hashed before save
         if($this->user->save()) {
             // Redirect with success message, You may replace "Lang::get(..." for your custom message.
-            return Redirect::to('/')
-                ->with( 'notice', Lang::get('user/user.user_account_created') );
-
+            return Redirect::to('/')->with('success', Lang::get('user/user.user_account_created') );
         }
         else
         {
@@ -140,18 +143,6 @@ class UserController extends BaseController {
 
     }
 
-    /**
-     * Displays the form for user creation
-     *
-     */
-    public function create()
-    {
-        $countries = Country::all()->lists('name','id');
-        $this->layout->nav = view::make('site.layouts.nav');
-        $this->layout->maincontent = view::make('site.user.create',compact('countries'));
-        $this->layout->sidecontent = view::make('site.layouts.sidebar');
-        $this->layout->footer = view::make('site.layouts.footer');
-    }
 
     /**
      * Displays the login form

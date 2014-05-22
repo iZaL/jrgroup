@@ -46,6 +46,17 @@ Route::filter('auth.basic', function()
     return Auth::basic();
 });
 
+
+Route::filter('setDateLocale',function() {
+
+
+////   if(App::getLocale() == 'ar') {
+    setlocale(LC_TIME, 'Arabic');
+//    dd( strftime('%A %d %B %Y'));
+//    $dt = Carbon::now();
+//    dd($dt->formatLocalized('%d %B'));
+//   }
+});
 /*
 |--------------------------------------------------------------------------
 | Guest Filter

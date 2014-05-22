@@ -23,7 +23,7 @@ Route::pattern('token', '[0-9a-z]+');
 Route::group(
     array(
         'prefix' => LaravelLocalization::setLocale(),
-        'before' => 'LaravelLocalizationRedirectFilter' // LaravelLocalization filter
+        'before' => array('LaravelLocalizationRedirectFilter','setDateLocale') // LaravelLocalization filter
     ),
     function() {
         Route::get('/', array('as'=>'home', 'uses' => 'HomeController@index'));
