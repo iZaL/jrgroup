@@ -59,9 +59,12 @@
 }
 
 @media (max-width: 767px)  {
+    .navbar-default {
+        /*background: none;*/
+        /*border: none;*/
+    }
     .navbar-brand img {
         padding: 0px;
-        border: 1px solid gray;
         width: 25%;
         height: auto;
     }

@@ -34,8 +34,8 @@ class BlogsController extends BaseController {
 	public function index()
 	{
 		// Get all the blog posts
-        $posts = $this->model->with(array('category','photos','author'))->paginate(10);
-        return $this->view('site.galleries.index',compact('posts'));
+        $posts = $this->model->with(array('category','photos','author'))->paginate(1);
+        return $this->view('site.blogs.index',compact('posts'));
 
 	}
 
