@@ -1,8 +1,7 @@
 <?php
 
-use Robbo\Presenter\Presenter;
 
-class UserPresenter extends Presenter
+class UserPresenter
 {
 
     public function isActivated()

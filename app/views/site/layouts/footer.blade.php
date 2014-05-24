@@ -13,7 +13,6 @@
             <div class="col-lg-3 col-md-3 col-sm-3  col-xs-6 img-social"><img class="img-responsive" src="{{ asset('images/Youtube.png') }}" alt=""/></div>
         </div>
     </div>
-
 </div>
 
 

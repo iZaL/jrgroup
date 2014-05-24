@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title') | JR Group</title>
     <meta name="description" content="Jrgroup">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, , initial-scale = 1.0">
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
     @yield('meta')
 
@@ -16,7 +16,7 @@
         {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.1.2/css/bootstrap-rtl.min.css') }}
     @endif
     {{ HTML::style('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css') }}
-    {{ HTML::style(asset('css/custom.css')) }}
+    {{ HTML::style('css/custom.css') }}
     <style type="text/css">
         @import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
         body {

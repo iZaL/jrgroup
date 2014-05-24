@@ -14,7 +14,7 @@ class Gallery extends BaseModel {
 //    }
 
     public function category() {
-        return $this->belongsTo('Category','category_id');
+        return $this->belongsTo('Category','category_id')->where('type','=','Gallery');
     }
 
     public function getDates()
@@ -33,4 +33,7 @@ class Gallery extends BaseModel {
         return $this->morphMany('Video','videoable');
     }
 
+    public function findByCategoryId($id){
+        return $this->where('category_id',$id);
+    }
 }

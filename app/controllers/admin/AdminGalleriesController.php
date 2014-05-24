@@ -54,8 +54,8 @@ class AdminGalleriesController extends AdminBaseController {
 	 */
 	public function create()
 	{
-        $events = $this->event->all()->lists('title','id');
-        $categories = $this->category->all()->lists('name','id');
+        $events = [''=>'Select Course'] + $this->event->all()->lists('title','id');
+        $categories = [''=>'select category'] + $this->category->where('type','Gallery')->lists('name','id');
 		return View::make('admin.galleries.create',compact('events','categories'));
 	}
 
@@ -96,8 +96,8 @@ class AdminGalleriesController extends AdminBaseController {
 	public function edit($id)
 	{
 		$category = $this->model->find($id);
-        $events = $this->event->all()->lists('title','id');
-        $categories = $this->category->all()->lists('name','id');
+        $events = [''=>'Select Course'] + $this->event->all()->lists('title','id');
+        $categories = [''=>'select category'] + $this->category->where('type','Gallery')->lists('name','id');
 		if (is_null($category))
 		{
 			return Redirect::route('admin.categories.index');

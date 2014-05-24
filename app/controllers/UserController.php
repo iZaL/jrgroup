@@ -1,7 +1,5 @@
 <?php
 
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
 class UserController extends BaseController {
 
     /**

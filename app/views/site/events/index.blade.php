@@ -1,5 +1,7 @@
-@extends('site.layouts._one_columns_right_sidebar')
-
+@extends('site.master')
+@section('title')
+    Events
+@stop
 @section('style')
     @parent
 @stop
@@ -24,7 +26,7 @@
             <div class="caption">
                 <p class="text-center">
                     <a href="{{ action('EventsController@show',$event->id) }}" >
-                        {{ App::make('Acme\\Services\\LangHelper')->getLocaled($event->title,$event->title_en) }}
+                        {{ LocaleHelper::getLocaled($event->title,$event->title_en) }}
                     </a>
                 </p>
                 <a href="#" class="pull-right"><span class="glyphicon glyphicon-camera"></span>
@@ -38,6 +40,6 @@
         </div>
     </div>
     @endforeach
-    <?php echo $events->appends(Request::except('page'))->links(); ?>
 </div>
+<?php echo $events->appends(Request::except('page'))->links(); ?>
 @stop

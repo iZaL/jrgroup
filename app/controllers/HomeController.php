@@ -29,7 +29,8 @@ class HomeController extends BaseController {
 
     public function index()
     {
-        $event = $this->event->with('photos')->whereHas('photos',function($q) {
+        $event = $this->event->with('photos')
+            ->whereHas('photos',function($q) {
                 $q->where('photos.id','>','1');
             })
             ->where('events.date_start','<', Carbon::now()->toDateTimeString())
@@ -38,7 +39,6 @@ class HomeController extends BaseController {
             ->get(array('events.id','events.title'))
             ->first()
         ;
-//        dd($event->toArray());
         return $this->view('site.home',compact('event'));
     }
 }

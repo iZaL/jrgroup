@@ -8,12 +8,17 @@ class GalleriesController extends BaseController {
 	 * @var Country
 	 */
 	protected $model;
+    /**
+     * @var Category
+     */
+    private $category;
 
 
-	public function __construct(Gallery $model)
+    public function __construct(Gallery $model,Category $category)
 	{
 		$this->model = $model;
-	}
+        $this->category = $category;
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -22,9 +27,35 @@ class GalleriesController extends BaseController {
 	 */
 	public function index()
 	{
-		$galleries = $this->model->with(array('photos','videos'))->get();
-		return $this->view('site.galleries.index',compact('galleries'));
-	}
+//		$galleries = $this->model->with(array('photos'))->paginate(9);
+//		return $this->view('site.galleries.index',compact('galleries'));
+        //return gallery categories;
+//        $galleries = $this->model->with(['category','photos'])->paginate(9);
+//        $galleries = $this->category->where('type','=','Gallery')->get();
+//        $categories = $this->category
+//                        ->with(array('galleries.photos'))
+//                        ->whereHas('galleries.photos',function($q){
+//                            $q->where('id','>','0');
+//                        })
+//                        ->where('type','=','Gallery')
+//                        ->get();
+        $categories = $this->category
+                        ->with(array('galleries'))
+                        ->where('type','=','Gallery')
+                        ->paginate(9);
+//        foreach($categories as $category) {
+//            var_dump($category->toArray());
+//            foreach($category->galleries as $gallery) {
+//                var_dump($gallery->toArray());
+//                foreach($gallery->photos as $photo) {
+//                    var_dump($photo->toArray());
+//                }
+//            }
+//        }
+
+        return $this->view('site.galleries.index',compact('categories'));
+
+    }
 
 	/**
 	 * Show the form for creating a new resource.
@@ -67,9 +98,10 @@ class GalleriesController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$model = $this->model->findOrFail($id);
-
-		return View::make('countries.show', compact('country'));
+//		$model = $this->model->findOrFail($id);
+		$galleries = $this->category->with('galleries')->find($id);
+//        dd($galleries->toArray());
+        return $this->view('site.galleries.view',compact('galleries'));
 	}
 
 	/**
@@ -130,6 +162,14 @@ class GalleriesController extends BaseController {
 
     public function getEvents($id) {
          $this->model->find($id)->events;
+    }
+
+
+    public function showAlbum($id)
+    {
+//		$model = $this->model->findOrFail($id);
+        $album = $this->model->with('photos')->find($id);
+        return $this->view('site.galleries.album', compact('album'));
     }
 
 }

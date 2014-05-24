@@ -1,20 +1,41 @@
 @extends('site.master')
+@section('title')
+    Events
+@stop
+@section('style')
+    @parent
+@stop
+@section('scripts')
+    @parent
+@stop
 
 @section('content')
-<div class="col-lg-12">
-    <div class="row">
-        @for ($i = 0; $i < 10; $i++)
-        <div class="col-sm-6 col-lg-4">
+<div class="row">
+    @foreach($categories as $category)
+        <div class="col-sm-6 col-md-4">
             <div class="thumbnail gallery">
-                <img src="http://placehold.it/350x150" alt="...">
+                @if(count($category->galleries))
+                <a href="{{ action('GalleriesController@show',$category->id) }}" >
+                    {{ HTML::image('uploads/medium/'.$category->galleries[0]->photos[0]->name.'','image1',array('class'=>'img-responsive img-thumbnail')) }}
+                </a>
+                @else
+                <a href="{{ action('GalleriesController@show',$category->id) }}">
+                    <img src="http://placehold.it/350x310" class="img-responsive img-thumbnail" >
+                </a>
+                @endif
                 <div class="caption">
-                    <a href="#"><span class="glyphicon glyphicon-camera"></span>
-                        عنوان الدورة
+                    <p class="text-center">
+                        <a href="{{ action('GalleriesController@show',$category->id) }}" >
+                            {{ LocaleHelper::getLocaled($category->name,$category->name_en ) }}
+                        </a>
+                    </p>
+                    <a href="#" class="pull-right"><span class="glyphicon glyphicon-camera"></span>
+                        {{ count($category->galleries) }}
                     </a>
                 </div>
             </div>
         </div>
-        @endfor
-    </div>
+    @endforeach
 </div>
+{{ $categories->appends(Request::except('page'))->links() }}
 @stop

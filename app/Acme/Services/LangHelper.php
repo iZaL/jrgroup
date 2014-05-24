@@ -8,16 +8,11 @@
 
 namespace Acme\Services;
 
-
 use Illuminate\Support\Facades\App;
+use Symfony\Component\Security\Core\Exception\InvalidArgumentException;
 
 class LangHelper {
     protected $localed;
-    private $locale;
-
-    public function __construct() {
-        $this->locale = App::getLocale();
-    }
 
     /**
      * @param $arabicString
@@ -26,13 +21,18 @@ class LangHelper {
      * If Locale is English and English Content is Set, Returns English, else Returns Arabic
      */
     public function getLocaled($arabicString,$englishString) {
-        if($this->locale == 'en') {
+        if(App::getLocale() == 'en') {
             if($englishString) {
                 $this->localed= $englishString;
+            } else {
+                $this->localed= $arabicString;
             }
-            $this->localed= $arabicString;
         } else {
-            $this->localed= $arabicString;
+            if($arabicString) {
+                $this->localed= $arabicString;
+            } else {
+                throw new InvalidArgumentException;
+            }
         }
         return $this->localed;
     }

@@ -28,6 +28,7 @@ Route::group(
     function() {
         Route::get('/', array('as'=>'home', 'uses' => 'HomeController@index'));
         Route::resource('/gallery', 'GalleriesController', array('index','view') );
+        Route::get('gallery/{id}/album', ['as'=>'album','uses'=>'GalleriesController@showAlbum']);
         Route::resource('/courses','EventsController', array('index','view'));
         Route::resource('/news', 'BlogsController@index', array('index','view'));
 
