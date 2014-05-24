@@ -15,17 +15,19 @@
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail gallery">
                 @if(count($category->galleries))
-                <a href="{{ action('GalleriesController@show',$category->id) }}" >
-                    {{ HTML::image('uploads/medium/'.$category->galleries[0]->photos[0]->name.'','image1',array('class'=>'img-responsive img-thumbnail')) }}
+                <a href="{{ action('GalleriesController@show',$category->id) }}">
+                    {{
+                    HTML::image('uploads/medium/'.$category->galleries[0]->photos[0]->name.'','image1',array('class'=>'img-responsive
+                    img-thumbnail')) }}
                 </a>
                 @else
                 <a href="{{ action('GalleriesController@show',$category->id) }}">
-                    <img src="http://placehold.it/350x310" class="img-responsive img-thumbnail" >
+                    <img src="http://placehold.it/350x310" class="img-responsive img-thumbnail">
                 </a>
                 @endif
                 <div class="caption">
                     <p class="text-center">
-                        <a href="{{ action('GalleriesController@show',$category->id) }}" >
+                        <a href="{{ action('GalleriesController@show',$category->id) }}">
                             {{ LocaleHelper::getLocaled($category->name,$category->name_en ) }}
                         </a>
                     </p>

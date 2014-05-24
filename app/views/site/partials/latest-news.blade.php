@@ -6,7 +6,11 @@
     <div class="panel-body">
         <ul>
             @foreach($latest_blog_posts as $post)
-              <li><a href="{{URL::action('BlogsController@show',$post->slug)}}"> {{ $post->title }}</a></li>
+                <li>
+                    <a href="{{URL::action('BlogsController@show',$post->slug)}}">
+                        {{ LocaleHelper::getLocaled($post->title,$post->title_en) }}
+                    </a>
+                </li>
             @endforeach
         </ul>
     </div>

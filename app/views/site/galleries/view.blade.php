@@ -26,10 +26,9 @@
                 <div class="caption">
                     <p class="text-center">
                         <a href="{{ action('GalleriesController@showAlbum',$gallery->id) }}" >
-                            {{ $gallery->date_start }}
+                            {{ App::make('GalleriesController')->getDate($gallery->id) }}
                         </a>
                     </p>
-
                 </div>
             </div>
         </div>

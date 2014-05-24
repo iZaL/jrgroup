@@ -36,7 +36,6 @@ class BlogsController extends BaseController {
 		// Get all the blog posts
         $posts = $this->model->with(array('category','photos','author'))->paginate(1);
         return $this->view('site.blogs.index',compact('posts'));
-
 	}
 
 	/**
@@ -49,14 +48,8 @@ class BlogsController extends BaseController {
 	public function show($slug)
 	{
 		// Get this blog post data
-		$post = $this->model->where('slug', '=', $slug)->first();
-		// Show the page
-        $this->layout->login = View::make('site.layouts.login');
-        $this->layout->ads = view::make('site.layouts.ads');
-        $this->layout->nav = view::make('site.layouts.nav');
-        $this->layout->maincontent = view::make('site.blog.view', compact('post', 'comments', 'canComment'));
-        $this->layout->sidecontent = view::make('site.layouts.sidebar');
-        $this->layout->footer = view::make('site.layouts.footer');
+		$post = $this->model->with(array('category','photos','author'))->where('slug', '=', $slug)->first();
+        return $this->view('site.blogs.view',compact('post'));
 	}
 
 

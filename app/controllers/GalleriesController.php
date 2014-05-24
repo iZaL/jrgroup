@@ -12,12 +12,17 @@ class GalleriesController extends BaseController {
      * @var Category
      */
     private $category;
+    /**
+     * @var EventModel
+     */
+    private $event;
 
 
-    public function __construct(Gallery $model,Category $category)
+    public function __construct(Gallery $model,Category $category, EventModel $event)
 	{
 		$this->model = $model;
         $this->category = $category;
+        $this->event = $event;
     }
 
 	/**
@@ -103,6 +108,29 @@ class GalleriesController extends BaseController {
 //        dd($galleries->toArray());
         return $this->view('site.galleries.view',compact('galleries'));
 	}
+
+
+    public function getDate($galleryId) {
+        $date = '';
+        $gallery = $this->model->find($galleryId);
+        if($gallery) {
+            if( $gallery->date_start ) {
+                $date = $gallery->date_start;
+            } else {
+                if($gallery->event_id) {
+//                    dd('event_attached');
+                    $event = $this->event->find($gallery->event_id);
+                    if($event) {
+//                        dd('event_found');
+                        if(!empty($event->date_start)) {
+                            $date = $event->date_start;
+                        }
+                    }
+                }
+            }
+        }
+        return $date->format('Y-m-D');
+    }
 
 	/**
 	 * Show the form for editing the specified resource.

@@ -21,7 +21,7 @@ class CreateGalleriesTable extends Migration {
             $table->string('title_en');
             $table->text('description');
             $table->text('description_en');
-            $table->timestamp('date_start'); // here also
+            $table->timestamp('date_start')->nullable()->defaults(null); // here also
             $table->string('name');
             $table->string('name_en');
 			$table->timestamps();

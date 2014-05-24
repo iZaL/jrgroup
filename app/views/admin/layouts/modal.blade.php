@@ -68,7 +68,7 @@
 	<div class="container">
 
 		<!-- Notifications -->
-		@include('notifications')
+        @include('admin.layouts.notifications')
 		<!-- ./ notifications -->
 
 		<div class="page-header">

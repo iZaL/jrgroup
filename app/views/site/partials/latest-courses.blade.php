@@ -6,7 +6,11 @@
     <div class="panel-body">
         <ul>
             @foreach($latest_event_posts as $event)
-                <li><a href="{{ URL::action('EventsController@show',$event->id)}} "> {{ (LaravelLocalization::getCurrentLocaleName() == 'English') ? $event->title_en : $event->title }}</a></li>
+            <li>
+                <a href="{{ URL::action('EventsController@show',$event->id)}} ">
+                    {{ LocaleHelper::getLocaled($event->title,$event->title_en) }}
+                </a>
+            </li>
             @endforeach
         </ul>
     </div>

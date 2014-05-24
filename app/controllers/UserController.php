@@ -95,10 +95,7 @@ class UserController extends BaseController {
     public function edit($id) {
         $user = $this->user->find($id);
         $countries = Country::all()->lists('name','id');
-        $this->layout->nav = view::make('site.layouts.nav');
-        $this->layout->maincontent = view::make('site.user.edit',compact('user','countries'));
-        $this->layout->sidecontent = view::make('site.layouts.sidebar');
-        $this->layout->footer = view::make('site.layouts.footer');
+        $this->view('site.user.edit',compact('user','countries'));
     }
 
     /**
@@ -302,11 +299,7 @@ class UserController extends BaseController {
     public function getProfile($id)
     {
         $user = $this->user->with(array('favorites','subscriptions','followings','country'))->findOrFail($id);
-        $this->layout->login = View::make('site.layouts.login');
-        $this->layout->nav = view::make('site.layouts.nav');
-        $this->layout->sidecontent = view::make('site.layouts.sidebar');
-        $this->layout->maincontent = View::make('site/user/profile', compact('user'));
-        $this->layout->footer = view::make('site.layouts.footer');
+        $this->view('site/user/profile', compact('user'));
     }
 
     public function getSettings()
@@ -314,7 +307,7 @@ class UserController extends BaseController {
         list($user,$redirect) = User::checkAuthAndRedirect('user/settings');
         if($redirect){return $redirect;}
 
-         View::make('site/user/profile', compact('user'));
+        $this->view('site.user.profile', compact('user'));
     }
 
     /**

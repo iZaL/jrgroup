@@ -48,7 +48,11 @@
     <!--    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">-->
     <style>
         body {
+            font-size:1.2em;
             margin: 100px 0;
+        }
+        .nav > li > a {
+            padding-right:0px;
         }
 
     </style>

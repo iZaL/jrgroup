@@ -1,5 +1,5 @@
-@extends('site.layouts.home')
-@section('maincontent')
+@extends('site.master')
+@section('content')
 
     <div class="row">
        <div class="col-md-12">

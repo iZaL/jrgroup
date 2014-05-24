@@ -1,14 +1,15 @@
-@extends('site.layouts.home')
-@section('maincontent')
+@extends('site.master')
+@section('title')
+    Profile
+@stop
+@section('content')
 @if(Helper::isOwner($user->id))
 
     <div class="row well">
         <div class="col-md-12">
             <ul class="nav nav-tabs" id="myTab">
                 <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
-                <li><a href="#favorites" data-toggle="tab">Favorites</a></li>
                 <li><a href="#subscriptions" data-toggle="tab">Subscriptions</a></li>
-                <li><a href="#followings" data-toggle="tab">Followings</a></li>
             </ul>
 
             <div class="tab-content">
@@ -115,28 +116,10 @@
                     </div>
 
                 </div>
-                <div class="tab-pane" id="favorites">
-                    <div class="panel panel-primary">
-                        <ul class="list-group">
-                            @foreach($user->favorites as $event)
-                                {{ link_to_action('EventsController@show',$event->title,$event->id,array('class'=>'list-group-item')) }}
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
                 <div class="tab-pane" id="subscriptions">
                     <div class="panel panel-primary">
                         <ul class="list-group">
                             @foreach($user->subscriptions as $event)
-                                {{ link_to_action('EventsController@show',$event->title,$event->id,array('class'=>'list-group-item')) }}
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-                <div class="tab-pane" id="followings">
-                    <div class="panel panel-primary">
-                        <ul class="list-group">
-                            @foreach($user->followings as $event)
                                 {{ link_to_action('EventsController@show',$event->title,$event->id,array('class'=>'list-group-item')) }}
                             @endforeach
                         </ul>

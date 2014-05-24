@@ -1,6 +1,8 @@
-@extends('site.layouts.home')
-@section('maincontent')
-
+@extends('site.master')
+@section('title')
+    Edit Profile
+@stop
+@section('content')
 <div class="alert alert-warning">{{ Lang::get('site.general.warning_msg')}}</div>
 
 {{ Form::model($user,array('method' => 'PATCH', 'action'=>array('UserController@update',$user->id),'class'=>'form')) }}

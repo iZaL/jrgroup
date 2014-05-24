@@ -23,7 +23,7 @@ Route::pattern('token', '[0-9a-z]+');
 Route::group(
     array(
         'prefix' => LaravelLocalization::setLocale(),
-        'before' => array('LaravelLocalizationRedirectFilter','setDateLocale') // LaravelLocalization filter
+        'before' => ['LaravelLocalizationRedirectFilter'] // LaravelLocalization filter
     ),
     function() {
         Route::get('/', array('as'=>'home', 'uses' => 'HomeController@index'));
@@ -32,6 +32,11 @@ Route::group(
         Route::resource('/courses','EventsController', array('index','view'));
         Route::resource('/news', 'BlogsController@index', array('index','view'));
 
+
+        Route::get('event/{id}/subscribe',array('as'=>'event.subscribe','uses'=>'SubscriptionsController@subscribe'));
+        Route::get('event/{id}/unsubscribe',array('as'=>'event.unsubscribe','uses'=>'EventsController@unsubscribe'));
+
+        Route::resource('event.comments', 'CommentsController', array('only' => array('store')));
 
         Route::resource('blog','BlogsController', array('only' => array('index', 'show','view')));
 
@@ -49,7 +54,11 @@ Route::group(
         Route::post('user/forgot', array('uses'=>'UserController@postForgot'));
         Route::get('user/{id}/edit', array('as'=>'user.edit','uses'=>'UserController@edit'));
         Route::get('user/confirm/{token}', array('as'=>'token','uses'=>'UserController@confirm'));
-//        Route::resource('user', 'UserController');
+        Route::resource('user', 'UserController');
+
+        // Contact Us Page
+        Route::resource('contact-us','ContactsController', array('only' => array('index')));
+        Route::post('contact-us/contact','ContactsController@contact');
     }
 );
 

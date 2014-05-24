@@ -36,13 +36,13 @@ class CommentsController extends BaseController {
         $event = $this->event->find($id);
         $validation = Validator::make(Input::all(),Comment::getRules());
         if(!$validation->passes()) {
-            return Redirect::to(LaravelLocalization::localizeURL('event/'.$id))->withInput()->withErrors($validation->errors());
+            return Redirect::back()->withInput()->withErrors($validation->errors());
         } else {
             $data = array();
             $data['content'] = Input::get('content');
             $data['user_id'] = Auth::user()->getAuthIdentifier();
             $event->comments()->create($data);
         }
-        return Redirect::to('event/'.$id);
+        return Redirect::action('EventsController@show',$id)->with('success','Comment Saved');
 	}
 }

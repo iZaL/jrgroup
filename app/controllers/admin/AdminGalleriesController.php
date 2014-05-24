@@ -66,7 +66,18 @@ class AdminGalleriesController extends AdminBaseController {
 	 */
 	public function store()
 	{
-        $validation = new $this->model(Input::all());
+        $data = [];
+        $data['event_id'] = Input::get('event_id');
+        $data['category_id'] = Input::get('category_id');
+        $data['title'] = Input::get('title');
+        $data['title_en'] = Input::get('title_en');
+        $data['description'] = Input::get('description');
+        $data['description_en'] = Input::get('description_en');
+        $date_start = Input::get('date_start');
+        if( ! empty($date_start)) {
+            $data['date_start'] = $date_start;
+        }
+        $validation = new $this->model($data);
 		if (!$validation->save())
 		{
             return Redirect::back()->withInput()->withErrors($validation->getErrors());

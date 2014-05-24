@@ -11,7 +11,6 @@ class ContactsController extends BaseController {
      */
     protected $model;
 
-    protected $layout = 'site.layouts.home';
     /**
      * @var Acme\Mail\ContactsMailer
      */
@@ -32,12 +31,8 @@ class ContactsController extends BaseController {
 	{
 		//
         $contact = $this->model->first();
-        $this->layout->login = View::make('site.layouts.login');
-        $this->layout->ads = view::make('site.layouts.ads');
-        $this->layout->nav = view::make('site.layouts.nav');
-        $this->layout->maincontent = view::make('site.layouts.contactus', ['contact'=> $contact]);
-        $this->layout->sidecontent = view::make('site.layouts.sidebar');
-        $this->layout->footer = view::make('site.layouts.footer');
+        $this->view('site.partials.contact', ['contact'=> $contact]);
+
 	}
 
 	/**

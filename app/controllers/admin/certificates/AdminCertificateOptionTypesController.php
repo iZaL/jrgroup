@@ -2,8 +2,6 @@
 
 class AdminCertificateOptionTypesController extends AdminBaseController {
 
-    protected $layout = 'site.layouts.home';
-
     protected $model;
     /**
      * @var CertificateOption

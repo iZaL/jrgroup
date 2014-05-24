@@ -1,8 +1,6 @@
 <?php
 
 class AdminCertificateTypesController extends AdminBaseController {
-
-    protected $layout = 'site.layouts.home';
     /**
      * @var CertificateType
      */
