@@ -119,7 +119,6 @@ class AdminBlogsController extends AdminBaseController {
         $category = $this->category->getPostCategories()->lists('name', 'id');
         $author = $this->user->getRoleByName('author')->lists('username', 'id');
         $post = $this->post->find($id);
-
         // Show the page
         return View::make('admin/blogs/edit', compact('post', 'title','category','author'));
     }
@@ -209,8 +208,8 @@ class AdminBlogsController extends AdminBaseController {
 
             ->edit_column('comments', '{{ DB::table(\'comments\')->where(\'commentable_id\', \'=\', $id)->where(\'commentable_type\',\'EventModel\')->count() }}')
 
-            ->add_column('actions', '<a href="{{{ URL::to(\'admin/blogs/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >{{{ Lang::get(\'button.edit\') }}}</a>
-                <a href="{{{ URL::to(\'admin/blogs/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">{{{ Lang::get(\'button.delete\') }}}</a>
+            ->add_column('actions', '<a href="{{{ URL::to(\'admin/blogs/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs " >{{{ Lang::get(\'button.edit\') }}}</a>
+                <a href="{{{ URL::to(\'admin/blogs/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger ">{{{ Lang::get(\'button.delete\') }}}</a>
             ')
 
             ->remove_column('id')

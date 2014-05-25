@@ -14,9 +14,7 @@
 				<th>Date_start</th>
 				<th>Date_end</th>
                 <th>Posted</th>
-                <th>View Followers</th>
                 <th>View Subscribers</th>
-                <th>View Favorites</th>
                 <th>View Requests</th>
 			</tr>
 		</thead>
@@ -28,11 +26,8 @@
             <td>{{{ $event->date_start }}}</td>
             <td>{{{ $event->date_end }}}</td>
             <td>{{{ $event->getHumanCreatedAtAttribute() }}} </td>
-            <td><a href="{{action('AdminEventsController@getFollowers',$event->id) }}">{{ $followers_count }} - View</a></td>
             <td><a href="{{action('AdminEventsController@getSubscriptions',$event->id) }}">{{ $subscriptions_count }} - View</a></td>
-            <td><a href="{{action('AdminEventsController@getFavorites',$event->id) }}">{{ $favorites_count }} - View</a></td>
             <td><a href="{{action('AdminEventsController@getRequests',$event->id) }}">{{ $requests_count }} - View</a></td>
-
             <td><a href="{{ URL::action('AdminEventsController@edit', array($event->id), array('class' => 'btn btn-info')) }}">Edit</a></td>
             <td>
                 {{ Form::open(array('method' => 'DELETE', 'action' => array('AdminEventsController@destroy', $event->id))) }}

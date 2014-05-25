@@ -4,7 +4,7 @@ class Type extends BaseModel {
 	protected $guarded = array('id');
 
 	public static $rules = array(
-//        'type' =>'required',
+        'type' =>'required',
 //        'approval_type' => 'required'
     );
 

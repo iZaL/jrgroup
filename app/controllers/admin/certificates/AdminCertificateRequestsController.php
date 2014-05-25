@@ -54,54 +54,6 @@ class AdminCertificateRequestsController extends AdminBaseController {
         return View::make('admin.certificates.requests.create', compact('types', 'metas'));
     }
 
-    public function edit($id)
-    {
-        $request = $this->model->findOrFail($id);
-        $types = ['' => 'Select Certificate type'] + $this->type->all()->lists('name', 'id');
-        $metas = $this->meta->all();
-
-        return View::make('admin.certificates.requests.edit', compact('types', 'metas', 'request'));
-    }
-
-    public function update($id)
-    {
-        $typePrice = $this->type->findOrFail(Input::get('type_id'));
-        $options = array();
-        foreach (Input::all() as $key => $value) {
-            if (substr($key, 0, 9) == "option_id") {
-                $options[$key] = $value;
-                //@todo check whether the price has value in the db table i.e if price is empty or not or has a record or not
-                $db_price[] = $value; // arrays to send for SUM ( addition on options tables )
-            }
-        }
-        $total = $this->calculateTotal($db_price, $typePrice);
-
-        $validation = $this->model->find($id);
-//        $validation = new $this->model(array_merge(array('user_id' => $this->getUserId()),Input::except(array_keys($options))));
-        $validation->fill(array_merge(array('amount' => $total), Input::except(array_keys($options))));
-        if (! $validation->save()) {
-            return Redirect::back()->withInput()->withErrors($validation->getErrors());
-        }
-        DB::table('certificate_request_options')->whereRequestId($validation->id)->delete();
-        foreach ($options as $option_id) {
-            if (! empty($option_id)) {
-                $query = $this->request_option->whereRequestId($validation->id)->whereOptionId($option_id)->first();
-                if ($query) {
-                    $option = $this->request_option->find($query->id);
-                } else {
-                    $option = new $this->request_option;
-                }
-                $option->request_id = $validation->id;
-                $option->option_id = $option_id;
-                if (! $option->save()) {
-                    return Redirect::action('AdminCertificateRequestsController@edit', $validation->id)->withInput()->withErrors($option->getErrors())->with(array('error' => 'please edit the options'));
-                }
-            }
-        }
-
-        return parent::redirectToAdmin()->with('success', 'Certificate Requested');
-
-    }
 
     public function create()
     {
@@ -161,6 +113,58 @@ class AdminCertificateRequestsController extends AdminBaseController {
 
         return parent::redirectToAdmin()->with('success', 'Certificate Requested');
     }
+
+
+    public function edit($id)
+    {
+        $request = $this->model->findOrFail($id);
+        $types = ['' => 'Select Certificate type'] + $this->type->all()->lists('name', 'id');
+        $metas = $this->meta->all();
+
+        return View::make('admin.certificates.requests.edit', compact('types', 'metas', 'request'));
+    }
+
+    public function update($id)
+    {
+        $typePrice = $this->type->findOrFail(Input::get('type_id'));
+        $options = array();
+        foreach (Input::all() as $key => $value) {
+            if (substr($key, 0, 9) == "option_id") {
+                $options[$key] = $value;
+                //@todo check whether the price has value in the db table i.e if price is empty or not or has a record or not
+                $db_price[] = $value; // arrays to send for SUM ( addition on options tables )
+            }
+        }
+        $total = $this->calculateTotal($db_price, $typePrice);
+
+        $validation = $this->model->find($id);
+//        $validation = new $this->model(array_merge(array('user_id' => $this->getUserId()),Input::except(array_keys($options))));
+        $validation->fill(array_merge(array('amount' => $total), Input::except(array_keys($options))));
+        if (! $validation->save()) {
+            return Redirect::back()->withInput()->withErrors($validation->getErrors());
+        }
+        DB::table('certificate_request_options')->whereRequestId($validation->id)->delete();
+        foreach ($options as $option_id) {
+            if (! empty($option_id)) {
+                $query = $this->request_option->whereRequestId($validation->id)->whereOptionId($option_id)->first();
+                if ($query) {
+                    $option = $this->request_option->find($query->id);
+                } else {
+                    $option = new $this->request_option;
+                }
+                $option->request_id = $validation->id;
+                $option->option_id = $option_id;
+                if (! $option->save()) {
+                    return Redirect::action('AdminCertificateRequestsController@edit', $validation->id)->withInput()->withErrors($option->getErrors())->with(array('error' => 'please edit the options'));
+                }
+            }
+        }
+
+        return parent::redirectToAdmin()->with('success', 'Certificate Requested');
+
+    }
+
+
 
     /**
      * @param $db_price

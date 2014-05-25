@@ -1,7 +1,8 @@
-@extends('admin.layouts.modal')
+@extends('admin.layouts.default')
 
 {{-- Content --}}
 @section('content')
+    <h1> Edit {{ $post->title }} </h1>
 	{{-- Edit Blog Form --}}
     {{ Form::model($post, array('method' => 'PATCH', 'action' => array('AdminBlogsController@update', $post->id), 'role'=>'form', 'files' => true)) }}
 

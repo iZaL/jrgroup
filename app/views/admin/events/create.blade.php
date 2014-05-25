@@ -10,7 +10,7 @@
 <div class="row">
 
     <div class="form-group col-md-12">
-        {{ Form::label('approval_type', 'Course Type:') }}
+        {{ Form::label('type', 'Course Type:') }}
         {{ Form::select('type', array(''=>'Select','PUBLIC' => 'PUBLIC', 'MEMBERS' => 'MEMBERS'),'PUBLIC',array('class'=>'form-control')) }}
     </div>
 

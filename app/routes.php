@@ -145,6 +145,8 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
     Route::post('gallery/{id}/photos','AdminGalleriesController@postPhotos');
     Route::post('gallery/{id}/video','AdminGalleriesController@postVideos');
     Route::get('/', 'AdminEventsController@index');
+    Route::get('certificate-type/{id}/get-price','AdminCertificateTypesController@getPrice');
+
 });
 
 Route::get('forbidden',function() {

@@ -50,7 +50,7 @@ class AdminCategoriesController extends AdminBaseController {
 		{
             return Redirect::back()->withInput()->withErrors($validation->getErrors());
 		}
-		return Redirect::home();
+		return Redirect::action('AdminCategoriesController@index')->with('success','Category Saved');
 	}
 
 	/**
@@ -113,7 +113,7 @@ class AdminCategoriesController extends AdminBaseController {
         if(!$validation->save()) {
             return Redirect::back()->withInput()->withErrors($validation->getErrors());
         }
-        return Redirect::action('AdminCategoriesController@index');
+        return Redirect::action('AdminCategoriesController@index')->with('success','Category Saved');
 	}
 
 	/**

@@ -3,7 +3,6 @@
 {{-- Content --}}
 @section('content')
 <style>
-    .glyphicon { margin-right:10px; }
     .panel-body { padding:0px; }
     .panel-body table tr td { padding-left: 15px }
     .panel-body .table {margin-bottom: 0px; }
@@ -43,7 +42,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-user">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-tag">
                             </span>Certificate Category</a>
                         </h4>
                     </div>
@@ -72,7 +71,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-file">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-plus">
                             </span>Certificate Options</a>
                         </h4>
                     </div>

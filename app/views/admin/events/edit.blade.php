@@ -19,7 +19,7 @@
 //            $approval_type = NULL;
         }
         ?>
-        {{ Form::label('approval_type', 'Course Type:') }}
+        {{ Form::label('type', 'Course Type:') }}
         {{ Form::select('type', array(''=>'Select','PUBLIC' => 'PUBLIC', 'MEMBERS' => 'MEMBERS'),$type,array('class'=>'form-control')) }}
     </div>
 
