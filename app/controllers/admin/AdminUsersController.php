@@ -32,10 +32,10 @@ class AdminUsersController extends AdminBaseController {
      * @param User $user
      * @param Role $role
      * @param Permission $permission
+     * @param Acme\Mail\UserMailer $mailer
      */
     public function __construct(User $user, Role $role, Permission $permission, UserMailer $mailer)
     {
-
         $this->user = $user;
         $this->role = $role;
         $this->permission = $permission;
@@ -100,7 +100,6 @@ class AdminUsersController extends AdminBaseController {
         $this->user->username = Input::get( 'username' );
         $this->user->email = Input::get( 'email' );
         $this->user->password = Input::get( 'password' );
-
         // The password confirmation will be removed from model
         // before saving. This field will be used in Ardent's
         // auto validation.
@@ -290,30 +289,62 @@ class AdminUsersController extends AdminBaseController {
     public function getData()
     {
         $users = User::leftjoin('assigned_roles', 'assigned_roles.user_id', '=', 'users.id')
-                    ->leftjoin('roles', 'roles.id', '=', 'assigned_roles.role_id')
-                    ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.civilid','users.confirmed', 'users.created_at','users.expires_at'))
-                    ->orderBy('users.expires_at','ASC')
-                    ->groupBy('users.email')
-        ;
+            ->leftjoin('roles', 'roles.id', '=', 'assigned_roles.role_id')
+            ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.confirmed', 'users.created_at'))
+            ->groupBy('users.email');
         return Datatables::of($users)
-//         ->edit_column('created_at','{{{ Carbon::createFromFormat(\'Y-m-d H:i:s\', $created_at)->diffForHumans() }}}')
 
-        ->edit_column('confirmed','@if($confirmed)
+            ->edit_column('confirmed','@if($confirmed)
                             Yes
                         @else
                             No
                         @endif')
 
-        ->add_column('actions', '<a href="{{{ URL::to(\'admin/users/\' . $id . \'/edit\' ) }}}" class="iframe btn btn-xs btn-default">{{{ Lang::get(\'button.edit\') }}}</a>
+            ->add_column('actions', '<a href="{{{ URL::to(\'admin/users/\' . $id . \'/edit\' ) }}}" class="iframe btn btn-xs btn-default">{{{ Lang::get(\'button.edit\') }}}</a>
+                                 <a href="{{{ URL::to(\'admin/users/\' . $id . \'/report\' ) }}}" class="btn btn-xs btn-default" >Report</a>
                                  <a href="{{{ URL::to(\'admin/users/\' . $id . \'/delete\' ) }}}" class="iframe btn btn-xs btn-danger">{{{ Lang::get(\'button.delete\') }}}</a>
 
             ')
 
-        ->remove_column('id')
+            ->remove_column('id')
 
-        ->make();
-
+            ->make();
     }
+
+
+//    public function getData()
+//    {
+////        $users = User::leftjoin('assigned_roles', 'assigned_roles.user_id', '=', 'users.id')
+////                    ->leftjoin('roles', 'roles.id', '=', 'assigned_roles.role_id')
+////                    ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.civilid','users.confirmed', 'users.created_at','users.expires_at'))
+////                    ->orderBy('users.expires_at','ASC')
+////                    ->groupBy('users.email')
+////        ;
+//
+//        $users = User::leftjoin('assigned_roles', 'assigned_roles.user_id', '=', 'users.id')
+//            ->leftjoin('roles', 'roles.id', '=', 'assigned_roles.role_id')
+//            ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.confirmed', 'users.created_at'))
+//            ->groupBy('users.email');
+//
+//        return Datatables::of($users)
+////         ->edit_column('created_at','{{{ Carbon::createFromFormat(\'Y-m-d H:i:s\', $created_at)->diffForHumans() }}}')
+//
+//        ->edit_column('confirmed','@if($confirmed)
+//                            Yes
+//                        @else
+//                            No
+//                        @endif')
+//
+//        ->add_column('actions', '<a href="{{{ URL::to(\'admin/users/\' . $id . \'/edit\' ) }}}" class="iframe btn btn-xs btn-default">{{{ Lang::get(\'button.edit\') }}}</a>
+//                                 <a href="{{{ URL::to(\'admin/users/\' . $id . \'/delete\' ) }}}" class="iframe btn btn-xs btn-danger">{{{ Lang::get(\'button.delete\') }}}</a>
+//
+//            ')
+//
+//        ->remove_column('id')
+//
+//        ->make();
+//
+//    }
 
     public function getReport($id)
     {

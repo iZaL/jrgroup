@@ -49,7 +49,7 @@
     <style>
         body {
             font-size:1.2em;
-            margin: 100px 0;
+            margin: 50px 0;
         }
         .nav > li > a {
             padding-right:0px;

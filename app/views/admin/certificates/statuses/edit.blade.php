@@ -2,7 +2,7 @@
 
 {{-- Content --}}
 @section('content')
-<div style="padding-top: 100px"></div>
+
 <h1>Edit Certificate Request of {{ $request->user->username }} for type {{ $request->request->type->name }} </h1>
 
 {{ Form::model($request, array('method' => 'PATCH', 'role'=>'form', 'action' => array('AdminCertificateStatusesController@update', $request->id))) }}

@@ -65,6 +65,7 @@ class AdminEventsController extends AdminBaseController
      */
     public function store()
     {
+        dd(Input::get('type'));
         //validate and save
         $validation = new $this->model(Input::except(array('thumbnail','addresspicker_map','type')));
         if (!$validation->save()) {
@@ -80,7 +81,7 @@ class AdminEventsController extends AdminBaseController
 
         $type = new Type();
         $type->event_id= $validation->id;
-        $type->approval_type = Input::get('approval_type');
+        $type->type = Input::get('type');
 
         if (!$type->save()) {
             return Redirect::to('admin/event/' . $validation->id . '/edit')->withErrors($type->getErrors());
@@ -91,7 +92,7 @@ class AdminEventsController extends AdminBaseController
         if(!empty($event->total_seats))
             $event->available_seats = $event->total_seats;
             $event->save();
-        return parent::redirectToAdmin()->with('success','Added Event to the Database');
+        return Redirection::action('AdminEventsController@index')->with('success','Added Event to the Database');
     }
 
 
@@ -140,7 +141,7 @@ class AdminEventsController extends AdminBaseController
         }
         $type->type = Input::get('type');
         if (!$type->save()) {
-            return Redirect::to('admin/event/' . $validation->id . '/edit')->withErrors($type->getErrors());
+            return Redirect::action('AdminEventsController@edit',$validation->id)->withErrors($type->getErrors());
         }
 
         //update available seats
@@ -150,7 +151,7 @@ class AdminEventsController extends AdminBaseController
         $available_seats = $total_seats - $total_seats_taken;
         $event->available_seats = $available_seats;
         $event->save();
-        return parent::redirectToAdmin()->with('success','Updated Event '. $validation->title);
+        return Redirect::action('AdminEventsController@index')->with('success','Updated Event '. $validation->title);
     }
 
     /**
@@ -165,7 +166,7 @@ class AdminEventsController extends AdminBaseController
             //  return Redirect::home();
             return parent::redirectToAdmin()->with('success','Event Deleted');
         }
-        return parent::redirectToAdmin()->with('error','Error: Event Not Found');
+        return Redirect::action('AdminEventsController@index')->with('error','Error: Event Not Found');
     }
 
 

@@ -20,7 +20,7 @@
             </a>
             @else
             <a href="{{ action('EventsController@show',$event->id) }}">
-                <img src="http://placehold.it/350x310" class="img-responsive img-thumbnail" >
+                <img src="http://placehold.it/350x315" class="img-responsive img-thumbnail" >
             </a>
             @endif
             <div class="caption">

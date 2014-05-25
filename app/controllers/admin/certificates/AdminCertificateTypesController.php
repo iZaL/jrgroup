@@ -35,6 +35,9 @@ class AdminCertificateTypesController extends AdminBaseController {
         return View::make('admin.certificates.types.index',compact('records'));
     }
 
+    public function show($id) {
+        return $id;
+    }
 
 
     public function create() {
@@ -61,5 +64,10 @@ class AdminCertificateTypesController extends AdminBaseController {
             return Redirect::back()->withInput()->withErrors($validation->getErrors());
         }
         return Redirect::action('AdminCertificateTypesController@index');
+    }
+
+    public function getPrice($id){
+       $type = $this->type->findOrFail($id);
+       return $type->price;
     }
 }

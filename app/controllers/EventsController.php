@@ -29,7 +29,11 @@ class EventsController extends BaseController {
 
 
     public function index() {
-        $events = $this->model->with('photos')->paginate(9);
+        $events = $this->model->with('photos')
+                    ->where('date_start','>',\Carbon\Carbon::now()->toDateTimeString())
+                    ->orderBy('date_start','ASC')
+                    ->orderBy('created_at','DESC')
+                    ->paginate(9);
         return $this->view('site.events.index', compact('events'));
     }
 

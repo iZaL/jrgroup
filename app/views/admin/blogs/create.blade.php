@@ -1,9 +1,13 @@
-@extends('admin.layouts.modal')
+@extends('admin.layouts.default')
+@section('title')
+    Create Blog Post
+@stop
+
 
 {{-- Content --}}
 @section('content')
 
-
+    <h1>Create Blog</h1>
 	{{-- Edit Blog Form --}}
     {{ Form::open(array('method' => 'POST', 'action' => array('AdminBlogsController@store'), 'role'=>'form', 'files' => true)) }}
 		<!-- ./ csrf token -->
@@ -67,4 +71,5 @@
         </div>
     </div>
     @endif
+
 @stop
