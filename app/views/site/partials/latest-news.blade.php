@@ -1,7 +1,7 @@
 @if($latest_blog_posts)
 <div class="panel panel-default">
     <div class="panel-heading">
-        آخر الاخبار
+        {{  Lang::get('site.general.latest_news') }}
     </div>
     <div class="panel-body">
         <ul>

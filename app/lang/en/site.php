@@ -104,6 +104,11 @@ return array(
                 'warning_msg' => 'Please kindly note that these information are important in order to issue your certificates in the future.. please fill in the form properly',
                 'settings' => 'Settings',
                 'address' => 'Address',
+                'follow-us' => 'Follow us on social networks',
+                'courses' => 'Courses',
+                'coursesgallery' => 'Courses Gallery',
+                'latest_courses' => 'Latest Courses',
+                'latest_news' => 'Latest News',
     ),
     'subscription' => array(
         'subscribed' => 'You :attribute this event',

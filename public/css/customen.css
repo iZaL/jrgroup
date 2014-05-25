@@ -1,0 +1,39 @@
+@media (min-width: 768px) and (max-width:2500px) {
+
+
+    .navbar-nav>li>a {
+        height: 100%;
+        position: relative;
+        padding: 0px;
+        padding-top:80%;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 50px;
+    }
+
+
+}
+
+@media (max-width: 767px)  {
+
+}
+
+.panel-heading {
+    border-top-right-radius: 30px;
+    border-top-left-radius: 0px;
+    border:none;
+    background-color: #e32115 !important;
+}
+
+
+.gallery, .gallery a {
+    border:none;
+    background-color: #bb3333;
+    border-bottom-left-radius: 25px;
+    color:white;
+}
+
+.news-image {
+    border-bottom-right-radius: 40px;
+    padding:10px;
+}
+
