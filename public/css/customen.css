@@ -1,13 +1,21 @@
 @media (min-width: 768px) and (max-width:2500px) {
 
 
-    .navbar-nav>li>a {
-        height: 100%;
-        position: relative;
-        padding: 0px;
-        padding-top:80%;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 50px;
+    /*.navbar-nav>li>a {*/
+        /*height: 100%;*/
+        /*position: relative;*/
+        /*padding: 0px;*/
+        /*padding-top:80%;*/
+        /*border-bottom-left-radius: 0px;*/
+        /*border-bottom-right-radius: 50px;*/
+    /*}*/
+    .navbar-nav>li>a.ads  {
+        position: absolute;
+        top: 0;
+        left:150px;
+        width: 50%;
+        color: white;
+        background-color: #e32115 !important;
     }
 
 
@@ -36,4 +44,3 @@
     border-bottom-right-radius: 40px;
     padding:10px;
 }
-

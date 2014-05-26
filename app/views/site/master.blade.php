@@ -19,14 +19,14 @@
     {{ HTML::style('css/custom.css') }}
     @if ( LaravelLocalization::getCurrentLocaleName() == 'English')
     {{ HTML::style('css/customen.css') }}
-    {{ HTML::style('http://fonts.googleapis.com/css?family=Oswald') }}
+    {{ HTML::style('http://fonts.googleapis.com/earlyaccess/notosanslaoui.css') }}
     @endif
     <style type="text/css">
 
         @import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
 
         body {
-            font-family: 'Droid Arabic Kufi','Oswald', serif;
+            font-family: 'Droid Arabic Kufi','Noto Sans Lao UI', serif;
         }
 
     </style>
@@ -52,6 +52,7 @@
     <!-- Latest compiled and minified JavaScript -->
     {{ HTML::script('//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js') }}
+    {{ HTML::script('js/custom.js') }}
     <!-- <script src="http://tinymce.cachefly.net/4.0/tinymce.min.js"></script> -->
     @show
 </div>
