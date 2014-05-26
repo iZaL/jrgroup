@@ -27,11 +27,9 @@ $app = new Illuminate\Foundation\Application;
 //putenv('ENV=production');
 
 $env = $app->detectEnvironment(array(
-<<<<<<< HEAD
+
     'local'      => ['hawally']
-=======
-    'local'      => ['ZaL-PC','hawally']
->>>>>>> 9d5b38b8283d7d5729c0e98b18e25cf1e9c57f9d
+
 ));
 
 
