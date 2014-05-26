@@ -1,7 +1,7 @@
 @if($latest_event_posts)
 <div class="panel panel-default">
     <div class="panel-heading">
-        آخر الدورات
+        {{ Lang::get('site.general.latest_courses') }}
     </div>
     <div class="panel-body">
         <ul>

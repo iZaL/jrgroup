@@ -17,12 +17,18 @@
     @endif
     {{ HTML::style('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css') }}
     {{ HTML::style('css/custom.css') }}
+    @if ( LaravelLocalization::getCurrentLocaleName() == 'English')
+    {{ HTML::style('css/customen.css') }}
+    {{ HTML::style('http://fonts.googleapis.com/css?family=Oswald') }}
+    @endif
     <style type="text/css">
+
         @import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
 
         body {
-            font-family: 'Droid Arabic Kufi', serif;
+            font-family: 'Droid Arabic Kufi','Oswald', serif;
         }
+
     </style>
     @show
 
