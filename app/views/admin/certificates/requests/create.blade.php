@@ -71,8 +71,9 @@
         postfix: " certificates",
         prettify: false,
         hasGrid: true,
-        onChange: function(obj) {
-            alert('123');
+        onChange: function() {
+            var quantity = $('#quanity').val();
+            alert(quantity);
         }
     });
 

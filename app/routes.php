@@ -26,19 +26,16 @@ Route::group(
         'before' => ['LaravelLocalizationRedirectFilter'] // LaravelLocalization filter
     ),
     function() {
-        Route::get('/', array('as'=>'home', 'uses' => 'HomeController@index'));
-        Route::resource('/gallery', 'GalleriesController', array('index','view') );
+        Route::get('/', array('as'=>'index', 'uses' => 'HomeController@index'));
+        Route::resource('gallery', 'GalleriesController', array('index','view') );
         Route::get('gallery/{id}/album', ['as'=>'album','uses'=>'GalleriesController@showAlbum']);
-        Route::resource('/courses','EventsController', array('index','view'));
-        Route::resource('/news', 'BlogsController@index', array('index','view'));
+        Route::resource('course','EventsController', array('index','view'));
+        Route::resource('blog', 'BlogsController', array('index','view'));
 
+        Route::get('course/{id}/subscribe',array('as'=>'event.subscribe','uses'=>'SubscriptionsController@subscribe'));
+        Route::get('course/{id}/unsubscribe',array('as'=>'event.unsubscribe','uses'=>'EventsController@unsubscribe'));
 
-        Route::get('event/{id}/subscribe',array('as'=>'event.subscribe','uses'=>'SubscriptionsController@subscribe'));
-        Route::get('event/{id}/unsubscribe',array('as'=>'event.unsubscribe','uses'=>'EventsController@unsubscribe'));
-
-        Route::resource('event.comments', 'CommentsController', array('only' => array('store')));
-
-        Route::resource('blog','BlogsController', array('only' => array('index', 'show','view')));
+        Route::resource('course.comments', 'CommentsController', array('only' => array('store')));
 
         // User reset routes
         Route::get ('user/reset/{token}', 'UserController@getReset');
@@ -153,11 +150,6 @@ Route::get('forbidden',function() {
    return View::make('error.forbidden');
 });
 
-
-Route::get('/',
-    function() {
-    }
-);
 Route::get('/', array('uses' => 'HomeController@index', 'as'=>'home'));
 
 //push queue worker
