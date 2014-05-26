@@ -7,7 +7,7 @@ class CertificateOptionTypeTableSeeder extends Seeder {
         $dt = Carbon::now();
         $dateNow = $dt->toDateTimeString();
         $faker = Faker\Factory::create();
-        for ($i = 0; $i < 40; $i++)
+        for ($i = 0; $i < 4; $i++)
         {
             $meta = CertificateType::orderBy(DB::raw('RAND()'))->first()->id;
             $option = CertificateOption::orderBy(DB::raw('RAND()'))->first()->id;

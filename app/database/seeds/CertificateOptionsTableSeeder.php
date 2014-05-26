@@ -7,7 +7,7 @@ class CertificateOptionsTableSeeder extends Seeder {
         $dt = Carbon::now();
         $dateNow = $dt->toDateTimeString();
         $faker = Faker\Factory::create();
-        for ($i = 0; $i < 40; $i++)
+        for ($i = 0; $i < 16; $i++)
         {
             $meta = CertificateMeta::orderBy(DB::raw('RAND()'))->first()->id;
             $followers = array(

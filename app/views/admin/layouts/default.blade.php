@@ -54,7 +54,9 @@
         .nav > li > a {
             padding-right:0px;
         }
-
+        .alert {
+            margin:15px 0 0 0;
+        }
     </style>
 
     @yield('styles')

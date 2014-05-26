@@ -41,7 +41,6 @@ class AdminCertificateOptionTypesController extends AdminBaseController {
         $types = ['' => 'Select Certificate type'] +  $this->type->all()->lists('name','id');
         $options = ['' => 'Select Certificate option'] +  $this->option->all()->lists('name','id');
 //        $metas = ['' => 'Select Option Category'] + $this->meta->all()->lists('name','id');
-
         return View::make('admin.certificates.option-types.create',compact('options','types'));
     }
     public function store() {
@@ -115,5 +114,12 @@ class AdminCertificateOptionTypesController extends AdminBaseController {
         $this->model->find($id)->delete();
 
         return Redirect::action('AdminCertificateOptionTypesController@index');
+    }
+
+    public function getPrice($typeId,$optionId){
+        $optionType = $this->model->where('type_id',$typeId)->where('option_id',$optionId)->first();
+        if($optionType)
+            return (float)round($optionType->price);
+        return 0;
     }
 }

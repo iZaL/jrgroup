@@ -143,6 +143,7 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
     Route::post('gallery/{id}/video','AdminGalleriesController@postVideos');
     Route::get('/', 'AdminEventsController@index');
     Route::get('certificate-type/{id}/get-price','AdminCertificateTypesController@getPrice');
+    Route::get('certificate-option/{typeId}/option/{optionId}/get-price','AdminCertificateOptionTypesController@getPrice');
 
 });
 

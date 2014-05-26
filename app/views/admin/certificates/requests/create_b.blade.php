@@ -68,6 +68,7 @@
         </div>
     </div>
 
+
 {{ Form::close() }}
 
 @if ($errors->any())
@@ -77,6 +78,8 @@
 @endif
 <script>
 
+
+    // get type price for Db
     function fetchTypePrice() {
         var typeId = $('#type_id').val();
         if (typeId) {
@@ -156,45 +159,40 @@
         });
     }
 
-    function calculate(obj) {
-        $('#quantity-value').html(obj.fromNumber);
-        var quantity = obj.fromNumber;
-        var typePrice = parseInt($('#type-price').html());
-        var prices = [];
-        var sum = 0;
-        $('.option-prices').each(function (i, obj) {
-            var a = parseInt($(this).html());
-            if (a) {
-                prices.push(a);
-            }
-//                options.push(obj.value);
-        });
-        prices.push(typePrice);
-
-        $(prices).each(function (i, value) {
-            sum = sum + value;
-//                sum += value;
-        })
-        var total = sum * quantity;
-        $('#total-amount').html(total + 'KD');
-    }
     $("#quantity").ionRangeSlider({
         min: 0,
-        max: 100,
+        max: 20,
         type: 'single',
         step: 1,
-        from: 1,
         postfix: " certificates",
         prettify: false,
         hasGrid: true,
-        onFinish: function (obj) {
-            calculate(obj);
+        onChange: function (obj) {
+            $('#quantity-value').html(obj.fromNumber);
+            var quantity = obj.fromNumber;
+            var typePrice = parseInt($('#type-price').html());
+            var prices = [];
+            var sum = 0;
+            $('.option-prices').each(function(i,obj) {
+                var a = parseInt($(this).html());
+                if(a) {
+                    prices.push(a);
+                }
+//                options.push(obj.value);
+            });
+            prices.push(typePrice);
+
+            $(prices).each(function(i,value){
+                sum = sum + value;
+//                sum += value;
+            })
+            var total = sum * quantity;
+            $('#total-amount').html(total + 'KD');
             // calculate price
         }
     });
 
     $('document').ready(function () {
-        // reset quantity
         // get selected prices
         fetchTypePrice();
         getOptPrice();
