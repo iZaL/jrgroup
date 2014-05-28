@@ -47,7 +47,7 @@ abstract class BaseController extends Controller
         });
     }
     public function getAds() {
-        View::composer('site.layouts.ads', function($view)
+        View::composer('site.partials.ads', function($view)
         {
             $ad1 = Ad::getAd1();
             $ad2 = Ad::getAd2();

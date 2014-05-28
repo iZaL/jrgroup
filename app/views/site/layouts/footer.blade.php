@@ -1,7 +1,7 @@
 <!--FOOTER-->
 <div class="col-md-12" id="footer">
     <div class="row">
-        <div class="col-lg-3 col-md-6 visable-lg pull-right" style="padding-top: 3%; text-align: center;">
+        <div class="col-lg-3 col-md-6 visable-lg pull-right" style="padding-top: 4%; text-align: center;">
             {{ Lang::get('site.general.follow-us')}}
         </div>
     </div>

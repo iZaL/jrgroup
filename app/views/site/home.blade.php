@@ -22,7 +22,13 @@
             </a>
             @endif
         @else
-        <img class="img-responsive" src="http://placehold.it/800x500" alt=""/>
+        <div class="row">
+            <div class="col-md-12">
+                <img class="img-responsive" src="http://placehold.it/800x500" alt=""/>
+                </br>
+            </div>
+        </div>
+        @include('site.partials.ads')
         @endif
     </div>
 </div>
