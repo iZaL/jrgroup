@@ -10,8 +10,8 @@
     <div class="navbar-collapse collapse navbar-responsive-collapse">
         <ul class="nav navbar-nav">
             <li class="{{ (Request::is('en') || Request::is('ar')) ? 'active' : '' }}" ><a href="{{ action('HomeController@index') }}">{{ Lang::get('site.nav.home')}}</a></li>
-            <li class="{{ (Request::is('*/gallery')) ? 'active' : '' }}"><a href="{{ action('GalleriesController@index') }}">{{ Lang::get('site.general.courses')}}</a></li>
-            <li class="{{  (Request::is('*/courses')) ? 'active' : '' }}"><a href="{{ action('GalleriesController@index') }}">{{ Lang::get('site.general.coursesgallery') }} </a></li>
+            <li class="{{ (Request::is('*/courses')) ? 'active' : '' }}"><a href="{{ action('EventsController@index') }}">{{ Lang::get('site.general.courses')}}</a></li>
+            <li class="{{ (Request::is('*/gallery')) ? 'active' : '' }}"><a href="{{ action('GalleriesController@index') }}">{{ Lang::get('site.general.coursesgallery') }} </a></li>
             <li class="{{ (Request::is('*/blog')) ? 'active' : '' }}"><a href="{{ action('BlogsController@index') }}">{{ Lang::get('site.nav.posts') }}</a></li>
             <li class="{{ (Request::is('*/contact-us')|| Request::is('contact-us'))? 'active' : '' }}"><a href="{{ action('ContactsController@index') }}">{{ Lang::get('site.nav.contactus') }}</a></li>
             <li><a class="ads" href="#"  data-toggle="modal" data-target="#myModal">

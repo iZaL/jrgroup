@@ -60,7 +60,7 @@
         </div>
         <div class="col-md-2">
             <div id="total">
-                <h2>Total</h2>
+                <h2>Total :</h2>
                 <h2 id="total-amount">
 
                 </h2>
@@ -76,6 +76,11 @@
 </div>
 @endif
 <script>
+    // fetch price from db async
+    var typeVal = $('#type_id').val();
+    var typePrice = $('#type-price');
+    var total = $('#total-amount');
+    var quantityVal = $('#quantity-value');
 
     function fetchTypePrice() {
         var typeId = $('#type_id').val();
@@ -91,7 +96,7 @@
                 },
                 success: function (data) {
                     if (data) {
-                        $('#type-price').html(data);
+                        typePrice.html(data);
                         return true;
                     }
                 }
@@ -101,14 +106,13 @@
         }
     }
 
-    // fetch option price from the db
+    // fetch price from db async
     function fetchOptionPrice(optionId, priceDiv) {
-        var typeId = $('#type_id').val();
         var optionPriceDiv = $('#option-price' + priceDiv);
         optionPriceDiv.empty();
-        if (typeId) {
+        if (typeVal) {
             $.ajax({
-                url: '/admin/certificate-option/' + typeId + '/option/' + optionId + '/get-price',
+                url: '/admin/certificate-option/' + typeVal + '/option/' + optionId + '/get-price',
                 type: 'GET',
                 cache: true,
                 dataType: "json",
@@ -137,11 +141,10 @@
         });
     });
 
-    // on change function
+    // option_id on change function
     function getOptionPrice(priceDiv, obj) {
 
-        var typeId = $('#type_id').val();
-        if(isNaN(typeId)) {
+        if (isNaN(typeVal)) {
             alert('Please Select Certificate Type First');
         }
         var optionId = obj.value;
@@ -156,28 +159,32 @@
         });
     }
 
+    // calculate total price
     function calculate(obj) {
-        $('#quantity-value').html(obj.fromNumber);
+        quantityVal.html(obj.fromNumber);
         var quantity = obj.fromNumber;
         var typePrice = parseInt($('#type-price').html());
         var prices = [];
         var sum = 0;
-        $('.option-prices').each(function (i, obj) {
-            var a = parseInt($(this).html());
-            if (a) {
-                prices.push(a);
+        $('.option-prices').each(function () {
+            var price = parseInt($(this).html());
+            if (price) {
+                prices.push(price);
             }
-//                options.push(obj.value);
         });
+        // push price to prices array
         prices.push(typePrice);
 
+        // add price from prices array
         $(prices).each(function (i, value) {
             sum = sum + value;
-//                sum += value;
         })
-        var total = sum * quantity;
-        $('#total-amount').html(total + 'KD');
+
+        var amount = sum * quantity;
+
+        total.html(amount + 'KD');
     }
+
     $("#quantity").ionRangeSlider({
         min: 0,
         max: 100,
