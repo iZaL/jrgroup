@@ -30,9 +30,9 @@ class HomeController extends BaseController {
     public function index()
     {
         $event = $this->event->with('photos')
-            ->whereHas('photos',function($q) {
-                $q->where('photos.id','>','1');
-            })
+//            ->whereHas('photos',function($q) {
+//                $q->where('photos.id','>','1');
+//            })
             ->where('events.date_start','<', Carbon::now()->toDateTimeString())
             ->orderBy('events.date_start','DESC')
             ->limit(1)

@@ -11,6 +11,13 @@
 
 @section('content')
 <div class="row">
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Library</a></li>
+        <li class="active">Data</li>
+    </ol>
+</div>
+<div class="row">
     @foreach($galleries->galleries as $gallery)
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail gallery">
