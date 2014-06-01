@@ -33,7 +33,7 @@ Route::group(
         Route::resource('blog', 'BlogsController', array('index','view'));
 
         Route::get('course/{id}/subscribe',array('as'=>'event.subscribe','uses'=>'SubscriptionsController@subscribe'));
-        Route::get('course/{id}/unsubscribe',array('as'=>'event.unsubscribe','uses'=>'EventsController@unsubscribe'));
+        Route::get('course/{id}/unsubscribe',array('as'=>'event.unsubscribe','uses'=>'SubscriptionsController@unsubscribe'));
 
         Route::resource('course.comments', 'CommentsController', array('only' => array('store')));
 

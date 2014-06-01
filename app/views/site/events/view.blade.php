@@ -7,68 +7,16 @@
 @section('styles')
     @parent
 @stop
-@section('scripts')
-@parent
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvY9Begj4WZQpP8b6IGFBACdnUhulMCok&sensor=false"></script>
-<script>
-    var id = '<?php echo $event->id; ?>';
-
-    function toggleTooltip(action) {
-        switch (action) {
-            case 'subscribe':
-                var ttip = '{{ Lang::get('site.event.unsubscribe') }}'
-                $('.subscribe_btn')
-                    .attr('title', ttip)
-                    .tooltip('fixTitle');
-                break;
-            case 'unsubscribe':
-                var ttip = '{{ Lang::get('site.event.subscribe') }}'
-                $('.subsribe_btn')
-                    .attr('title', ttip)
-                    .tooltip('fixTitle');
-                break;
-            default:
-        }
-    }
-
-</script>
-
-@if($event->latitude && $event->longitude)
-<script>
-    var latitude = '<?php echo $event->latitude?>';
-    var longitude = '<?php echo $event->longitude ?>';
-    function initialize() {
-        var myLatlng = new google.maps.LatLng(latitude,longitude);
-        var mapOptions  = {
-            zoom: 10,
-            center: myLatlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map
-        });
-
-        // collapse the map div
-        $('.collapse').collapse();
-    }
-
-    google.maps.event.addDomListener(window, 'load', initialize);
-
-</script>
-@endif
-@stop
-
 
 @section('content')
-    <div class="row">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvY9Begj4WZQpP8b6IGFBACdnUhulMCok&sensor=false"></script>
+
         <ol class="breadcrumb">
             <li><a href="{{ action('HomeController@index') }}">{{ Lang::get('site.nav.home') }}</a></li>
             <li><a href="{{ action('EventsController@index') }} ">{{ Lang::get('site.general.courses') }}</a></li>
             <li class="active"> {{ LocaleHelper::getLocaled($event->title,$event->title_en) }}</a></li>
         </ol>
-    </div>
+
     <div class="row">
         <div class="col-md-7">
             <h1>
@@ -80,12 +28,16 @@
 
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{{ action('SubscriptionsController@subscribe',$event->id) }}">
+                    @if($subscribed)
+                    <a href="{{ action('SubscriptionsController@unsubscribe',$event->id) }}">
+                        @else
+                        <a href="{{ action('SubscriptionsController@subscribe',$event->id) }}">
+                            @endif
                         <button
-                            type="button" class="col-md-12 col-sm-12 col-xs-12 events_btns btn btn-default btn-sm subscribe_btn "
+                            type="button" class="col-md-12 col-sm-12 col-xs-12 events_btns btn btn-default btn-sm subscribe_btn bg-blue "
                             data-toggle="tooltip" data-placement="top" title="{{ $subscribed? Lang::get('site.event.unsubscribe') : Lang::get('site.event.subscribe')  }}">
                             <i class="subscribe glyphicon glyphicon-check {{ $subscribed? 'active' :'' ;}}"></i>  </br>
-                            <span class="buttonText">{{ Lang::get('site.general.subscribe_btn_desc')}}</span></button>
+                            <span class="buttonText">{{ $subscribed? Lang::get('site.event.unsubscribe') : Lang::get('site.event.subscribe')  }}</span></button>
                     </a>
                 </div>
             </div>
@@ -183,11 +135,15 @@
         </div>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
+            @if($subscribed)
+            <a href="{{ action('SubscriptionsController@unsubscribe',$event->id) }}">
+            @else
             <a href="{{ action('SubscriptionsController@subscribe',$event->id) }}">
+            @endif
                 <button type="button" class="col-md-12 col-sm-12 col-xs-12 btn btn-default btn-sm subscribe_btn "
                         data-toggle="tooltip" data-placement="top" title="{{ $subscribed? Lang::get('site.event.unsubscribe') : Lang::get('site.event.subscribe')  }}">
                     <h2><i class="subscribe glyphicon glyphicon-check {{ $subscribed? 'active' :'' ;}}"></i>&nbsp;
-                       {{ Lang::get('site.event.subscribe') }}
+                        {{ $subscribed? Lang::get('site.event.unsubscribe') : Lang::get('site.event.subscribe')  }}
                     </h2></button>
             </a>
         </div>
@@ -227,6 +183,56 @@
             @endif
         </div>
     </div>
+@stop
 
+@section('scripts')
+@parent
+<script>
+    var id = '<?php echo $event->id; ?>';
 
+    function toggleTooltip(action) {
+        switch (action) {
+            case 'subscribe':
+                var ttip = '{{ Lang::get('site.event.unsubscribe') }}'
+                $('.subscribe_btn')
+                    .attr('title', ttip)
+                    .tooltip('fixTitle');
+                break;
+            case 'unsubscribe':
+                var ttip = '{{ Lang::get('site.event.subscribe') }}'
+                $('.subsribe_btn')
+                    .attr('title', ttip)
+                    .tooltip('fixTitle');
+                break;
+            default:
+        }
+    }
+
+</script>
+
+@if($event->latitude && $event->longitude)
+<script>
+    var latitude = '<?php echo $event->latitude?>';
+    var longitude = '<?php echo $event->longitude ?>';
+    function initialize() {
+        var myLatlng = new google.maps.LatLng(latitude,longitude);
+        var mapOptions  = {
+            zoom: 10,
+            center: myLatlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map
+        });
+
+        // collapse the map div
+        $('.collapse').collapse();
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+@endif
 @stop

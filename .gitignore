@@ -16,7 +16,6 @@ app/storage/sessions/*
 
 # Basset development collections
 /public/assets/compiled/
-/public/assets/compiled/
 /public/uploads/
 
 #vagrant

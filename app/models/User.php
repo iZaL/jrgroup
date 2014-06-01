@@ -229,6 +229,21 @@ class User extends ConfideUser{
         return $date;
     }
 
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
+    }
+
 //    protected function getDateFormat()
 //    {
 //        return 'Y-m-d';

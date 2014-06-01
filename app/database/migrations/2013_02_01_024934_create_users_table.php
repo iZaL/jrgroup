@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Database\Migrations\Migration;
 
-class ConfideSetupUsersTable extends Migration {
+class CreateUsersTable extends Migration {
 
     /**
      * Run the migrations.
@@ -29,9 +29,10 @@ class ConfideSetupUsersTable extends Migration {
             $table->string('instagram');
             $table->string('twitter');
             $table->string('confirmation_code');
-            $table->boolean('member')->default(false);
+            $table->boolean('member')->default(0);
             $table->boolean('confirmed')->default(false);
             $table->timestamp('expires_at');
+            $table->string('remember_token',100)->nullable();
             $table->timestamps();
         });
         // Creates password reminders table
