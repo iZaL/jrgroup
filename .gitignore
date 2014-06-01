@@ -6,10 +6,8 @@
 /app/config/local/
 /app/config/staging/
 
-app/storage/logs/*
 app/storage/cache/*
 app/storage/views/*
-app/storage/debugbar/*
 app/storage/sessions/*
 
 #/app/config/production
@@ -31,5 +29,9 @@ composer.lock
 
 # Packages
 _ide_helpers.php
+
+.env.php
+.env.*.php
+
 
 Thumbs.db
