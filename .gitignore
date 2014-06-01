@@ -6,7 +6,7 @@
 /app/config/local/
 /app/config/staging/
 
-app/logs/*
+app/storage/logs/*
 app/storage/cache/*
 app/storage/views/*
 app/storage/debugbar/*
