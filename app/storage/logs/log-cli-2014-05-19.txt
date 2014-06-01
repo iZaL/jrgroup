@@ -1,0 +1,9 @@
+[2014-05-19 12:56:16] local.ERROR: 500 - Call to undefined method Illuminate\Database\Schema\Blueprint::timstamp() @ /
+exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to undefined method Illuminate\Database\Schema\Blueprint::timstamp()' in C:\Users\ZaL\jrgroup\app\database\migrations\2013_02_05_024934_confide_setup_users_table.php:34
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-05-19 12:56:16] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to undefined method Illuminate\Database\Schema\Blueprint::timstamp()' in C:\Users\ZaL\jrgroup\app\database\migrations\2013_02_05_024934_confide_setup_users_table.php:34
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []

@@ -1,0 +1,384 @@
+[2014-05-06 14:03:10] local.ERROR: 500 - SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jrgroup.certificates' doesn't exist (SQL: insert into `certificates` (`amount`, `created_at`, `quantity`, `total`, `type_id`, `updated_at`, `user_id`) values (1, 2014-05-06 14:03:10, 16, 8, 37, 2014-05-06 14:03:10, 3)) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jrgroup.certificates' doesn't exist (SQL: insert into `certificates` (`amount`, `created_at`, `quantity`, `total`, `type_id`, `updated_at`, `user_id`) values (1, 2014-05-06 14:03:10, 16, 8, 37, 2014-05-06 14:03:10, 3))' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#3 C:\Users\ZaL\jrgroup\app\database\seeds\CertificatesTableSeeder.php(30): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificatesTableSeeder->run()
+#5 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(63): Illuminate\Database\Seeder->call('CertificatesTab...')
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-05-06 14:03:10] local.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jrgroup.certificates' doesn't exist (SQL: insert into `certificates` (`amount`, `created_at`, `quantity`, `total`, `type_id`, `updated_at`, `user_id`) values (1, 2014-05-06 14:03:10, 16, 8, 37, 2014-05-06 14:03:10, 3))' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#3 C:\Users\ZaL\jrgroup\app\database\seeds\CertificatesTableSeeder.php(30): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificatesTableSeeder->run()
+#5 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(63): Illuminate\Database\Seeder->call('CertificatesTab...')
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-05-06 14:04:49] local.ERROR: 500 - Object of class DateTime could not be converted to string @ /
+exception 'ErrorException' with message 'Object of class DateTime could not be converted to string' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Support\helpers.php:975
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleError(4096, 'Object of class...', 'C:\Users\ZaL\jr...', 975, Array)
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Support\helpers.php(975): preg_replace('/\?/', 'Object', 'insert into `ce...', 1)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\QueryException.php(53): str_replace_array('\?', Array, 'insert into `ce...')
+#3 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\QueryException.php(35): Illuminate\Database\QueryException->formatMessage('insert into `ce...', Array, Object(PDOException))
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(539): Illuminate\Database\QueryException->__construct('insert into `ce...', Array, Object(PDOException))
+#5 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#8 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php(25): Illuminate\Database\Query\Builder->insert(Array)
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateStatusesTableSeeder->run()
+#10 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#11 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#12 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#13 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#16 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#17 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#18 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#19 {main} [] []
+[2014-05-06 14:04:49] local.ERROR: exception 'ErrorException' with message 'Object of class DateTime could not be converted to string' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Support\helpers.php:975
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleError(4096, 'Object of class...', 'C:\Users\ZaL\jr...', 975, Array)
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Support\helpers.php(975): preg_replace('/\?/', 'Object', 'insert into `ce...', 1)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\QueryException.php(53): str_replace_array('\?', Array, 'insert into `ce...')
+#3 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\QueryException.php(35): Illuminate\Database\QueryException->formatMessage('insert into `ce...', Array, Object(PDOException))
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(539): Illuminate\Database\QueryException->__construct('insert into `ce...', Array, Object(PDOException))
+#5 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#8 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php(25): Illuminate\Database\Query\Builder->insert(Array)
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateStatusesTableSeeder->run()
+#10 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#11 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#12 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#13 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#16 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#17 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#18 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#19 {main} [] []
+[2014-05-06 14:05:02] local.ERROR: 500 - Object of class DateTime could not be converted to string @ /
+exception 'ErrorException' with message 'Object of class DateTime could not be converted to string' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Support\helpers.php:975
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleError(4096, 'Object of class...', 'C:\Users\ZaL\jr...', 975, Array)
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Support\helpers.php(975): preg_replace('/\?/', 'Object', 'insert into `ce...', 1)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\QueryException.php(53): str_replace_array('\?', Array, 'insert into `ce...')
+#3 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\QueryException.php(35): Illuminate\Database\QueryException->formatMessage('insert into `ce...', Array, Object(PDOException))
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(539): Illuminate\Database\QueryException->__construct('insert into `ce...', Array, Object(PDOException))
+#5 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#8 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php(25): Illuminate\Database\Query\Builder->insert(Array)
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateStatusesTableSeeder->run()
+#10 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#11 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#12 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#13 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#16 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#17 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#18 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#19 {main} [] []
+[2014-05-06 14:05:02] local.ERROR: exception 'ErrorException' with message 'Object of class DateTime could not be converted to string' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Support\helpers.php:975
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleError(4096, 'Object of class...', 'C:\Users\ZaL\jr...', 975, Array)
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Support\helpers.php(975): preg_replace('/\?/', 'Object', 'insert into `ce...', 1)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\QueryException.php(53): str_replace_array('\?', Array, 'insert into `ce...')
+#3 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\QueryException.php(35): Illuminate\Database\QueryException->formatMessage('insert into `ce...', Array, Object(PDOException))
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(539): Illuminate\Database\QueryException->__construct('insert into `ce...', Array, Object(PDOException))
+#5 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#8 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php(25): Illuminate\Database\Query\Builder->insert(Array)
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateStatusesTableSeeder->run()
+#10 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#11 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#12 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#13 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#16 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#17 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#18 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#19 {main} [] []
+[2014-05-06 14:07:01] local.ERROR: 500 - Object of class DateTime could not be converted to string @ /
+exception 'ErrorException' with message 'Object of class DateTime could not be converted to string' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Support\helpers.php:975
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleError(4096, 'Object of class...', 'C:\Users\ZaL\jr...', 975, Array)
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Support\helpers.php(975): preg_replace('/\?/', 'Object', 'insert into `ce...', 1)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\QueryException.php(53): str_replace_array('\?', Array, 'insert into `ce...')
+#3 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\QueryException.php(35): Illuminate\Database\QueryException->formatMessage('insert into `ce...', Array, Object(PDOException))
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(539): Illuminate\Database\QueryException->__construct('insert into `ce...', Array, Object(PDOException))
+#5 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#8 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php(25): Illuminate\Database\Query\Builder->insert(Array)
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateStatusesTableSeeder->run()
+#10 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#11 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#12 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#13 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#16 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#17 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#18 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#19 {main} [] []
+[2014-05-06 14:07:01] local.ERROR: exception 'ErrorException' with message 'Object of class DateTime could not be converted to string' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Support\helpers.php:975
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleError(4096, 'Object of class...', 'C:\Users\ZaL\jr...', 975, Array)
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Support\helpers.php(975): preg_replace('/\?/', 'Object', 'insert into `ce...', 1)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\QueryException.php(53): str_replace_array('\?', Array, 'insert into `ce...')
+#3 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\QueryException.php(35): Illuminate\Database\QueryException->formatMessage('insert into `ce...', Array, Object(PDOException))
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(539): Illuminate\Database\QueryException->__construct('insert into `ce...', Array, Object(PDOException))
+#5 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#8 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php(25): Illuminate\Database\Query\Builder->insert(Array)
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateStatusesTableSeeder->run()
+#10 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#11 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#12 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#13 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#16 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#17 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#18 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#19 {main} [] []
+[2014-05-06 14:08:24] local.ERROR: 500 - Class '2014-05-06 14:08:24' not found @ /
+exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class '2014-05-06 14:08:24' not found' in C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php:23
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-05-06 14:08:24] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class '2014-05-06 14:08:24' not found' in C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php:23
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-05-06 14:08:42] local.ERROR: 500 - Class '2014-05-06 14:08:42' not found @ /
+exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class '2014-05-06 14:08:42' not found' in C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php:23
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-05-06 14:08:42] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class '2014-05-06 14:08:42' not found' in C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php:23
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-05-06 14:08:49] local.ERROR: 500 - Class '2014-05-06 14:08:49' not found @ /
+exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class '2014-05-06 14:08:49' not found' in C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php:23
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-05-06 14:08:49] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class '2014-05-06 14:08:49' not found' in C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php:23
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-05-06 14:11:33] local.ERROR: 500 - Class '2014-05-06 14:11:33' not found @ /
+exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class '2014-05-06 14:11:33' not found' in C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php:23
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-05-06 14:11:33] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class '2014-05-06 14:11:33' not found' in C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php:23
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-05-06 14:14:14] local.ERROR: 500 - Class '2014-05-06 14:14:14' not found @ /
+exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class '2014-05-06 14:14:14' not found' in C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php:23
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-05-06 14:14:14] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class '2014-05-06 14:14:14' not found' in C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php:23
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-05-06 14:14:39] local.ERROR: 500 - SQLSTATE[42S22]: Column not found: 1054 Unknown column 'certificate_id' in 'field list' (SQL: insert into `certificate_statuses` (`certificate_id`, `created_at`, `status`, `updated_at`, `user_id`) values (12, 2014-05-06 14:14:38, CONFIRMED, 2014-05-06 14:14:38, 1)) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'certificate_id' in 'field list' (SQL: insert into `certificate_statuses` (`certificate_id`, `created_at`, `status`, `updated_at`, `user_id`) values (12, 2014-05-06 14:14:38, CONFIRMED, 2014-05-06 14:14:38, 1))' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#3 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php(27): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateStatusesTableSeeder->run()
+#5 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-05-06 14:14:39] local.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'certificate_id' in 'field list' (SQL: insert into `certificate_statuses` (`certificate_id`, `created_at`, `status`, `updated_at`, `user_id`) values (12, 2014-05-06 14:14:38, CONFIRMED, 2014-05-06 14:14:38, 1))' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#3 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php(27): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateStatusesTableSeeder->run()
+#5 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-05-06 14:16:03] local.ERROR: 500 - SQLSTATE[42S22]: Column not found: 1054 Unknown column 'request_id' in 'field list' (SQL: insert into `certificate_option_type` (`created_at`, `option_id`, `price`, `request_id`, `updated_at`) values (2014-05-06 14:16:03, 25, 3762.6820476, 31, 2014-05-06 14:16:03)) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'request_id' in 'field list' (SQL: insert into `certificate_option_type` (`created_at`, `option_id`, `price`, `request_id`, `updated_at`) values (2014-05-06 14:16:03, 25, 3762.6820476, 31, 2014-05-06 14:16:03))' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#3 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateRequestOptionTableSeeder.php(24): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateRequestOptionTableSeeder->run()
+#5 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(65): Illuminate\Database\Seeder->call('CertificateRequ...')
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-05-06 14:16:03] local.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'request_id' in 'field list' (SQL: insert into `certificate_option_type` (`created_at`, `option_id`, `price`, `request_id`, `updated_at`) values (2014-05-06 14:16:03, 25, 3762.6820476, 31, 2014-05-06 14:16:03))' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#3 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateRequestOptionTableSeeder.php(24): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateRequestOptionTableSeeder->run()
+#5 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(65): Illuminate\Database\Seeder->call('CertificateRequ...')
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-05-06 14:16:55] local.ERROR: 500 - SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jrgroup.certificate_request_option' doesn't exist (SQL: insert into `certificate_request_option` (`created_at`, `option_id`, `price`, `request_id`, `updated_at`) values (2014-05-06 14:16:55, 18, 5543.70890207, 38, 2014-05-06 14:16:55)) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jrgroup.certificate_request_option' doesn't exist (SQL: insert into `certificate_request_option` (`created_at`, `option_id`, `price`, `request_id`, `updated_at`) values (2014-05-06 14:16:55, 18, 5543.70890207, 38, 2014-05-06 14:16:55))' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#3 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateRequestOptionTableSeeder.php(24): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateRequestOptionTableSeeder->run()
+#5 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(65): Illuminate\Database\Seeder->call('CertificateRequ...')
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-05-06 14:16:55] local.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jrgroup.certificate_request_option' doesn't exist (SQL: insert into `certificate_request_option` (`created_at`, `option_id`, `price`, `request_id`, `updated_at`) values (2014-05-06 14:16:55, 18, 5543.70890207, 38, 2014-05-06 14:16:55))' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#3 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateRequestOptionTableSeeder.php(24): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateRequestOptionTableSeeder->run()
+#5 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(65): Illuminate\Database\Seeder->call('CertificateRequ...')
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-05-06 14:17:10] local.ERROR: 500 - SQLSTATE[42S22]: Column not found: 1054 Unknown column 'price' in 'field list' (SQL: insert into `certificate_request_options` (`created_at`, `option_id`, `price`, `request_id`, `updated_at`) values (2014-05-06 14:17:10, 37, 2, 39, 2014-05-06 14:17:10)) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'price' in 'field list' (SQL: insert into `certificate_request_options` (`created_at`, `option_id`, `price`, `request_id`, `updated_at`) values (2014-05-06 14:17:10, 37, 2, 39, 2014-05-06 14:17:10))' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#3 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateRequestOptionTableSeeder.php(24): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateRequestOptionTableSeeder->run()
+#5 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(65): Illuminate\Database\Seeder->call('CertificateRequ...')
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-05-06 14:17:10] local.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'price' in 'field list' (SQL: insert into `certificate_request_options` (`created_at`, `option_id`, `price`, `request_id`, `updated_at`) values (2014-05-06 14:17:10, 37, 2, 39, 2014-05-06 14:17:10))' in C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `ce...', Array, Object(Closure))
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `ce...', Array)
+#2 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1706): Illuminate\Database\Connection->insert('insert into `ce...', Array)
+#3 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateRequestOptionTableSeeder.php(24): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateRequestOptionTableSeeder->run()
+#5 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(65): Illuminate\Database\Seeder->call('CertificateRequ...')
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#7 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-05-06 14:23:49] local.ERROR: 500 - Trying to get property of non-object @ /
+exception 'ErrorException' with message 'Trying to get property of non-object' in C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php:15
+Stack trace:
+#0 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php(15): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', 'C:\Users\ZaL\jr...', 15, Array)
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateStatusesTableSeeder->run()
+#2 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#3 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-05-06 14:23:49] local.ERROR: exception 'ErrorException' with message 'Trying to get property of non-object' in C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php:15
+Stack trace:
+#0 C:\Users\ZaL\jrgroup\app\database\seeds\CertificateStatusesTableSeeder.php(15): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', 'C:\Users\ZaL\jr...', 15, Array)
+#1 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): CertificateStatusesTableSeeder->run()
+#2 C:\Users\ZaL\jrgroup\app\database\seeds\DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#3 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#4 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 C:\Users\ZaL\jrgroup\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\jrgroup\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\jrgroup\artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []

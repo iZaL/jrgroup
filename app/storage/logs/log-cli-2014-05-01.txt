@@ -1,0 +1,50 @@
+[2014-05-01 14:53:11] production.ERROR: 500 - Iron.io based queue must be default. @ /
+exception 'RuntimeException' with message 'Iron.io based queue must be default.' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Queue\Console\SubscribeCommand.php:45
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Queue\Console\SubscribeCommand->fire()
+#1 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\SubscribeCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#5 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#7 {main} [] []
+[2014-05-01 14:53:11] production.ERROR: exception 'RuntimeException' with message 'Iron.io based queue must be default.' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Queue\Console\SubscribeCommand.php:45
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Queue\Console\SubscribeCommand->fire()
+#1 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\SubscribeCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#5 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#7 {main} [] []
+[2014-05-01 14:55:51] production.ERROR: 500 - http error: 0 | SSL certificate problem: self signed certificate in certificate chain @ /
+exception 'Http_Exception' with message 'http error: 0 | SSL certificate problem: self signed certificate in certificate chain' in C:\Users\ZaL\kaizen\vendor\iron-io\iron_core\IronCore.class.php:303
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\iron-io\iron_core\IronCore.class.php(275): IronCore->reportHttpError(0, 'SSL certificate...')
+#1 C:\Users\ZaL\kaizen\vendor\iron-io\iron_core\IronCore.class.php(267): IronCore->callWithRetries()
+#2 C:\Users\ZaL\kaizen\vendor\iron-io\iron_mq\IronMQ.class.php(591): IronCore->apiCall('POST', 'projects/5331ac...', Array)
+#3 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Queue\Console\SubscribeCommand.php(48): IronMQ->updateQueue('email', Array)
+#4 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Queue\Console\SubscribeCommand->fire()
+#5 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\SubscribeCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-05-01 14:55:51] production.ERROR: exception 'Http_Exception' with message 'http error: 0 | SSL certificate problem: self signed certificate in certificate chain' in C:\Users\ZaL\kaizen\vendor\iron-io\iron_core\IronCore.class.php:303
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\iron-io\iron_core\IronCore.class.php(275): IronCore->reportHttpError(0, 'SSL certificate...')
+#1 C:\Users\ZaL\kaizen\vendor\iron-io\iron_core\IronCore.class.php(267): IronCore->callWithRetries()
+#2 C:\Users\ZaL\kaizen\vendor\iron-io\iron_mq\IronMQ.class.php(591): IronCore->apiCall('POST', 'projects/5331ac...', Array)
+#3 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Queue\Console\SubscribeCommand.php(48): IronMQ->updateQueue('email', Array)
+#4 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Queue\Console\SubscribeCommand->fire()
+#5 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\SubscribeCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []

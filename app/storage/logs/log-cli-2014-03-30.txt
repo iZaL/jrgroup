@@ -1,0 +1,231 @@
+[2014-03-30 15:52:50] production.ERROR: 500 - Class 'Faker\Factory' not found @ /
+exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Faker\Factory' not found' in C:\Users\ZaL\kaizen\app\database\seeds\RolesTableSeeder.php:11
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-03-30 15:52:50] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Faker\Factory' not found' in C:\Users\ZaL\kaizen\app\database\seeds\RolesTableSeeder.php:11
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-03-30 16:26:00] production.ERROR: 500 - SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ()) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ())' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `as...', Array, Object(Closure))
+#1 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `as...', Array)
+#2 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1707): Illuminate\Database\Connection->insert('insert into `as...', Array)
+#3 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Relations\BelongsToMany.php(692): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\kaizen\vendor\zizaco\entrust\src\Zizaco\Entrust\HasRole.php(149): Illuminate\Database\Eloquent\Relations\BelongsToMany->attach(NULL)
+#5 C:\Users\ZaL\kaizen\app\database\seeds\RolesTableSeeder.php(26): User->attachRole(Object(Role))
+#6 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): RolesTableSeeder->run()
+#7 C:\Users\ZaL\kaizen\app\database\seeds\DatabaseSeeder.php(34): Illuminate\Database\Seeder->call('RolesTableSeede...')
+#8 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#9 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#10 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#16 {main} [] []
+[2014-03-30 16:26:00] production.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ())' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `as...', Array, Object(Closure))
+#1 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `as...', Array)
+#2 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1707): Illuminate\Database\Connection->insert('insert into `as...', Array)
+#3 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Relations\BelongsToMany.php(692): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\kaizen\vendor\zizaco\entrust\src\Zizaco\Entrust\HasRole.php(149): Illuminate\Database\Eloquent\Relations\BelongsToMany->attach(NULL)
+#5 C:\Users\ZaL\kaizen\app\database\seeds\RolesTableSeeder.php(26): User->attachRole(Object(Role))
+#6 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): RolesTableSeeder->run()
+#7 C:\Users\ZaL\kaizen\app\database\seeds\DatabaseSeeder.php(34): Illuminate\Database\Seeder->call('RolesTableSeede...')
+#8 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#9 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#10 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#16 {main} [] []
+[2014-03-30 16:27:31] production.ERROR: 500 - SQLSTATE[42S02]: Base table or view not found: 1146 Table 'kaizen.assigned_roles' doesn't exist (SQL: truncate `assigned_roles`) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'kaizen.assigned_roles' doesn't exist (SQL: truncate `assigned_roles`)' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('truncate `assig...', Array, Object(Closure))
+#1 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1802): Illuminate\Database\Connection->statement('truncate `assig...', Array)
+#2 C:\Users\ZaL\kaizen\app\database\seeds\DatabaseSeeder.php(54): Illuminate\Database\Query\Builder->truncate()
+#3 C:\Users\ZaL\kaizen\app\database\seeds\DatabaseSeeder.php(30): DatabaseSeeder->cleanDatabase()
+#4 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#5 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#6 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#12 {main} [] []
+[2014-03-30 16:27:31] production.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'kaizen.assigned_roles' doesn't exist (SQL: truncate `assigned_roles`)' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('truncate `assig...', Array, Object(Closure))
+#1 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1802): Illuminate\Database\Connection->statement('truncate `assig...', Array)
+#2 C:\Users\ZaL\kaizen\app\database\seeds\DatabaseSeeder.php(54): Illuminate\Database\Query\Builder->truncate()
+#3 C:\Users\ZaL\kaizen\app\database\seeds\DatabaseSeeder.php(30): DatabaseSeeder->cleanDatabase()
+#4 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#5 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#6 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#12 {main} [] []
+[2014-03-30 16:28:54] production.ERROR: 500 - SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ()) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ())' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `as...', Array, Object(Closure))
+#1 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `as...', Array)
+#2 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1707): Illuminate\Database\Connection->insert('insert into `as...', Array)
+#3 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Relations\BelongsToMany.php(692): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\kaizen\vendor\zizaco\entrust\src\Zizaco\Entrust\HasRole.php(149): Illuminate\Database\Eloquent\Relations\BelongsToMany->attach(NULL)
+#5 C:\Users\ZaL\kaizen\app\database\seeds\RolesTableSeeder.php(26): User->attachRole(Object(Role))
+#6 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): RolesTableSeeder->run()
+#7 C:\Users\ZaL\kaizen\app\database\seeds\DatabaseSeeder.php(34): Illuminate\Database\Seeder->call('RolesTableSeede...')
+#8 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#9 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#10 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#16 {main} [] []
+[2014-03-30 16:28:54] production.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ())' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `as...', Array, Object(Closure))
+#1 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `as...', Array)
+#2 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1707): Illuminate\Database\Connection->insert('insert into `as...', Array)
+#3 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Relations\BelongsToMany.php(692): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\kaizen\vendor\zizaco\entrust\src\Zizaco\Entrust\HasRole.php(149): Illuminate\Database\Eloquent\Relations\BelongsToMany->attach(NULL)
+#5 C:\Users\ZaL\kaizen\app\database\seeds\RolesTableSeeder.php(26): User->attachRole(Object(Role))
+#6 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): RolesTableSeeder->run()
+#7 C:\Users\ZaL\kaizen\app\database\seeds\DatabaseSeeder.php(34): Illuminate\Database\Seeder->call('RolesTableSeede...')
+#8 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#9 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#10 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#16 {main} [] []
+[2014-03-30 16:31:21] production.ERROR: 500 - SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ()) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ())' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `as...', Array, Object(Closure))
+#1 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `as...', Array)
+#2 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1707): Illuminate\Database\Connection->insert('insert into `as...', Array)
+#3 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Relations\BelongsToMany.php(692): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\kaizen\vendor\zizaco\entrust\src\Zizaco\Entrust\HasRole.php(149): Illuminate\Database\Eloquent\Relations\BelongsToMany->attach(NULL)
+#5 C:\Users\ZaL\kaizen\app\database\seeds\RolesTableSeeder.php(26): User->attachRole(Object(Role))
+#6 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): RolesTableSeeder->run()
+#7 C:\Users\ZaL\kaizen\app\database\seeds\DatabaseSeeder.php(34): Illuminate\Database\Seeder->call('RolesTableSeede...')
+#8 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#9 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#10 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#16 {main} [] []
+[2014-03-30 16:31:21] production.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ())' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `as...', Array, Object(Closure))
+#1 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `as...', Array)
+#2 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1707): Illuminate\Database\Connection->insert('insert into `as...', Array)
+#3 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Relations\BelongsToMany.php(692): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\kaizen\vendor\zizaco\entrust\src\Zizaco\Entrust\HasRole.php(149): Illuminate\Database\Eloquent\Relations\BelongsToMany->attach(NULL)
+#5 C:\Users\ZaL\kaizen\app\database\seeds\RolesTableSeeder.php(26): User->attachRole(Object(Role))
+#6 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): RolesTableSeeder->run()
+#7 C:\Users\ZaL\kaizen\app\database\seeds\DatabaseSeeder.php(34): Illuminate\Database\Seeder->call('RolesTableSeede...')
+#8 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#9 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#10 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#16 {main} [] []
+[2014-03-30 16:31:48] production.ERROR: 500 - SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ()) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ())' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `as...', Array, Object(Closure))
+#1 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `as...', Array)
+#2 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1707): Illuminate\Database\Connection->insert('insert into `as...', Array)
+#3 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Relations\BelongsToMany.php(692): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\kaizen\vendor\zizaco\entrust\src\Zizaco\Entrust\HasRole.php(149): Illuminate\Database\Eloquent\Relations\BelongsToMany->attach(NULL)
+#5 C:\Users\ZaL\kaizen\app\database\seeds\RolesTableSeeder.php(26): User->attachRole(Object(Role))
+#6 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): RolesTableSeeder->run()
+#7 C:\Users\ZaL\kaizen\app\database\seeds\DatabaseSeeder.php(34): Illuminate\Database\Seeder->call('RolesTableSeede...')
+#8 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#9 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#10 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#16 {main} [] []
+[2014-03-30 16:31:48] production.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ())' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `as...', Array, Object(Closure))
+#1 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `as...', Array)
+#2 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1707): Illuminate\Database\Connection->insert('insert into `as...', Array)
+#3 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Relations\BelongsToMany.php(692): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\kaizen\vendor\zizaco\entrust\src\Zizaco\Entrust\HasRole.php(149): Illuminate\Database\Eloquent\Relations\BelongsToMany->attach(NULL)
+#5 C:\Users\ZaL\kaizen\app\database\seeds\RolesTableSeeder.php(26): User->attachRole(Object(Role))
+#6 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Seeder.php(37): RolesTableSeeder->run()
+#7 C:\Users\ZaL\kaizen\app\database\seeds\DatabaseSeeder.php(34): Illuminate\Database\Seeder->call('RolesTableSeede...')
+#8 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): DatabaseSeeder->run()
+#9 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#10 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#16 {main} [] []
+[2014-03-30 16:45:47] production.ERROR: 500 - SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ()) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ())' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `as...', Array, Object(Closure))
+#1 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `as...', Array)
+#2 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1707): Illuminate\Database\Connection->insert('insert into `as...', Array)
+#3 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Relations\BelongsToMany.php(692): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\kaizen\vendor\zizaco\entrust\src\Zizaco\Entrust\HasRole.php(149): Illuminate\Database\Eloquent\Relations\BelongsToMany->attach(NULL)
+#5 C:\Users\ZaL\kaizen\app\database\seeds\RolesTableSeeder.php(26): User->attachRole(Object(Role))
+#6 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): RolesTableSeeder->run()
+#7 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-03-30 16:45:47] production.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kaizen`.`assigned_roles`, CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) (SQL: insert into `assigned_roles` () values ())' in C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php:539
+Stack trace:
+#0 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(338): Illuminate\Database\Connection->run('insert into `as...', Array, Object(Closure))
+#1 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Connection.php(295): Illuminate\Database\Connection->statement('insert into `as...', Array)
+#2 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(1707): Illuminate\Database\Connection->insert('insert into `as...', Array)
+#3 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Relations\BelongsToMany.php(692): Illuminate\Database\Query\Builder->insert(Array)
+#4 C:\Users\ZaL\kaizen\vendor\zizaco\entrust\src\Zizaco\Entrust\HasRole.php(149): Illuminate\Database\Eloquent\Relations\BelongsToMany->attach(NULL)
+#5 C:\Users\ZaL\kaizen\app\database\seeds\RolesTableSeeder.php(26): User->attachRole(Object(Role))
+#6 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Database\Console\SeedCommand.php(52): RolesTableSeeder->run()
+#7 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\Users\ZaL\kaizen\vendor\laravel\framework\src\Illuminate\Console\Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(892): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\Users\ZaL\kaizen\vendor\symfony\console\Symfony\Component\Console\Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\Users\ZaL\kaizen\artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []

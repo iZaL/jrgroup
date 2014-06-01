@@ -6,8 +6,12 @@
 /app/config/local/
 /app/config/staging/
 
+app/tests/_log/*
+app/tests/_data/*
+app/storage/cache/*
+app/storage/views/*
+
 #/app/config/production
-/app/storage/
 
 # Basset development collections
 /public/assets/compiled/

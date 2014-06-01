@@ -12,7 +12,8 @@ class EventsController extends BaseController {
     protected $photo;
     protected $currentTime;
 
-    function __construct(EventModel $model, User $user, EventsMailer $mailer, Category $category, Photo $photo) {
+    function __construct(EventModel $model, User $user, EventsMailer $mailer, Category $category, Photo $photo)
+    {
         $this->model = $model;
         $this->user = $user;
         $this->mailer = $mailer;
@@ -28,12 +29,14 @@ class EventsController extends BaseController {
      */
 
 
-    public function index() {
+    public function index()
+    {
         $events = $this->model->with('photos')
-                    ->where('date_start','>',\Carbon\Carbon::now()->toDateTimeString())
-                    ->orderBy('date_start','ASC')
-                    ->orderBy('created_at','DESC')
-                    ->paginate(9);
+            ->where('date_start', '>', \Carbon\Carbon::now()->toDateTimeString())
+            ->orderBy('date_start', 'ASC')
+            ->orderBy('created_at', 'DESC')
+            ->paginate(9);
+
         return $this->view('site.events.index', compact('events'));
     }
 
@@ -43,7 +46,8 @@ class EventsController extends BaseController {
      * @param  int $id
      * @return Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         $event = $this->model->with('comments', 'author', 'photos', 'subscribers', 'followers', 'favorites')->findOrFail($id);
         $this->view('site.events.view', compact('event'));
 
@@ -56,7 +60,7 @@ class EventsController extends BaseController {
             });
         } else {
             View::composer('site.events.view', function ($view) {
-                $view->with(['subscribed' => FALSE]);
+                $view->with(['subscribed' => false]);
             });
         }
     }
@@ -65,7 +69,8 @@ class EventsController extends BaseController {
      * @return boolean
      * Subscribe an User to the Event
      */
-    public function subscribe($id) {
+    public function subscribe($id)
+    {
         //check whether user logged in
         $user = Auth::user();
         if (! empty($user->id)) {
@@ -74,7 +79,7 @@ class EventsController extends BaseController {
             if (Subscription::isSubscribed($id, $user->id)) {
                 // return you are already subscribed to this event
                 return Response::json(array(
-                    'success' => FALSE,
+                    'success' => false,
                     'message' => Lang::get('site.subscription.already_subscribed', array('attribute' => 'subscribed'))
                 ), 400);
             }
@@ -90,14 +95,14 @@ class EventsController extends BaseController {
                 $event->save();
 
                 return Response::json(array(
-                    'success' => TRUE,
+                    'success' => true,
                     'message' => Lang::get('site.subscription.subscribed', array('attribute' => 'subscribed'))
                 ), 200);
             }
 
             // notify no seats available
             return Response::json(array(
-                'success' => FALSE,
+                'success' => false,
                 'message' => Lang::get('site.subscription.no_seats_available')
             ), 400);
 
@@ -105,7 +110,7 @@ class EventsController extends BaseController {
 
         // notify user not authenticated
         return Response::json(array(
-            'success' => FALSE,
+            'success' => false,
             'message' => Lang::get('site.subscription.not_authenticated')
         ), 401);
 
@@ -117,7 +122,8 @@ class EventsController extends BaseController {
      * @return boolean true false
      * Unsubscribe a User from an event
      */
-    public function unsubscribe($id) {
+    public function unsubscribe($id)
+    {
         // check whether user authenticated
         $event = $this->model->findOrFail($id);
         $user = Auth::user();
@@ -131,13 +137,13 @@ class EventsController extends BaseController {
                     $event->save();
 
                     return Response::json(array(
-                        'success' => TRUE,
+                        'success' => true,
                         'message' => Lang::get('site.subscription.unsubscribed', array('attribute' => 'unsubscribed'))
                     ), 200);
 
                 } else {
                     return Response::json(array(
-                        'success' => FALSE,
+                        'success' => false,
                         // could not unsubscribe
                         'message' => Lang::get('site.subscription.error', array('attribute' => 'unsubscribe'))
                     ), 500);
@@ -145,13 +151,13 @@ class EventsController extends BaseController {
             } else {
                 // wrong access
                 return Response::json(array(
-                    'success' => FALSE,
+                    'success' => false,
                     'message' => Lang::get('site.subscription.not_subscribed', array('attribute' => 'subscribed'))
                 ), 400);
             }
         } else {
             return Response::json(array(
-                'success' => FALSE,
+                'success' => false,
                 'message' => Lang::get('site.subscription.not_authenticated')
             ), 403);
         }
@@ -163,7 +169,8 @@ class EventsController extends BaseController {
      * @return boolean
      * User to Follow an Event
      */
-    public function follow($id) {
+    public function follow($id)
+    {
         //check whether user logged in
         $user = Auth::user();
         if (! empty($user->id)) {
@@ -173,14 +180,14 @@ class EventsController extends BaseController {
             if (Follower::isFollowing($id, $user->id)) {
                 // return you are already subscribed to this event
                 return Response::json(array(
-                    'success' => FALSE,
+                    'success' => false,
                     'message' => Lang::get('site.subscription.already_subscribed', array('attribute' => 'following'))
                 ), 400);
             }
             $event->followers()->attach($user);
 
             return Response::json(array(
-                'success' => TRUE,
+                'success' => true,
                 'message' => Lang::get('site.subscription.subscribed', array('attribute' => 'following'))
             ), 200);
 
@@ -188,13 +195,14 @@ class EventsController extends BaseController {
 
         // notify user not authenticated
         return Response::json(array(
-            'success' => FALSE,
+            'success' => false,
             'message' => Lang::get('site.subscription.not_authenticated')
         ), 403);
 
     }
 
-    public function unfollow($id) {
+    public function unfollow($id)
+    {
         //check whether user logged in
         $user = Auth::user();
         if (! empty($user->id)) {
@@ -206,19 +214,19 @@ class EventsController extends BaseController {
 
                 if (Follower::unfollow($id, $user->id)) {
                     return Response::json(array(
-                        'success' => TRUE,
+                        'success' => true,
                         'message' => Lang::get('site.subscription.unsubscribed', array('attribute' => 'unfollowed'))
                     ), 200);
                 } else {
                     return Response::json(array(
-                        'success' => FALSE,
+                        'success' => false,
                         'message' => Lang::get('site.subscription.error', array('attribute' => 'unfollowing'))
                     ), 500);
                 }
             }
 
             return Response::json(array(
-                'success' => FALSE,
+                'success' => false,
                 'message' => Lang::get('site.subscription.not_subscribed', array('attribute' => 'following'))
             ), 400);
 
@@ -226,7 +234,7 @@ class EventsController extends BaseController {
 
         // notify user not authenticated
         return Response::json(array(
-            'success' => FALSE,
+            'success' => false,
             'message' => Lang::get('site.subscription.not_authenticated')
         ), 403);
 
@@ -237,7 +245,8 @@ class EventsController extends BaseController {
      * @return boolean
      * User to Follow an Event
      */
-    public function favorite($id) {
+    public function favorite($id)
+    {
         //check whether user logged in
         $user = Auth::user();
         if (! empty($user->id)) {
@@ -247,7 +256,7 @@ class EventsController extends BaseController {
             if (Favorite::hasFavorited($id, $user->id)) {
                 // return you are already subscribed to this event
                 return Response::json(array(
-                    'success' => FALSE,
+                    'success' => false,
                     'message' => Lang::get('site.subscription.already_subscribed', array('attribute' => 'favorited'))
                 ), 400);
             }
@@ -255,7 +264,7 @@ class EventsController extends BaseController {
             $event->favorites()->attach($user);
 
             return Response::json(array(
-                'success' => TRUE,
+                'success' => true,
                 'message' => Lang::get('site.subscription.subscribed', array('attribute' => 'favorited'))
             ), 200);
 
@@ -263,13 +272,14 @@ class EventsController extends BaseController {
 
         // notify user not authenticated
         return Response::json(array(
-            'success' => FALSE,
+            'success' => false,
             'message' => Lang::get('site.subscription.not_authenticated')
         ), 403);
 
     }
 
-    public function unfavorite($id) {
+    public function unfavorite($id)
+    {
         //check whether user logged in
         $user = Auth::user();
         if (! empty($user->id)) {
@@ -281,25 +291,25 @@ class EventsController extends BaseController {
 
                 if (Favorite::unfavorite($id, $user->id)) {
                     return Response::json(array(
-                        'success' => TRUE,
+                        'success' => true,
                         'message' => Lang::get('site.subscription.unsubscribed', array('attribute' => 'unfavorited'))
                     ), 200);
                 } else {
                     return Response::json(array(
-                        'success' => FALSE,
+                        'success' => false,
                         'message' => Lang::get('site.subscription.error', array('attribute' => 'unfavorite'))
                     ), 500);
                 }
             }
 
             return Response::json(array(
-                'success' => FALSE,
+                'success' => false,
                 'message' => Lang::get('site.subscription.not_subscribed', array('attribute' => 'favorited'))
             ), 400);
         }
 
         return Response::json(array(
-            'success' => FALSE,
+            'success' => false,
             'message' => Lang::get('site.subscription.not_authenticated')
         ), 403);
 
@@ -309,7 +319,8 @@ class EventsController extends BaseController {
      * @param object $event
      * @return integer
      */
-    protected function availableSeats($event) {
+    protected function availableSeats($event)
+    {
         //        $total_seats = $event->total_seats;
         ////        dd($total_seats);
         //        $seats_taken = $event->subscriptions->count();
@@ -322,7 +333,8 @@ class EventsController extends BaseController {
         return $event->available_seats;
     }
 
-    public function getSliderEvents() {
+    public function getSliderEvents()
+    {
         // fetch 3 latest post
         // fetches 2 featured post
         // order by event date, date created, featured
@@ -340,16 +352,18 @@ class EventsController extends BaseController {
 
             return $sliderEvents;
         } else {
-            return NULL;
+            return null;
         }
 
     }
 
-    public function isTheAuthor($user) {
-        return $this->author_id === $user->id ? TRUE : FALSE;
+    public function isTheAuthor($user)
+    {
+        return $this->author_id === $user->id ? true : false;
     }
 
-    public function getAuthor($id) {
+    public function getAuthor($id)
+    {
         $event = $this->model->find($id);
         $author = $event->author;
 
@@ -362,7 +376,8 @@ class EventsController extends BaseController {
      * @return mixed
      *
      */
-    public function getEvents($perPage) {
+    public function getEvents($perPage)
+    {
         return $this->model
             ->with(array('category', 'location.country', 'photos', 'author'))
             ->where('date_start', '>', $this->currentTime)->orderBy('date_start', 'DESC')

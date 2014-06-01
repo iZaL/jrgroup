@@ -4,6 +4,63 @@
     {{ $event->title }}
 @stop
 
+@section('styles')
+    @parent
+@stop
+@section('scripts')
+@parent
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvY9Begj4WZQpP8b6IGFBACdnUhulMCok&sensor=false"></script>
+<script>
+    var id = '<?php echo $event->id; ?>';
+
+    function toggleTooltip(action) {
+        switch (action) {
+            case 'subscribe':
+                var ttip = '{{ Lang::get('site.event.unsubscribe') }}'
+                $('.subscribe_btn')
+                    .attr('title', ttip)
+                    .tooltip('fixTitle');
+                break;
+            case 'unsubscribe':
+                var ttip = '{{ Lang::get('site.event.subscribe') }}'
+                $('.subsribe_btn')
+                    .attr('title', ttip)
+                    .tooltip('fixTitle');
+                break;
+            default:
+        }
+    }
+
+</script>
+
+@if($event->latitude && $event->longitude)
+<script>
+    var latitude = '<?php echo $event->latitude?>';
+    var longitude = '<?php echo $event->longitude ?>';
+    function initialize() {
+        var myLatlng = new google.maps.LatLng(latitude,longitude);
+        var mapOptions  = {
+            zoom: 10,
+            center: myLatlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map
+        });
+
+        // collapse the map div
+        $('.collapse').collapse();
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+
+@stop
+
+
 @section('content')
     <div class="row">
         <ol class="breadcrumb">
