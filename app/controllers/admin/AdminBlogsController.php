@@ -48,7 +48,9 @@ class AdminBlogsController extends AdminBaseController {
         // Title
         $title = Lang::get('admin/blogs/title.blog_management');
         // Grab all the blog posts
-        $posts = $this->post;
+//        $posts = $this->post;
+        $posts = Post::select(array('posts.id', 'posts.title', 'posts.id as comments', 'posts.created_at'))->get();
+
         // Show the page
         return View::make('admin/blogs/index', compact('posts', 'title'));
     }

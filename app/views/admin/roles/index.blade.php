@@ -31,8 +31,8 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->users }}</td>
                 <td>
-                    <a href="{{  URL::to('admin/users/' . $user->id . '/edit' ) }}" class="iframe btn btn-xs btn-default">{{{ Lang::get('button.edit') }}}</a>
-                    <a href="{{  URL::to('admin/users/' . $user->id . '/delete' ) }}" class="iframe btn btn-xs btn-danger">{{{ Lang::get('button.delete') }}}</a>
+                    <a href="{{  URL::to('admin/roles/' . $user->id . '/edit' ) }}" class="iframe btn btn-xs btn-default">{{{ Lang::get('button.edit') }}}</a>
+                    <a href="{{  URL::to('admin/roles/' . $user->id . '/delete' ) }}" class="iframe btn btn-xs btn-danger">{{{ Lang::get('button.delete') }}}</a>
                 </td>
             </tr>
             @endforeach
