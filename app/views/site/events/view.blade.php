@@ -4,7 +4,7 @@
     {{ $event->title }}
 @stop
 
-@section('styles')
+@section('style')
     @parent
 @stop
 

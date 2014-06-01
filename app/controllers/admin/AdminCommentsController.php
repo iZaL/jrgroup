@@ -31,8 +31,11 @@ class AdminCommentsController extends AdminBaseController
         $title = Lang::get('admin/comments/title.comment_management');
 
         // Grab all the comment posts
-        $comments = $this->comment;
-
+        $comments = Comment::leftjoin('events as posts', 'posts.id', '=', 'comments.commentable_id')
+            ->leftjoin('users', 'users.id', '=','comments.user_id' )
+            ->select(array('comments.id as id', 'posts.id as postid','users.id as userid', 'comments.content', 'posts.title as post_name', 'users.username as poster_name', 'comments.created_at'))
+//            ->where('comments.commentable_type','EventModel')
+            ->get();
         // Show the page
         return View::make('admin/comments/index', compact('comments', 'title'));
     }

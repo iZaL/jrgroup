@@ -55,9 +55,15 @@ class AdminUsersController extends AdminBaseController {
         $title = Lang::get('admin/users/title.user_management');
 
         // Grab all the users
-        $users = $this->user;
+//        $users = $this->user;
 
+        $users = User::leftjoin('assigned_roles', 'assigned_roles.user_id', '=', 'users.id')
+            ->leftjoin('roles', 'roles.id', '=', 'assigned_roles.role_id')
+            ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.confirmed', 'users.created_at', 'users.civilid', 'users.expires_at'))
+            ->groupBy('users.email')
+            ->orderBy('users.expires_at','ASC')->get();
         // Show the page
+
         return View::make('admin/users/index', compact('users', 'title'));
     }
 

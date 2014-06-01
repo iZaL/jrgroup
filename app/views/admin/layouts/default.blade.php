@@ -157,10 +157,7 @@
     <!-- ./ Footer -->
 
 </div>
-<!-- ./ container -->
 
-<!-- Javascripts -->
-<!--    <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>-->
 {{ Basset::show('admin.js') }}
 
 <script type="text/javascript">

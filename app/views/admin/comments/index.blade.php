@@ -13,37 +13,49 @@
 		</h3>
 	</div>
 
-	<table id="comments" class="table table-striped table-hover">
-		<thead>
-			<tr>
-				<th class="col-md-3">{{{ Lang::get('admin/comments/table.title') }}}</th>
-				<th class="col-md-3">{{{ Lang::get('admin/blogs/table.post_id') }}}</th>
-				<th class="col-md-2">{{{ Lang::get('admin/users/table.username') }}}</th>
-				<th class="col-md-2">{{{ Lang::get('admin/comments/table.created_at') }}}</th>
-				<th class="col-md-2">{{{ Lang::get('table.actions') }}}</th>
-			</tr>
-		</thead>
-	</table>
-@stop
+    <div id="wrap">
+        <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+            <thead>
+            <tr>
+                    <th class="col-md-3">{{{ Lang::get('admin/comments/table.title') }}}</th>
+                    <th class="col-md-3">{{{ Lang::get('admin/blogs/table.post_id') }}}</th>
+                    <th class="col-md-2">{{{ Lang::get('admin/users/table.username') }}}</th>
+                    <th class="col-md-2">{{{ Lang::get('admin/comments/table.created_at') }}}</th>
+                    <th class="col-md-2">{{{ Lang::get('table.actions') }}}</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($comments as $comment)
+            <tr class="gradeX">
+                <td>{{ $comment->content }}</td>
+                <td>{{ $comment->post_name }}</td>
+                <td>{{ $comment->poster_name }}</td>
+                <td>{{ $comment->created_at->toFormattedDateString() }}</td>
+                <td>
+                    <a href="{{  URL::to('admin/comments/' . $comment->id . '/edit' ) }}" class="iframe btn btn-xs btn-default">{{{ Lang::get('button.edit') }}}</a>
+                    <a href="{{  URL::to('admin/comments/' . $comment->id . '/delete' ) }}" class="iframe btn btn-xs btn-danger">{{{ Lang::get('button.delete') }}}</a>
+                </td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
 
-{{-- Scripts --}}
-@section('scripts')
-	<script type="text/javascript">
-		var oTable;
-		$(document).ready(function() {
-			oTable = $('#comments').dataTable( {
-				"sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-6'i><'col-md-6'p>>",
-				"sPaginationType": "bootstrap",
-				"oLanguage": {
-					"sLengthMenu": "_MENU_ records per page"
-				},
-				"bProcessing": true,
-		        "bServerSide": true,
-		        "sAjaxSource": "{{ URL::to('admin/comments/data') }}",
-		        "fnDrawCallback": function ( oSettings ) {
-	           		$(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
-	     		}
-			});
-		});
-	</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.datatable').dataTable({
+                "sPaginationType": "bs_four_button"
+            });
+            $('.datatable').each(function(){
+                var datatable = $(this);
+                // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+                var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+                search_input.attr('placeholder', 'Search');
+                search_input.addClass('form-control input-md');
+                // LENGTH - Inline-Form control
+                var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+                length_sel.addClass('form-control input-sm');
+            });
+        });
+    </script>
 @stop
