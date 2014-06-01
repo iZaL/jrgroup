@@ -6,6 +6,13 @@
 
 @section('content')
     <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="{{ action('HomeController@index') }}">{{ Lang::get('site.nav.home') }}</a></li>
+            <li><a href="{{ action('EventsController@index') }} ">{{ Lang::get('site.general.courses') }}</a></li>
+            <li class="active"> {{ LocaleHelper::getLocaled($event->title,$event->title_en) }}</a></li>
+        </ol>
+    </div>
+    <div class="row">
         <div class="col-md-7">
             <h1>
                 {{ LocaleHelper::getLocaled($event->title,$event->title_en) }}

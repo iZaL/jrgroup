@@ -290,8 +290,10 @@ class AdminUsersController extends AdminBaseController {
     {
         $users = User::leftjoin('assigned_roles', 'assigned_roles.user_id', '=', 'users.id')
             ->leftjoin('roles', 'roles.id', '=', 'assigned_roles.role_id')
-            ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.confirmed', 'users.created_at'))
-            ->groupBy('users.email');
+            ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.confirmed', 'users.created_at', 'users.civilid', 'users.expires_at'))
+            ->groupBy('users.email')
+            ->orderBy('users.expires_at','ASC')
+        ;
         return Datatables::of($users)
 
             ->edit_column('confirmed','@if($confirmed)

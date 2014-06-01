@@ -12,24 +12,19 @@
     {{ HTML::style('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css') }}
 
     @if ( LaravelLocalization::getCurrentLocaleName() == 'Arabic')
-    {{-- HTML::style('css/bootstrap-rtl.min.css') --}}
-    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.1.2/css/bootstrap-rtl.min.css') }}
+        {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.1.2/css/bootstrap-rtl.min.css') }}
+        <style type="text/css">
+            @import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+            body {
+                font-family: 'Droid Arabic Kufi','Noto Sans Lao UI', serif;
+            }
+        </style>
+    @else
+        {{ HTML::style('css/customen.css') }}
+        {{ HTML::style('http://fonts.googleapis.com/earlyaccess/notosanslaoui.css') }}
     @endif
     {{ HTML::style('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css') }}
     {{ HTML::style('css/custom.css') }}
-    @if ( LaravelLocalization::getCurrentLocaleName() == 'English')
-    {{ HTML::style('css/customen.css') }}
-    {{ HTML::style('http://fonts.googleapis.com/earlyaccess/notosanslaoui.css') }}
-    @endif
-    <style type="text/css">
-
-        @import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
-
-        body {
-            font-family: 'Droid Arabic Kufi','Noto Sans Lao UI', serif;
-        }
-
-    </style>
     @show
 
 </head>

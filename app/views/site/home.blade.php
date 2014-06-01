@@ -18,7 +18,7 @@
         @if(isset($event->photos))
             @if(count($event->photos))
             <a href="{{ action('EventsController@show',$event->id) }}" >
-                {{ HTML::image('uploads/large/'.$event->photos[0]->name.'','image1',array('class'=>'img-responsive img-thumbnail')) }}
+                {{ HTML::image('uploads/large/'.$event->photos[0]->name.'','image1',array('class'=>'img-responsive img-thumbnail','width'=>'100%')) }}
             </a>
             @endif
         @else
@@ -28,8 +28,8 @@
                 </br>
             </div>
         </div>
-        @include('site.partials.ads')
         @endif
+        @include('site.partials.ads')
     </div>
 </div>
 @stop

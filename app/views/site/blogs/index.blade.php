@@ -1,7 +1,13 @@
 @extends('site.master')
 @section('content')
+
 <div class="row">
     @foreach ($posts as $post)
+        <ol class="breadcrumb">
+            <li><a href="{{ action('HomeController@index') }}">{{ Lang::get('site.nav.home') }}</a></li>
+            <li><a href="{{ action('BlogsController@index') }} ">{{ Lang::get('site.nav.posts') }}</a></li>
+            <li class="active"> {{ LocaleHelper::getLocaled($post->title,$post->title_en) }}</a></li>
+        </ol>
     <div class="col-md-6">
         @if(count($post->photos))
         {{ HTML::image('uploads/medium/'.$post->photos[0]->name.'','image1',array('class'=>'img-responsive news-image')) }}

@@ -106,7 +106,7 @@ return array(
                 'address' => 'Address',
                 'follow-us' => 'Follow us on social networks',
                 'courses' => 'Courses',
-                'coursesgallery' => 'Courses Gallery',
+                'coursesgallery' => 'Gallery',
                 'latest_courses' => 'Latest Courses',
                 'latest_news' => 'Latest News',
     ),

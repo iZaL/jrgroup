@@ -12,9 +12,9 @@
 @section('content')
 <div class="row">
     <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Library</a></li>
-        <li class="active">Data</li>
+        <li><a href="{{ action('HomeController@index') }}">{{ Lang::get('site.nav.home') }}</a></li>
+        <li><a href="{{ action('GalleriesController@index') }} ">{{ Lang::get('site.general.coursesgallery') }}</a></li>
+        <li class="active">{{ Lang::get('site.event.category') }}</li>
     </ol>
 </div>
 <div class="row">
@@ -33,6 +33,7 @@
                 <div class="caption">
                     <p class="text-center">
                         <a href="{{ action('GalleriesController@showAlbum',$gallery->id) }}" >
+<!--                            {{ App::make('GalleriesController')->getDate($gallery->id) }}-->
                             {{ App::make('GalleriesController')->getDate($gallery->id) }}
                         </a>
                     </p>

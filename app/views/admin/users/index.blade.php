@@ -25,6 +25,8 @@
         <th class="col-md-2">{{{ Lang::get('admin/users/table.roles') }}}</th>
         <th class="col-md-2">{{{ Lang::get('admin/users/table.activated') }}}</th>
         <th class="col-md-2">{{{ Lang::get('admin/users/table.created_at') }}}</th>
+        <th class="col-md-2">{{{ Lang::get('admin/users/table.civilid') }}}</th>
+        <th class="col-md-2">{{{ Lang::get('admin/users/table.expires_at') }}}</th>
         <th class="col-md-2">{{{ Lang::get('table.actions') }}}</th>
     </tr>
     </thead>

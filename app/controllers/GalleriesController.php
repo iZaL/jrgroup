@@ -129,7 +129,7 @@ class GalleriesController extends BaseController {
                 }
             }
         }
-        return $date->format('Y-m-D');
+        return $date->format('D, M d Y');
     }
 
 	/**

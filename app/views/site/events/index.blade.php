@@ -11,6 +11,12 @@
 
 @section('content')
 <div class="row">
+    <ol class="breadcrumb">
+        <li><a href="{{ action('HomeController@index') }}">{{ Lang::get('site.nav.home') }}</a></li>
+        <li><a href="{{ action('EventsController@index') }} ">{{ Lang::get('site.general.courses') }}</a></li>
+    </ol>
+</div>
+<div class="row">
     @foreach($events as $event)
     <div class="col-sm-6 col-md-4">
         <div class="thumbnail gallery">
