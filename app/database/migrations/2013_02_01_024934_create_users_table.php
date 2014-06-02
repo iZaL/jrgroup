@@ -1,4 +1,6 @@
 <?php
+
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateUsersTable extends Migration {
@@ -10,8 +12,7 @@ class CreateUsersTable extends Migration {
      */
     public function up()
     {
-        // Creates the users table
-        Schema::create('users', function($table)
+        Schema::create('users', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -52,8 +53,11 @@ class CreateUsersTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('password_reminders');
-        Schema::drop('users');
+        Schema::table('users', function(Blueprint $table)
+        {
+            Schema::drop('password_reminders');
+            Schema::drop('users');
+        });
     }
 
 }
