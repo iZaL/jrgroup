@@ -12,7 +12,9 @@
 		<thead>
 			<tr>
 				<th>Name</th>
+                <th>Date</th>
 				<th>Type</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 
@@ -22,8 +24,8 @@
 					<td>{{ $category->title }}</td>
                     <td>{{ $category->date_start->format('D y m') }}</td>
                     <td><a href="{{ URL::action('AdminGalleriesController@getPhotos',  array($category->id), array('class' => 'btn btn-info')) }}">Add / Edit Photos</a></td>
-                    <td><a href="{{ URL::action('AdminGalleriesController@edit',  array($category->id), array('class' => 'btn btn-info')) }}">Edit</a></td>
-                    <td>
+                    <td><a href="{{ URL::action('AdminGalleriesController@edit',  array($category->id), array('class' => 'btn btn-info')) }}">Edit</a>
+
                         {{ Form::open(array('method' => 'DELETE', 'action' => array('AdminGalleriesController@destroy', $category->id))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}

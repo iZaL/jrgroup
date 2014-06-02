@@ -21,14 +21,14 @@
     <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
         <thead>
         <tr>
-            <th class="col-md-2">{{{ Lang::get('admin/users/table.username') }}}</th>
-            <th class="col-md-2">{{{ Lang::get('admin/users/table.email') }}}</th>
-            <th class="col-md-2">{{{ Lang::get('admin/users/table.roles') }}}</th>
-            <th class="col-md-2">{{{ Lang::get('admin/users/table.civilid') }}}</th>
-            <th class="col-md-2">{{{ Lang::get('admin/users/table.activated') }}}</th>
-            <th class="col-md-2">{{{ Lang::get('admin/users/table.created_at') }}}</th>
-            <th class="col-md-2">{{{ Lang::get('admin/users/table.expires_at') }}}</th>
-            <th class="col-md-2">{{{ Lang::get('table.actions') }}}</th>
+            <th >{{{ Lang::get('admin/users/table.username') }}}</th>
+            <th >{{{ Lang::get('admin/users/table.email') }}}</th>
+            <th >{{{ Lang::get('admin/users/table.roles') }}}</th>
+            <th >Civil ID</th>
+            <th >{{{ Lang::get('admin/users/table.activated') }}}</th>
+            <th >Registered</th>
+            <th >Expires</th>
+            <th >{{{ Lang::get('table.actions') }}}</th>
         </tr>
         </thead>
         <tbody>
