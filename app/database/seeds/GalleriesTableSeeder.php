@@ -7,7 +7,7 @@ class GalleriesTableSeeder extends Seeder {
         $faker = Faker\Factory::create();
         $dt = Carbon::now();
         $dateNow = $dt->toDateTimeString();
-        for ($i = 0; $i < 30; $i++)
+        for ($i = 0; $i < 10; $i++)
         {
             ;
             $event = EventModel::orderBy(DB::raw('RAND()'))->first()->id;

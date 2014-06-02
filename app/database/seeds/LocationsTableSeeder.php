@@ -7,7 +7,7 @@ class LocationsTableSeeder extends Seeder {
 		// Uncomment the below to wipe the table clean before populating
 //		 DB::table('locations')->truncate();
         $faker = Faker\Factory::create();
-        for ($i = 0; $i < 20; $i++)
+        for ($i = 0; $i < 6; $i++)
         {
             $country = Country::orderBy(DB::raw('RAND()'))->first()->id;
             $locations = array(

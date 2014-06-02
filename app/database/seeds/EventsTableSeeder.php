@@ -13,7 +13,7 @@ class EventsTableSeeder extends Seeder {
         $dt = Carbon::now();
         $dateNow = $dt->toDateTimeString();
 
-        for ($i = 0; $i < 50; $i++)
+        for ($i = 0; $i < 10; $i++)
         {
             $this->setDateStart($dt->addDays($faker->randomNumber(1,20))->toDateTimeString());
 

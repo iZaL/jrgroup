@@ -8,7 +8,7 @@ class CountriesTableSeeder extends Seeder {
 //		 DB::table('countries')->truncate();
 
         $faker = Faker\Factory::create();
-        for ($i = 0; $i < 6; $i++)
+        for ($i = 0; $i < 3; $i++)
         {
 		    $countries = array(
                 [
