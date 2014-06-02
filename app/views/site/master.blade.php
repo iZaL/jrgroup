@@ -19,12 +19,17 @@
                 font-family: 'Droid Arabic Kufi','Noto Sans Lao UI', serif;
             }
         </style>
-    @else
-        {{ HTML::style('css/customen.css') }}
-        {{ HTML::style('http://fonts.googleapis.com/earlyaccess/notosanslaoui.css') }}
     @endif
+
     {{ HTML::style('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css') }}
     {{ HTML::style('css/custom.css') }}
+
+    @if ( LaravelLocalization::getCurrentLocaleName() == 'English')
+
+    {{ HTML::style('css/customen.css') }}
+    {{ HTML::style('http://fonts.googleapis.com/earlyaccess/notosanslaoui.css') }}
+
+    @endif
     @show
 
 </head>
