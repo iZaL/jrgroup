@@ -147,6 +147,8 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
     Route::get('certificate-type/{id}/get-price','AdminCertificateTypesController@getPrice');
     Route::get('certificate-option/{typeId}/option/{optionId}/get-price','AdminCertificateOptionTypesController@getPrice');
 
+    //Newsletters
+    Route::resource('newsletters','AdminNewslettersController');
 });
 
 Route::get('forbidden',function() {

@@ -32,7 +32,7 @@
             <div class="caption">
                 <p class="text-center">
                     <a href="{{ action('EventsController@show',$event->id) }}" >
-                        {{ LocaleHelper::getLocaled($event->title,$event->title_en) }}
+                        {{ Str::limit(LocaleHelper::getLocaled($event->title,$event->title_en),25) }}
                     </a>
                 </p>
                 <a href="#" class="pull-right"><span class="glyphicon glyphicon-camera"></span>

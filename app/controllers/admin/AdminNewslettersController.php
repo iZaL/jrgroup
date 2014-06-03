@@ -14,6 +14,14 @@ class AdminNewslettersController extends AdminBaseController{
         $this->beforeFilter('Admin');
     }
 
+    public function index() {
+        return View::make('admin.newsletters.index');
+    }
+
+    public function stor() {
+
+    }
+
     public function send($data) {
         //@todo
         //send newsletter emai
