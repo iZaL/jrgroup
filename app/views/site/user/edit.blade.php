@@ -2,6 +2,9 @@
 @section('title')
     Edit Profile
 @stop
+@section('breadcrumb')
+<li>{{ Lang::get('site.general.edit_profile') }}</li>
+@stop
 @section('content')
 <div class="alert alert-warning">{{ Lang::get('site.general.warning_msg')}}</div>
 
@@ -30,7 +33,7 @@
     {{ Form::text('address',NULL,array('class'=>'form-control input-lg','placeholder'=> Lang::get('site.general.address'))) }}
     </br>
     <button class="btn btn-lg btn-primary btn-block signup-btn" type="submit">
-        Update my account
+        {{ Lang::get('site.general.update') }}
     </button>
     <br>
 {{ Form::close() }}

@@ -1,6 +1,10 @@
 @extends('site.master')
 @section('title')
-{{ Lang::get('confide.login.submit') }}
+{{ Lang::get('confide.signup.submit') }}
+@stop
+
+@section('breadcrumb')
+    <li>{{ Lang::get('confide.signup.title') }}</li>
 @stop
 @section('content')
 <div class="col-md-3 col-sm-3">

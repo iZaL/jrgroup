@@ -2,6 +2,9 @@
 @section('title')
 {{ Lang::get('confide.login.submit') }}
 @stop
+@section('breadcrumb')
+<li>{{ Lang::get('confide.login.title') }}</li>
+@stop
 @section('content')
 <div class="row">
     <div class="col-md-3 col-sm-3">

@@ -6,7 +6,7 @@
     <div class="panel-body">
         <ul>
             @foreach($latest_event_posts as $event)
-            <li>
+            <li class="unstyled"><i class="glyphicon glyphicon-calendar"></i>
                 <a href="{{ URL::action('EventsController@show',$event->id)}} ">
                     {{ LocaleHelper::getLocaled($event->title,$event->title_en) }}
                 </a>
