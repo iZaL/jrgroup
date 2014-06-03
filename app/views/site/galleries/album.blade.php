@@ -50,6 +50,12 @@
     </script>
 @stop
 
+@section('breadcrumb')
+<li><a href="{{ action('GalleriesController@index') }} ">{{ Lang::get('site.general.coursesgallery') }}</a></li>
+<li><a href="{{ action('GalleriesController@show', $album->category->id) }} "> {{ LocaleHelper::getLocaled($album->category->name,$album->category->name_en) }}</a></li>
+<li class="active">{{ $album->title }}</li>
+@stop
+
 @section('content')
 
 <div class="row">

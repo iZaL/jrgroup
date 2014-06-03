@@ -1,11 +1,22 @@
 @if(!Auth::check())
 {{ Form::open(array('action'=>'UserController@postLogin','method'=>'POST')) }}
     <div class="form-group">
-        {{ Form::text('email', NULL,array('class'=>'form-control','placeholder' => Lang::get('confide.username_e_mail'))) }}
+        <div class="input-group">
+            <div class="input-icon">
+                <i class="fa fa-user"></i>
+                {{ Form::text('email', NULL,array('class'=>'form-control','placeholder' => Lang::get('confide.username_e_mail'))) }}
+            </div>
+        </div>
     </div>
     <div class="form-group">
-        {{ Form::password('password', array('class'=>'form-control','placeholder' => Lang::get('confide.password'))) }}
+        <div class="input-group">
+            <div class="input-icon">
+                <i class="fa fa-lock"></i>
+                {{ Form::password('password', array('class'=>'form-control','placeholder' => Lang::get('confide.password'))) }}
+            </div>
+        </div>
     </div>
+
     <div class="form-group">
         <button type="submit" class="btn btn-default">{{ Lang::get('site.nav.login') }}</button>
         <a href="{{ action('UserController@create') }}" type="submit" class="btn btn-default">

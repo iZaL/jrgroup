@@ -57,6 +57,8 @@
         .alert {
             margin:15px 0 0 0;
         }
+
+
     </style>
 
     @yield('styles')

@@ -25,10 +25,8 @@
     {{ HTML::style('css/custom.css') }}
 
     @if ( LaravelLocalization::getCurrentLocaleName() == 'English')
-
-    {{ HTML::style('css/customen.css') }}
-    {{ HTML::style('http://fonts.googleapis.com/earlyaccess/notosanslaoui.css') }}
-
+        {{ HTML::style('css/customen.css') }}
+        {{ HTML::style('http://fonts.googleapis.com/earlyaccess/notosanslaoui.css') }}
     @endif
     @show
 
@@ -41,6 +39,8 @@
     <!-- END OF HEADER -->
     @include('site.partials.notifications')
     <!-- CONTENT -->
+    @include('site.partials.breadcrumb')
+
     @section('content')
 
     @show

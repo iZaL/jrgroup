@@ -9,13 +9,12 @@
     @parent
 @stop
 
+@section('breadcrumb')
+<li><a href="{{ action('GalleriesController@index') }} ">{{ Lang::get('site.general.coursesgallery') }}</a></li>
+@stop
+
+
 @section('content')
-<div class="row">
-    <ol class="breadcrumb">
-        <li><a href="{{ action('HomeController@index') }}">{{ Lang::get('site.nav.home') }}</a></li>
-        <li><a href="{{ action('GalleriesController@index') }} ">{{ Lang::get('site.general.coursesgallery') }}</a></li>
-    </ol>
-</div>
 <div class="row">
     @foreach($categories as $category)
         <div class="col-sm-6 col-md-4">

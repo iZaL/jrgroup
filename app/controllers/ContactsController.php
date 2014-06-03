@@ -31,7 +31,7 @@ class ContactsController extends BaseController {
 	{
 		//
         $contact = $this->model->first();
-        $this->view('site.partials.contact', ['contact'=> $contact]);
+        $this->view('site.contacts.index', ['contact' => $contact]);
 
 	}
 

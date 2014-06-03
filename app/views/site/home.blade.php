@@ -13,7 +13,7 @@
         @include('site.partials.login')
         @include('site.partials.latest-courses')
         @include('site.partials.latest-news')
-        @include('site.partials.subscription')
+        @include('site.partials.newsletter')
     </div>
     <div class="col-md-9 col-sm-9">
         @if(isset($event->photos))

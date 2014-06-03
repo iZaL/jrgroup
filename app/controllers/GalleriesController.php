@@ -196,7 +196,7 @@ class GalleriesController extends BaseController {
     public function showAlbum($id)
     {
 //		$model = $this->model->findOrFail($id);
-        $album = $this->model->with('photos')->find($id);
+        $album = $this->model->with(array('photos','category'))->find($id);
         return $this->view('site.galleries.album', compact('album'));
     }
 

@@ -7,15 +7,12 @@
 @section('style')
     @parent
 @stop
-
+@section('breadcrumb')
+    <li><a href="{{ action('EventsController@index') }} ">{{ Lang::get('site.general.courses') }}</a></li>
+    <li class="active"> {{ LocaleHelper::getLocaled($event->title,$event->title_en) }}</a></li>
+@stop
 @section('content')
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvY9Begj4WZQpP8b6IGFBACdnUhulMCok&sensor=false"></script>
-
-        <ol class="breadcrumb">
-            <li><a href="{{ action('HomeController@index') }}">{{ Lang::get('site.nav.home') }}</a></li>
-            <li><a href="{{ action('EventsController@index') }} ">{{ Lang::get('site.general.courses') }}</a></li>
-            <li class="active"> {{ LocaleHelper::getLocaled($event->title,$event->title_en) }}</a></li>
-        </ol>
 
     <div class="row">
         <div class="col-md-7">

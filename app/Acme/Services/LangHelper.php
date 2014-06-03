@@ -37,4 +37,15 @@ class LangHelper {
         return $this->localed;
     }
 
+    /**
+     * css stylesheet for pulling left pulling right for locale
+     */
+    public function pullLeftRight() {
+        if(App::getLocale() == 'en') {
+            return 'pull-left';
+        } else {
+            return 'pull-right';
+        }
+    }
+
 } 

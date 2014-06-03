@@ -9,14 +9,13 @@
     @parent
 @stop
 
+@section('breadcrumb')
+<li><a href="{{ action('GalleriesController@index') }} ">{{ Lang::get('site.general.coursesgallery') }}</a></li>
+<li><a href="{{ action('GalleriesController@show', $galleries->id) }} "> {{ LocaleHelper::getLocaled($galleries->name,$galleries->name_en) }}</a></li>
+
+@stop
+
 @section('content')
-<div class="row">
-    <ol class="breadcrumb">
-        <li><a href="{{ action('HomeController@index') }}">{{ Lang::get('site.nav.home') }}</a></li>
-        <li><a href="{{ action('GalleriesController@index') }} ">{{ Lang::get('site.general.coursesgallery') }}</a></li>
-        <li class="active">{{ Lang::get('site.event.category') }}</li>
-    </ol>
-</div>
 <div class="row">
     @foreach($galleries->galleries as $gallery)
         <div class="col-sm-6 col-md-4">
