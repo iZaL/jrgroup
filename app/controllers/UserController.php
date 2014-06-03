@@ -138,7 +138,6 @@ class UserController extends BaseController {
 
     }
 
-
     /**
      * Displays the login form
      *
@@ -147,7 +146,7 @@ class UserController extends BaseController {
     {
         $user = Auth::user();
         if(!empty($user->id)){
-            return Redirect::to('/');
+            return Redirect::action('HomeController@index')->with('info','You are already logged in');
         }
         $this->view('site.user.login');
     }
@@ -199,12 +198,12 @@ class UserController extends BaseController {
     {
         if ( Confide::confirm( $code ) )
         {
-            return Redirect::to('user/login')
-                ->with( 'notice', Lang::get('confide::confide.alerts.confirmation') );
+            return Redirect::action('UserController@getLogin')
+                ->with( 'info', Lang::get('confide::confide.alerts.confirmation') );
         }
         else
         {
-            return Redirect::to('user/login')
+            return Redirect::action('UserController@getLogin')
                 ->with( 'error', Lang::get('confide::confide.alerts.wrong_confirmation') );
         }
     }
@@ -215,10 +214,7 @@ class UserController extends BaseController {
      */
     public function getForgot()
     {
-        $this->layout->nav = view::make('site.layouts.nav');
-        $this->layout->maincontent = view::make('site.user.forgot');
-        $this->layout->sidecontent = view::make('site.layouts.sidebar');
-        $this->layout->footer = view::make('site.layouts.footer');
+        $this->view('site.user.forgot');
     }
 
     /**
@@ -229,14 +225,14 @@ class UserController extends BaseController {
     {
         if( Confide::forgotPassword( Input::get('email') ) )
         {
-            return Redirect::to('user/login')
-                ->with( 'notice', Lang::get('confide::confide.alerts.password_forgot') );
+            return Redirect::action('UserController@getLogin')
+                ->with('info', Lang::get('confide::confide.alerts.password_forgot') );
         }
         else
         {
-            return Redirect::to('user/forgot')
+            return Redirect::action('UserController@getForgot')
                 ->withInput()
-                ->with( 'error', Lang::get('confide::confide.alerts.wrong_password_forgot') );
+                ->with('error', Lang::get('confide::confide.alerts.wrong_password_forgot') );
         }
     }
 
@@ -246,10 +242,7 @@ class UserController extends BaseController {
      */
     public function getReset( $token )
     {
-        $this->layout->nav = view::make('site.layouts.nav');
-        $this->layout->maincontent = view::make('site.user.reset', ['token'=>$token]);
-        $this->layout->sidecontent = view::make('site.layouts.sidebar');
-        $this->layout->footer = view::make('site.layouts.footer');
+        $this->view('site.user.reset', ['token'=>$token]);
     }
 
 
@@ -268,12 +261,13 @@ class UserController extends BaseController {
         // By passing an array with the token, password and confirmation
         if( Confide::resetPassword( $input ) )
         {
-            return Redirect::to('user/login')
-                ->with( 'notice', Lang::get('confide::confide.alerts.password_reset') );
+            return Redirect::action('UserController@getLogin')
+                ->with( 'info', Lang::get('confide::confide.alerts.password_reset') );
         }
         else
         {
-            return Redirect::to('user/reset/'.$input['token'])
+            return Redirect::action('UserController@getReset',$input['token'])
+//            return Redirect::to('user/reset/'.$input['token'])
                 ->withInput()
                 ->with( 'error', Lang::get('confide::confide.alerts.wrong_password_reset') );
         }
@@ -335,7 +329,7 @@ class UserController extends BaseController {
         {
             $notice_msg = Lang::get('confide::confide.alerts.confirmation');
             return Redirect::action('UserController@getLogin')
-                ->with( 'notice', $notice_msg );
+                ->with( 'info', $notice_msg );
         }
         else
         {

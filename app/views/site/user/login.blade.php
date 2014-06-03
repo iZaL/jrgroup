@@ -9,17 +9,21 @@
         @include('site.partials.latest-news')
     </div>
     <div class="col-md-9 col-sm-9">
-        <div class="page-header">
-            <h1>{{ Lang::get('site.general.entry')}}</h1>
-        </div>
+        <h1>{{ Lang::get('site.general.entry')}}</h1>
         {{ Form::open(array('action'=>'UserController@postLogin','method'=>'POST')) }}
             <div class="form-group">
-                <label class="control-label" for="email">{{ Lang::get('confide.username_e_mail') }}</label>
-                {{ Form::text('email', NULL,array('class'=>'form-control','placeholder' => Lang::get('confide.username_e_mail'))) }}
+<!--                <label class="control-label" for="email">{{ Lang::get('confide.username_e_mail') }}</label>-->
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    {{ Form::text('email', NULL,array('class'=>'form-control','placeholder' => Lang::get('confide.username_e_mail'))) }}
+                </div>
             </div>
             <div class="form-group">
-                <label class="control-label" for="password"> {{ Lang::get('confide.password') }} </label>
-                {{ Form::password('password', array('class'=>'form-control','placeholder' => Lang::get('confide.password'))) }}
+<!--                <label class="control-label" for="password"> {{ Lang::get('confide.password') }} </label>-->
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    {{ Form::password('password', array('class'=>'form-control','placeholder' => Lang::get('confide.password'))) }}
+                </div>
             </div>
             <div class="form-group">
                 <label for="remember">{{ Lang::get('confide.login.remember') }}

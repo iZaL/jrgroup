@@ -25,6 +25,10 @@
 
 }
 
+body {
+    font-family: "Open Sans", sans-serif;
+}
+
 .panel-heading {
     border-top-right-radius: 30px;
     border-top-left-radius: 0px;

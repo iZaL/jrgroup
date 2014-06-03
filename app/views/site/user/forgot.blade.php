@@ -1,29 +1,24 @@
-@extends('site.layouts.home')
-@section('maincontent')
+@extends('site.master')
 
-<div class="page-header">
-    <h1>{{{ Lang::get('user/user.forgot_password') }}}</h1>
-</div>
-<form method="POST" action="{{ URL::action('UserController@postForgot') }}" accept-charset="UTF-8">
-    <input type="hidden" name="_token" value="{{{ Session::getToken() }}}">
+@section('breadcrumb')
+    <li>{{ Lang::get('user/user.forgot_password') }} </li>
+@stop
+@section('content')
+<h1>{{ Lang::get('user/user.forgot_password') }} </h1>
 
-    <div class="form-group">
-        <label for="email">{{{ Lang::get('confide::confide.e_mail') }}}</label>
-        <div class="input-append input-group">
-            <input class="form-control" placeholder="{{{ Lang::get('confide::confide.e_mail') }}}" type="text" name="email" id="email" value="{{{ Input::old('email') }}}">
-            <span class="input-group-btn">
-                <input class="btn btn-default" type="submit" value="{{{ Lang::get('confide::confide.forgot.submit') }}}">
-            </span>
+{{ Form::open(['action' => 'UserController@postForgot', 'method' => 'post']) }}
+<div class="form-group">
+    <div class="input-append input-group">
+        <div class="input-icon">
+            <i class="fa fa-user"></i>
+
+        {{ Form::text('email', null , ['class' => 'form-control','placeholder'=> Lang::get('confide::confide.e_mail') ]) }}
         </div>
+        <span class="input-group-btn">
+            <input class="btn btn-success" type="submit" value="{{{ Lang::get('confide::confide.forgot.submit') }}}">
+        </span>
     </div>
-
-    @if ( Session::get('error') )
-    <div class="alert alert-error alert-danger">{{{ Session::get('error') }}}</div>
-    @endif
-
-    @if ( Session::get('notice') )
-    <div class="alert">{{{ Session::get('notice') }}}</div>
-    @endif
-</form>
+</div>
+{{ Form::close() }}
 
 @stop

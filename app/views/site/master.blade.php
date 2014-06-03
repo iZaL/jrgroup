@@ -26,7 +26,6 @@
 
     @if ( LaravelLocalization::getCurrentLocaleName() == 'English')
         {{ HTML::style('css/customen.css') }}
-        {{ HTML::style('http://fonts.googleapis.com/earlyaccess/notosanslaoui.css') }}
     @endif
     @show
 
