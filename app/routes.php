@@ -56,6 +56,8 @@ Route::group(
         // Contact Us Page
         Route::resource('contact-us','ContactsController', array('only' => array('index')));
         Route::post('contact-us/contact','ContactsController@contact');
+
+        Route::post('newsletter','NewslettersController@store');
     }
 );
 
