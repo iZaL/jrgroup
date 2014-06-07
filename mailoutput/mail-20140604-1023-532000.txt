@@ -1,0 +1,21 @@
+To: zals <z4ls@live.com>
+Subject: Welcome to Kuwaitii!
+Message-ID: <649e207d07ca68b4fe1a8219bd63368a@localhost>
+Date: Wed, 04 Jun 2014 10:23:50 +0000
+From: Kaizen <Admin@Kaizen.com>
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+    <title>
+
+    </title>
+
+    <body>
+        <h1>Hello</h1>
+        <p> This Is a Test Email </p>
+    </body>
+</head>
+</html>

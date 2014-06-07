@@ -161,4 +161,3 @@ Route::get('/', array('uses' => 'HomeController@index', 'as'=>'home'));
 Route::post('queue/mails',function(){
    return Queue::marshal();
 });
-
