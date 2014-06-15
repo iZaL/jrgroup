@@ -54,6 +54,12 @@ class AdminCertificateRequestsController extends AdminBaseController {
     }
 
 
+    public function show($id) {
+        $request = $this->model->with(array('user','type','status'))->find($id);
+        return View::make('admin.certificates.view',compact('request'));
+    }
+
+
     public function create()
     {
         $types = ['' => 'Select Certificate type'] + $this->type->all()->lists('name', 'id');
@@ -178,5 +184,13 @@ class AdminCertificateRequestsController extends AdminBaseController {
         $total = ($typePrice + $optionPrice) * $quantity;
 
         return $total;
+    }
+
+    public function printDetail($id) {
+        $request = $this->model->with(array('user','type','status'))->find($id);
+//        $pdf = PDF::loadView('admin.certificates.requests.detail',compact('request'));
+//        return $pdf->download(str_random(10).'.pdf');
+        return View::make('admin.certificates.requests.detail',compact('request'));
+
     }
 }

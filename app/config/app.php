@@ -111,11 +111,11 @@ return array(
         'Zizaco\Confide\ConfideServiceProvider', // Confide Provider
         'Zizaco\Entrust\EntrustServiceProvider', // Entrust Provider for roles
         'Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider',
-        'Bllim\Datatables\DatatablesServiceProvider', // Datatables
         'Acme\Providers\NotificationServiceProvider',
         'Acme\Providers\EmailBlastServiceProvider',
         'Acme\Providers\LangHelperServiceProvider',
         'Intervention\Image\ImageServiceProvider',
+        'Barryvdh\DomPDF\ServiceProvider',
 
         'Basset\BassetServiceProvider', // Better Asset Management
 	),
@@ -194,8 +194,8 @@ return array(
         'Basset'          => 'Basset\Facade', // Better Asset Management
         'String'          => 'Andrew13\Helpers\String', // String
         'Carbon'          => 'Carbon\Carbon', // Carbon
-        'Datatables'      => 'Bllim\Datatables\Datatables', // DataTables
-        'LocaleHelper'    => 'Acme\Facades\LocaleHelper'
+        'LocaleHelper'    => 'Acme\Facades\LocaleHelper',
+        'PDF' => 'Barryvdh\DomPDF\Facade',
 
     ),
 

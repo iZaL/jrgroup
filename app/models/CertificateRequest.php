@@ -25,5 +25,9 @@ class CertificateRequest extends BaseModel {
     public function status() {
         return $this->hasOne('CertificateStatus','request_id');
     }
+
+    public function requestOption() {
+        return $this->hasMany('CertificateRequestOption','request_id');
+    }
 }
 

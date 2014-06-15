@@ -110,9 +110,17 @@
 	            	</div>
 				</div>
 				<!-- ./ groups -->
-			</div>
-			<!-- ./ general tab -->
-
+                <div class="form-group {{{ $errors->has('member') ? 'error' : '' }}}">
+                    <label class="col-md-2 control-label" for="roles">Is memeber ?</label>
+                    <div class="col-md-6">
+                        {{ Form::radio('member', '1', ($user->member == 1) ? true : '' ) }}
+                        Yes
+                        {{ Form::radio('member', '0', ($user->member == 0) ? true : '' ) }}
+                        NO
+                    </div>
+                    <!-- ./ general tab -->
+                </div>
+            </div>
 		</div>
 		<!-- ./ tabs content -->
 

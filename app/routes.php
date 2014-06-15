@@ -84,6 +84,7 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
     Route::post('users/{user}/delete', 'AdminUsersController@postDelete');
     Route::get('users/{id}/report','AdminUsersController@getReport');
     Route::post('users/{id}/report','AdminUsersController@postReport');
+    Route::get('users/{id}/print','AdminUsersController@printDetail');
     Route::controller('users', 'AdminUsersController');
 
     # User Role Management
@@ -132,6 +133,7 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
     Route::resource('requests','AdminStatusesController');
 
     //certificates
+    Route::get('certificate-request/{id}/print/','AdminCertificateRequestsController@printDetail');
     Route::resource('certificate-request','AdminCertificateRequestsController');
     Route::resource('certificate-status','AdminCertificateStatusesController');
     Route::resource('certificate-type','AdminCertificateTypesController');

@@ -105,63 +105,57 @@
             </div>
         </div>
         <div class="col-sm-9 col-md-9">
+            <div class="well">
+                <btn class="btn btn-default"><a href="{{ action('AdminCertificateRequestsController@create')}}">Request a Certificate </a> </btn>
+                <h1> Certificate Requests </h1>
 
-            <table class="well table table-hover">
-                <thead>
-                <tr>
-                    <th>CertificateType</th>
-                    <th class="text-center">User</th>
-                    <th class="text-center">Quantity</th>
-                    <th class="text-center">Total</th>
-                    <th class="text-center">Status</th>
-                    <th class="text-center">Details</th>
-                    <th class="text-center">Action</th>
-                    <th> </th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($requests as $request)
+                @if ($requests->count())
+                <table class="table table-striped table-bordered">
+                    <thead>
                     <tr>
-                        <td class="col-sm-8 col-md-4">
-                            <div class="media">
-                                <div class="media-body">
-                                    <h4 class="media-heading"><a href="#">{{ $request->type->name }}</a></h4>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="col-sm-1 col-md-1" style="text-align: center">
-                            {{ $request->user->username }}
-                        </td>
-                        <td class="col-sm-1 col-md-1" style="text-align: center">
-                            {{ $request->quantity }}
-                        </td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>
-                            {{ $request->amount }} KD
-                        </strong></td>
+                        <th>Certificate Type</th>
+                        <th>User</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    @foreach ($requests as $request)
+                    <tr>
+                        <td>{{ $request->type->name }}</a></td>
+                        <td>{{ $request->user->username }}</td>
+
+                        <td>{{ (float)round($request->amount) }} KD</td>
                         <td>
                             @if(count($request->status))
-                            <a href="{{ URL::action('AdminCertificateStatusesController@edit',  array($request->status->id), array('class' => 'btn btn-info')) }}">
-
-                                @if(count($request->status))
-                                {{ $request->status->status }} -
-                                @endif
-                                Edit</a>
+                                {{ $request->status->status }}
                             @endif
                         </td>
-                        <td><a href="{{ URL::action('AdminCertificateRequestsController@show',  array($request->id), array('class' => 'btn btn-info')) }}">View</a></td>
+                        <td>Requested {{ $request->getHumanCreatedAtAttribute() }} </td>
+
+                        <td>
+                            @if(count($request->status))
+                                <a href="{{ URL::action('AdminCertificateStatusesController@edit',  array($request->status->id), array('class' => 'btn btn-info')) }}">Edit</a>
+                            @endif
+                        </td>
+                        <td><a href="{{ URL::action('AdminCertificateRequestsController@edit',  array($request->id), array('class' => 'btn btn-info')) }}">Edit Request</a></td>
                         <td>
                             {{ Form::open(array('method' => 'DELETE', 'action' => array('AdminCertificateStatusesController@destroy', $request->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-xs btn-danger')) }}
+                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                             {{ Form::close() }}
                         </td>
-                        <td class="col-sm-1 col-md-2">
-                            Requested {{ $request->getHumanCreatedAtAttribute() }}
-                        </td>
                     </tr>
-                @endforeach
-                </tbody>
-            </table>
+                    @endforeach
+                    </tbody>
+                </table>
+                @else
+                There are no Certificate Requests.
+                @endif
 
+                @stop
+
+            </div>
         </div>
     </div>
 @stop

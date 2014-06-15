@@ -244,6 +244,10 @@ class User extends ConfideUser{
         return 'remember_token';
     }
 
+    public function isMember() {
+        return $this->member;
+    }
+
 //    protected function getDateFormat()
 //    {
 //        return 'Y-m-d';

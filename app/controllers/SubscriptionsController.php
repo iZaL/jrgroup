@@ -34,6 +34,12 @@ class SubscriptionsController extends BaseController {
                 return Redirect::action('EventsController@show',$id)->with('error', Lang::get('site.subscription.already_subscribed', array('attribute'=>'subscribed')));
             }
 
+            if($event->isMemberEvent()) {
+                if(!$this->user->isMember()) {
+                    return Redirect::action('EventsController@show',$id)->with('error', 'Sorry, This Event is only for Members');
+                }
+            }
+
             // get status of this user
             $status = $this->status->getStatus($event->id,$user->id);
             if($status) {

@@ -25,9 +25,11 @@
             <th >{{{ Lang::get('admin/users/table.email') }}}</th>
             <th >{{{ Lang::get('admin/users/table.roles') }}}</th>
             <th >Civil ID</th>
+            <th >Address</th>
             <th >{{{ Lang::get('admin/users/table.activated') }}}</th>
             <th >Registered</th>
             <th >Expires</th>
+            <th >Memeber</th>
             <th >{{{ Lang::get('table.actions') }}}</th>
         </tr>
         </thead>
@@ -38,10 +40,18 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->rolename }}</td>
                     <td>{{ $user->civilid }}</td>
+                    <td>{{ $user->address }}</td>
                     <td>{{ $user->confirmed }}</td>
                     <td>{{ $user->created_at->toFormattedDateString() }}</td>
                     <td>{{ $user->expires_at->toFormattedDateString() }}</td>
+                    <td>@if($user->member == '0')
+                        false
+                        @else
+                        true
+                        @endif
+                    </td>
                     <td>
+                        <a href="{{  URL::to('admin/users/' . $user->id . '/print' ) }}" class="iframe btn btn-xs btn-default"><i class="glyphicon glyphicon-print"></i> Print</a>
                         <a href="{{  URL::to('admin/users/' . $user->id . '/edit' ) }}" class="iframe btn btn-xs btn-default">{{{ Lang::get('button.edit') }}}</a>
                         <a href="{{  URL::to('admin/users/' . $user->id . '/delete' ) }}" class="iframe btn btn-xs btn-danger">{{{ Lang::get('button.delete') }}}</a>
                     </td>

@@ -26,5 +26,8 @@ class CertificateOptionType extends BaseModel {
                     ;
         return $price;
     }
+
+
+
 }
 

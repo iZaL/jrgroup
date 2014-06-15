@@ -26,13 +26,28 @@ class AdminCertificateDashboardController extends AdminBaseController {
 
     public function index() {
         $requests = $this->request->with(array('user','type','status'))->latest()->get();
+//        foreach ($requests as $request) {
+//            $requestOptions = $request->requestOption;
+//            foreach($requestOptions as $option) {
+//                dd($option->optionType->name);
+//            }
+//        }
+//        foreach($requests as $request) {
+//            foreach($request->requestOption as $requestOption) {
+//                var_dump($requestOption->getPriceSingle($request->type->id,$requestOption->option_id));
+//            }
+//            dd('a');
+//        }
+
         return View::make('admin.certificates.index',compact('requests'));
     }
+
 
 
     public function create() {
 
     }
+
     public function store() {
         $validation = new $this->model(Input::all());
         if (!$validation->save())

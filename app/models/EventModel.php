@@ -1,7 +1,12 @@
 <?php
 
 class EventModel extends BaseModel {
+
+    const PUBLIC_EVENT = 'PUBLIC';
+    const MEMBER_EVENT = 'MEMBERS';
 	protected $guarded = array();
+
+
 
 	public static $rules = array(
         'title'=>'required',
@@ -259,6 +264,15 @@ class EventModel extends BaseModel {
             $this->available_seats = $totalSeats - $totalSubscriptions;
             $this->save();
             return $this;
+        }
+    }
+
+    public function isMemberEvent() {
+
+        if ($this->type->type == self::MEMBER_EVENT) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

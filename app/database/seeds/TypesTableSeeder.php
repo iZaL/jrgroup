@@ -15,8 +15,8 @@ class TypesTableSeeder extends Seeder {
             $subscriptions = array(
                 [
                     'event_id' => $event,
-                    'type' => $faker->randomElement(['FREE','PAID']),
-                    'approval_type' =>  $faker->randomElement(['DIRECT','MOD']),
+                    'type' => $faker->randomElement(['PUBLIC','MEMBERS']),
+//                    'approval_type' =>  $faker->randomElement(['DIRECT','MOD']),
                     'created_at' => new DateTime,
                     'updated_at' => new DateTime
                 ]

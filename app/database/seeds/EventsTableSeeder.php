@@ -15,9 +15,9 @@ class EventsTableSeeder extends Seeder {
 
         for ($i = 0; $i < 10; $i++)
         {
-            $this->setDateStart($dt->addDays($faker->randomNumber(1,20))->toDateTimeString());
+            $this->setDateStart($dt->addDays($faker->numberBetween(1,20))->toDateTimeString());
 
-            $this->setDateEnd($dt->addDays($faker->randomNumber(2,20))->toDateTimeString());
+            $this->setDateEnd($dt->addDays($faker->numberBetween(2,20))->toDateTimeString());
 
             $this->checkDate();
 

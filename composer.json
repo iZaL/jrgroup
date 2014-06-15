@@ -9,15 +9,14 @@
         "laravelbook/ardent": "dev-master",
         "zizaco/confide": "3.2.x",
         "zizaco/entrust": "dev-master",
-        "bllim/datatables": "*",
         "twbs/bootstrap":  "3.0.0",
         "jasonlewis/basset": "dev-master",
         "j20/php-uuid": "dev-master",
         "mailchimp/mailchimp": "2.0.4",
         "intervention/image": "dev-master",
-		"pda/pheanstalk": "dev-master",
         "leafo/lessphp": "v0.4.0",
-        "iron-io/iron_mq": "1.5.1"
+        "iron-io/iron_mq": "1.5.1",
+        "barryvdh/laravel-dompdf": "dev-master"
 	},
     "require-dev": {
         "fzaninotto/faker": "1.4.*@dev"
