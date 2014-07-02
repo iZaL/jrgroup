@@ -4,6 +4,8 @@ class CertificateOptionsTableSeeder extends Seeder {
 
 	public function run()
 	{
+        DB::table('certificate_options')->truncate();
+
         $dt = Carbon::now();
         $dateNow = $dt->toDateTimeString();
         $faker = Faker\Factory::create();

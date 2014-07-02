@@ -4,7 +4,7 @@ class TypesTableSeeder extends Seeder {
 	public function run()
 	{
 		// Uncomment the below to wipe the table clean before populating
-		// DB::table('subscriptions')->truncate();
+		 DB::table('types')->truncate();
 
         $faker = Faker\Factory::create();
         for ($i = 0; $i < 40; $i++)
@@ -16,7 +16,7 @@ class TypesTableSeeder extends Seeder {
                 [
                     'event_id' => $event,
                     'type' => $faker->randomElement(['PUBLIC','MEMBERS']),
-//                    'approval_type' =>  $faker->randomElement(['DIRECT','MOD']),
+                    'approval_type' =>  $faker->randomElement(['DIRECT','MOD']),
                     'created_at' => new DateTime,
                     'updated_at' => new DateTime
                 ]

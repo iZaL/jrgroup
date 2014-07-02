@@ -2,43 +2,43 @@
 
 class DatabaseSeeder extends Seeder {
 
-    private $tables = [
-        'assigned_roles',
-        'authors',
-        'categories',
-        'comments',
-        'contacts',
-        'countries',
-        'events',
-        'failed_jobs',
-        'favorites',
-        'followers',
-        'locations',
-        'migrations',
-        'password_reminders',
-        'roles',
-        'permission_role',
-        'permissions',
-        'photos',
-        'posts',
-        'subscriptions',
-        'users',
-        'types',
-        'statuses',
-        'certificate_types',
-        'certificate_metas',
-        'certificate_options',
-        'certificate_requests',
-        'certificate_statuses',
-        'certificate_option_type',
-        'certificate_request_options',
-        'galleries'
-
-    ];
+//    private $tables = [
+//        'assigned_roles',
+//        'authors',
+//        'categories',
+//        'comments',
+//        'contacts',
+//        'countries',
+//        'events',
+//        'failed_jobs',
+//        'favorites',
+//        'followers',
+//        'locations',
+//        'migrations',
+//        'password_reminders',
+//        'roles',
+//        'permission_role',
+//        'permissions',
+//        'photos',
+//        'posts',
+//        'subscriptions',
+//        'users',
+//        'types',
+//        'statuses',
+//        'certificate_types',
+//        'certificate_metas',
+//        'certificate_options',
+//        'certificate_requests',
+//        'certificate_statuses',
+//        'certificate_option_type',
+//        'certificate_request_options',
+//        'galleries'
+//
+//    ];
     public function run()
     {
         Eloquent::unguard();
-        $this->cleanDatabase();
+//        $this->cleanDatabase();
         // Add calls to Seeders here
         $this->call('UsersTableSeeder');
         $this->call('RolesTableSeeder');
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder {
 //		$this->call('PhotosTableSeeder');
 //		$this->call('AuthorsTableSeeder');
         $this->call('ContactsTableSeeder');
-//        $this->call('StatusesTableSeeder');
+        $this->call('StatusesTableSeeder');
         $this->call('TypesTableSeeder');
         $this->call('CertificateTypesTableSeeder');
         $this->call('CertificateMetasTableSeeder');
@@ -64,17 +64,17 @@ class DatabaseSeeder extends Seeder {
 //        $this->call('CertificatesTableSeeder');
 //        $this->call('CertificateStatusesTableSeeder');
 //        $this->call('CertificateRequestOptionTableSeeder');
-        $this->call('GalleriesTableSeeder');
+//        $this->call('GalleriesTableSeeder');
 	}
 
-    private function cleanDatabase()
-    {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        foreach ($this->tables as $table) {
-            DB::table($table)->truncate();
-        }
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
-
-    }
+//    private function cleanDatabase()
+//    {
+//        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+//        foreach ($this->tables as $table) {
+//            DB::table($table)->truncate();
+//        }
+//        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+//
+//    }
 
 }

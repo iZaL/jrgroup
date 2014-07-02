@@ -8,7 +8,7 @@ class EventsTableSeeder extends Seeder {
 	public function run()
 	{
 		// Uncomment the below to wipe the table clean before populating
-//		DB::table('events')->truncate();
+		DB::table('events')->truncate();
         $faker = Faker\Factory::create();
         $dt = Carbon::now();
         $dateNow = $dt->toDateTimeString();
@@ -42,7 +42,7 @@ class EventsTableSeeder extends Seeder {
                     'slug'=> $faker->sentence(10),
                     'date_start' =>$this->getDateStart(),
                     'date_end' => $this->getDateEnd(),
-                    'phone' => $faker->phoneNumber,
+                    'phone' => '4233',
                     'email'=>$faker->email,
                     'address' => $faker->address,
                     'address_en' => $faker->address,

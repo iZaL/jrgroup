@@ -3,7 +3,7 @@
 class GalleriesTableSeeder extends Seeder {
     public function run()
     {
-//        DB::table('posts')->truncate();
+        DB::table('galleries')->truncate();
         $faker = Faker\Factory::create();
         $dt = Carbon::now();
         $dateNow = $dt->toDateTimeString();

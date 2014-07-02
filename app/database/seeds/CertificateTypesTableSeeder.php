@@ -4,6 +4,7 @@ class CertificateTypesTableSeeder extends Seeder {
 
 	public function run()
 	{
+        DB::table('certificate_types')->truncate();
 
         $dt = Carbon::now();
         $dateNow = $dt->toDateTimeString();

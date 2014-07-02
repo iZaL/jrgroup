@@ -7,6 +7,7 @@ class CertificateMetasTableSeeder extends Seeder {
 
 	public function run()
 	{
+        DB::table('certificate_metas')->truncate();
         $dt = Carbon::now();
         $dateNow = $dt->toDateTimeString();
         $faker = Faker\Factory::create();

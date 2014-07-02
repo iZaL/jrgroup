@@ -6,6 +6,8 @@ class UsersTableSeeder extends Seeder {
 
     public function run()
     {
+        DB::table('users')->truncate();
+
         $dt = Carbon::now();
         $faker = Faker\Factory::create();
         $dateNow = $dt->toDateTimeString();
