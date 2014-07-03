@@ -1,18 +1,29 @@
-<table class="table table-striped">
+@extends('admin.layouts.print')
+@section('content')
+<table class="well table">
     <tr>
-        <td>Name : </td>
+        <td></td>
+        <td><b>Name in English<b></td>
         <td>
             @if($user->name_en)
-            {{ $user->name_en }}
-            @endif
-            -
-            @if($user->name_ar)
-            {{ $user->name_ar }}
+                {{ $user->name_en }}
+            @else
+            {{ Lang::get('site.general.notavail')}}
             @endif
         </td>
     </tr>
     <tr>
-        <td>Username : </td>
+        <td><b>Name in Arabic<b></td>
+        <td>
+            @if($user->name_ar)
+                {{ $user->name_ar }}
+            @else
+                {{ Lang::get('site.general.notavail')}}
+            @endif
+        </td>
+    </tr>
+    <tr>
+        <td><b>Username<b> </td>
         <td>
             @if($user->username)
             {{ $user->username }}
@@ -23,7 +34,7 @@
     </tr>
 
     <tr>
-        <td>Email : </td>
+        <td><b>Email</b> </td>
         <td>
             @if($user->email)
             {{ $user->email }}
@@ -33,7 +44,7 @@
         </td>
     </tr>
     <tr>
-        <td>Phone : </td>
+        <td><b>Phone</b> </td>
         <td>
             @if($user->phone)
             {{ $user->phone }}
@@ -43,7 +54,7 @@
         </td>
     </tr>
     <tr>
-        <td>Civil ID : </td>
+        <td><b>Civil ID</b> </td>
         <td>
             @if($user->civilid)
             {{ $user->civilid}}
@@ -53,7 +64,7 @@
         </td>
     </tr>
     <tr>
-        <td>Address : </td>
+        <td><b>Address </b></td>
         <td>
             @if($user->address)
             {{ $user->address}}
@@ -63,15 +74,30 @@
         </td>
     </tr>
     <tr>
-        <td>Date Registered : </td>
+        <td><b>Date Registered </b> </td>
         <td>
             {{ $user->created_at->format('Y-m-d') }}
         </td>
     </tr>
     <tr>
-        <td>Date Expiry : </td>
+        <td><b>Date Expiry </b> </td>
         <td>
+            @if($user->expires_at)
+                {{ $user->expires_at->format('Y-m-d') }}
+            @endif
+        </td>
+    </tr>
+    <tr>
+        <td><b>Member </b></td>
+        <td>
+            @if($user->member == 1 )
+            Yes
+            @else
+            no
+            @endif
         </td>
     </tr>
 
 </table>
+
+@stop

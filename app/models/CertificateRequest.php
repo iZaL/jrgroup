@@ -29,5 +29,9 @@ class CertificateRequest extends BaseModel {
     public function requestOption() {
         return $this->hasMany('CertificateRequestOption','request_id');
     }
+//
+//    public function requestOption() {
+//        return $this->belongsToMany('CertificateOptionType', 'certificate_request_options','request_id','option_id');
+//    }
 }
 

@@ -388,8 +388,9 @@ class AdminUsersController extends AdminBaseController {
         $user = $this->user->findOrFail($id);
 
         $pdf = PDF::loadView('admin.users.detail',compact('user'));
-        return $pdf->download(str_random(10).'.pdf');
-//        return View::make('admin.users.print',compact('user'));
+
+        return $pdf->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->stream(str_random(10).'.pdf');
+//        return View::make('admin.users.detail',compact('user'));
 
     }
 }

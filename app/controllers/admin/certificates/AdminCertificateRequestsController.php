@@ -250,14 +250,18 @@ class AdminCertificateRequestsController extends AdminBaseController {
     public function printDetail($id)
     {
         $request = $this->model->with(array('user', 'type', 'status'))->find($id);
-//        $pdf = PDF::loadView('admin.certificates.requests.detail',compact('request'));
-//        return $pdf->download(str_random(10).'.pdf');
-        return View::make('admin.certificates.requests.detail', compact('request'));
+        $pdf = PDF::loadView('admin.certificates.requests.detail',compact('request'));
+
+        return $pdf->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->stream(str_random(10).'.pdf');
+
+//        return View::make('admin.certificates.requests.detail', compact('request'));
 
     }
 
     private function parseOptionId($key)
     {
         if ( substr($key, 0, 9) == "option_id" ) return true;
+
+        return false;
     }
 }
