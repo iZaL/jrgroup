@@ -42,10 +42,10 @@ class AdminCertificateRequestsController extends AdminBaseController {
         $this->requestOption = $requestOption;
         $this->model         = $model;
         $this->option        = $option;
+        $this->statusCtrl    = $statusCtrl;
+        $this->status        = $status;
+        $this->optionType    = $optionType;
         parent::__construct();
-        $this->statusCtrl = $statusCtrl;
-        $this->status     = $status;
-        $this->optionType = $optionType;
     }
 
     public function index()
@@ -117,6 +117,7 @@ class AdminCertificateRequestsController extends AdminBaseController {
             return Redirect::back()->withInput()->withErrors('Sorry, The Certificate Option You Requested is Invalid. Contact Admin Please');
         }
 
+        // get the total price for selected option ids
         $total = $this->calculateTotal($validOptions, $type->price);
 
         DB::beginTransaction();
@@ -130,9 +131,10 @@ class AdminCertificateRequestsController extends AdminBaseController {
                 return Redirect::back()->withInput()->withErrors($validation->getErrors());
             }
 
-            // delete old results
+            // delete old request options
             DB::table('certificate_request_options')->whereRequestId($validation->id)->delete();
 
+            // foreach valid selected options create the entry in request option table
             foreach ( $validOptions as $option_id ) {
 
                 $requestOption             = new $this->requestOption;
@@ -167,9 +169,12 @@ class AdminCertificateRequestsController extends AdminBaseController {
 
     }
 
-
     public function edit($id)
     {
+
+        // not allowed
+        return Redirect::action('AdminCertificateDashboardController@index')->with('info', 'Sorry, Updating is not allowed');
+
         $request = $this->model->findOrFail($id);
         $types   = ['' => 'Select Certificate type'] + $this->type->all()->lists('name', 'id');
         $metas   = $this->meta->all();
@@ -179,10 +184,6 @@ class AdminCertificateRequestsController extends AdminBaseController {
 
     public function update($id)
     {
-
-        // not allowed
-        return Redirect::action('AdminCertificateDashboardController@index')->with('info', 'Sorry, Updating is not allowed');
-
         $typePrice = $this->type->findOrFail(Input::get('type_id'));
         $options   = array();
         foreach ( Input::all() as $key => $value ) {
@@ -232,10 +233,15 @@ class AdminCertificateRequestsController extends AdminBaseController {
      */
     public function calculateTotal(array $option_ids, $type_id)
     {
+        //get the sum (total amount) of the option ids
         $optionPrice = $this->optionType->getPrice($option_ids);
+
+        // round up the value
         $optionPrice = (float) round($optionPrice->total);
+
         $quantity    = Input::get('quantity');
 
+        // calculate total
         $total = ($type_id + $optionPrice) * $quantity;
 
         return $total;
