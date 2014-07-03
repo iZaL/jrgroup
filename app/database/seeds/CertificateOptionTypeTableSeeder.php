@@ -9,7 +9,7 @@ class CertificateOptionTypeTableSeeder extends Seeder {
         $dt = Carbon::now();
         $dateNow = $dt->toDateTimeString();
         $faker = Faker\Factory::create();
-        for ($i = 0; $i < 4; $i++)
+        for ($i = 0; $i < 2; $i++)
         {
             $meta = CertificateType::orderBy(DB::raw('RAND()'))->first()->id;
             $option = CertificateOption::orderBy(DB::raw('RAND()'))->first()->id;
@@ -23,7 +23,7 @@ class CertificateOptionTypeTableSeeder extends Seeder {
                     'updated_at' => $dateNow
                 ]
             );
-            DB::table('certificate_option_type')->insert($followers);
+//            DB::table('certificate_option_type')->insert($followers);
 
         }
 

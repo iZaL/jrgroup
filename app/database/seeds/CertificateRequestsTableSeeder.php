@@ -8,28 +8,28 @@ class CertificateRequestsTableSeeder extends Seeder {
 	{
         DB::table('certificate_requests')->truncate();
 
-        $dt = Carbon::now();
-        $dateNow = $dt->toDateTimeString();
-        $faker = Faker\Factory::create();
-        for ($i = 0; $i < 40; $i++)
-        {
-            $user = User::orderBy(DB::raw('RAND()'))->first()->id;
-            $request = CertificateRequest::orderBy(DB::raw('RAND()'))->first()->id;
-            $option = CertificateStatus::orderBy(DB::raw('RAND()'))->first()->id;
+//        $dt = Carbon::now();
+//        $dateNow = $dt->toDateTimeString();
+//        $faker = Faker\Factory::create();
+//        for ($i = 0; $i < 40; $i++)
+//        {
+//            $user = User::orderBy(DB::raw('RAND()'))->first()->id;
+//            $request = CertificateRequest::orderBy(DB::raw('RAND()'))->first()->id;
+//            $option = CertificateStatus::orderBy(DB::raw('RAND()'))->first()->id;
+//
+//            $followers = array(
+//                [
+//                    'request_id'=> $user,
+//                    'user_id' => $request,
+//                    'status' => $option,
+//                    'quantity' => $faker->numberBetween(10,20),
+//                    'created_at' => $dateNow,
+//                    'updated_at' => $dateNow
+//                ]
+//            );
+//            DB::table('certificate_requests')->insert($followers);
 
-            $followers = array(
-                [
-                    'request_id'=> $user,
-                    'user_id' => $request,
-                    'status' => $option,
-                    'quantity' => $faker->numberBetween(10,20),
-                    'created_at' => $dateNow,
-                    'updated_at' => $dateNow
-                ]
-            );
-            DB::table('certificate_requests')->insert($followers);
-
-        }
+//        }
 	}
 
     /**

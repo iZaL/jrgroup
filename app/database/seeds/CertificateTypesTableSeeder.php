@@ -9,7 +9,7 @@ class CertificateTypesTableSeeder extends Seeder {
         $dt = Carbon::now();
         $dateNow = $dt->toDateTimeString();
         $faker = Faker\Factory::create();
-        for ($i = 0; $i < 4; $i++)
+        for ($i = 0; $i < 2; $i++)
         {
             $datas = array(
                 [

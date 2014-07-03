@@ -3,7 +3,7 @@
 {{-- Content --}}
 @section('content')
 
-<h1>Add Certificate Option</h1>
+<h1>Add Price</h1>
 
 {{ Form::open(array('action' => 'AdminCertificateOptionTypesController@store')) }}
 

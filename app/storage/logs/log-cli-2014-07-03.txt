@@ -1,0 +1,320 @@
+[2014-07-03 00:48:27] local.ERROR: 500 - SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jrgroup.certificates' doesn't exist (SQL: truncate `certificates`) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jrgroup.certificates' doesn't exist (SQL: truncate `certificates`)' in /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php:555
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php(338): Illuminate\Database\Connection->run('truncate `certi...', Array, Object(Closure))
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(1843): Illuminate\Database\Connection->statement('truncate `certi...', Array)
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificatesTableSeeder.php(9): Illuminate\Database\Query\Builder->truncate()
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificatesTableSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificatesTab...')
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#13 {main} [] []
+[2014-07-03 00:48:27] local.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jrgroup.certificates' doesn't exist (SQL: truncate `certificates`)' in /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php:555
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php(338): Illuminate\Database\Connection->run('truncate `certi...', Array, Object(Closure))
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(1843): Illuminate\Database\Connection->statement('truncate `certi...', Array)
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificatesTableSeeder.php(9): Illuminate\Database\Query\Builder->truncate()
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificatesTableSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificatesTab...')
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#13 {main} [] []
+[2014-07-03 00:49:17] local.ERROR: 500 - include(/Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateTypesTableSeeder.php): failed to open stream: No such file or directory @ /
+exception 'ErrorException' with message 'include(/Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateTypesTableSeeder.php): failed to open stream: No such file or directory' in /Users/ZaL/vaprobash/jrgroup/vendor/composer/ClassLoader.php:378
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/vendor/composer/ClassLoader.php(378): Illuminate\Exception\Handler->handleError(2, 'include(/Users/...', '/Users/ZaL/vapr...', 378, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/composer/ClassLoader.php(378): Composer\Autoload\includeFile()
+#2 /Users/ZaL/vaprobash/jrgroup/vendor/composer/ClassLoader.php(270): Composer\Autoload\includeFile('/Users/ZaL/vapr...')
+#3 [internal function]: Composer\Autoload\ClassLoader->loadClass('CertificateType...')
+#4 [internal function]: spl_autoload_call('CertificateType...')
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Container/Container.php(501): ReflectionClass->__construct('CertificateType...')
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Container/Container.php(425): Illuminate\Container\Container->build('CertificateType...', Array)
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(463): Illuminate\Container\Container->make('CertificateType...', Array)
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(55): Illuminate\Foundation\Application->make('CertificateType...')
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): Illuminate\Database\Seeder->resolve('CertificateType...')
+#10 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(60): Illuminate\Database\Seeder->call('CertificateType...')
+#11 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#12 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#13 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#16 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#17 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#18 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#19 {main} [] []
+[2014-07-03 00:49:17] local.ERROR: exception 'ErrorException' with message 'include(/Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateTypesTableSeeder.php): failed to open stream: No such file or directory' in /Users/ZaL/vaprobash/jrgroup/vendor/composer/ClassLoader.php:378
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/vendor/composer/ClassLoader.php(378): Illuminate\Exception\Handler->handleError(2, 'include(/Users/...', '/Users/ZaL/vapr...', 378, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/composer/ClassLoader.php(378): Composer\Autoload\includeFile()
+#2 /Users/ZaL/vaprobash/jrgroup/vendor/composer/ClassLoader.php(270): Composer\Autoload\includeFile('/Users/ZaL/vapr...')
+#3 [internal function]: Composer\Autoload\ClassLoader->loadClass('CertificateType...')
+#4 [internal function]: spl_autoload_call('CertificateType...')
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Container/Container.php(501): ReflectionClass->__construct('CertificateType...')
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Container/Container.php(425): Illuminate\Container\Container->build('CertificateType...', Array)
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(463): Illuminate\Container\Container->make('CertificateType...', Array)
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(55): Illuminate\Foundation\Application->make('CertificateType...')
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): Illuminate\Database\Seeder->resolve('CertificateType...')
+#10 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(60): Illuminate\Database\Seeder->call('CertificateType...')
+#11 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#12 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#13 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#16 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#17 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#18 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#19 {main} [] []
+[2014-07-03 00:49:44] local.ERROR: 500 - SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jrgroup.certificate_request_option' doesn't exist (SQL: truncate `certificate_request_option`) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jrgroup.certificate_request_option' doesn't exist (SQL: truncate `certificate_request_option`)' in /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php:555
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php(338): Illuminate\Database\Connection->run('truncate `certi...', Array, Object(Closure))
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(1843): Illuminate\Database\Connection->statement('truncate `certi...', Array)
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateRequestOptionTableSeeder.php(7): Illuminate\Database\Query\Builder->truncate()
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateRequestOptionTableSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(65): Illuminate\Database\Seeder->call('CertificateRequ...')
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#13 {main} [] []
+[2014-07-03 00:49:44] local.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jrgroup.certificate_request_option' doesn't exist (SQL: truncate `certificate_request_option`)' in /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php:555
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php(338): Illuminate\Database\Connection->run('truncate `certi...', Array, Object(Closure))
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(1843): Illuminate\Database\Connection->statement('truncate `certi...', Array)
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateRequestOptionTableSeeder.php(7): Illuminate\Database\Query\Builder->truncate()
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateRequestOptionTableSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(65): Illuminate\Database\Seeder->call('CertificateRequ...')
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#13 {main} [] []
+[2014-07-03 00:50:28] local.ERROR: 500 - SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'name' at row 1 (SQL: insert into `galleries` (`category_id`, `created_at`, `date_start`, `description`, `description_en`, `event_id`, `name`, `name_en`, `title`, `title_en`, `updated_at`) values (4, 2014-07-03 00:50:28, 2014-07-03 00:50:28, Quod fuga in dolores et maiores dolores non perferendis nostrum sunt., Et atque aperiam assumenda aut ea provident., 3, Voluptas odit nobis est ut explicabo officia aut facere eligendi quas vel itaque sequi beatae mollitia voluptatem aut delectus voluptatem tempore laborum consequatur minima et vitae quia repellendus distinctio minima cum incidunt nostrum doloremque dolor est ipsum ullam omnis et., Numquam qui reiciendis sint aut incidunt dolores dolorem voluptatem earum id labore ut voluptatum accusamus odit necessitatibus rem commodi odio aut harum voluptatem ut error ut dolor fugiat modi nisi repellendus eveniet et sint enim recusandae blanditiis non necessitatibus provident illo illum laudantium aliquid et similique omnis aut ut placeat eum est rerum dignissimos consequatur provident temporibus ea consequatur laboriosam similique nobis impedit ut., Quam optio voluptatem sint enim dolorem amet excepturi nisi nam., Est ut rerum aspernatur quod officia et., 2014-07-03 00:50:28)) @ /
+exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'name' at row 1 (SQL: insert into `galleries` (`category_id`, `created_at`, `date_start`, `description`, `description_en`, `event_id`, `name`, `name_en`, `title`, `title_en`, `updated_at`) values (4, 2014-07-03 00:50:28, 2014-07-03 00:50:28, Quod fuga in dolores et maiores dolores non perferendis nostrum sunt., Et atque aperiam assumenda aut ea provident., 3, Voluptas odit nobis est ut explicabo officia aut facere eligendi quas vel itaque sequi beatae mollitia voluptatem aut delectus voluptatem tempore laborum consequatur minima et vitae quia repellendus distinctio minima cum incidunt nostrum doloremque dolor est ipsum ullam omnis et., Numquam qui reiciendis sint aut incidunt dolores dolorem voluptatem earum id labore ut voluptatum accusamus odit necessitatibus rem commodi odio aut harum voluptatem ut error ut dolor fugiat modi nisi repellendus eveniet et sint enim recusandae blanditiis non necessitatibus provident illo illum laudantium aliquid et similique omnis aut ut placeat eum est rerum dignissimos consequatur provident temporibus ea consequatur laboriosam similique nobis impedit ut., Quam optio voluptatem sint enim dolorem amet excepturi nisi nam., Est ut rerum aspernatur quod officia et., 2014-07-03 00:50:28))' in /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php:555
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php(338): Illuminate\Database\Connection->run('insert into `ga...', Array, Object(Closure))
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php(295): Illuminate\Database\Connection->statement('insert into `ga...', Array)
+#2 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(1748): Illuminate\Database\Connection->insert('insert into `ga...', Array)
+#3 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/GalleriesTableSeeder.php(31): Illuminate\Database\Query\Builder->insert(Array)
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): GalleriesTableSeeder->run()
+#5 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(66): Illuminate\Database\Seeder->call('GalleriesTableS...')
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-07-03 00:50:28] local.ERROR: exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'name' at row 1 (SQL: insert into `galleries` (`category_id`, `created_at`, `date_start`, `description`, `description_en`, `event_id`, `name`, `name_en`, `title`, `title_en`, `updated_at`) values (4, 2014-07-03 00:50:28, 2014-07-03 00:50:28, Quod fuga in dolores et maiores dolores non perferendis nostrum sunt., Et atque aperiam assumenda aut ea provident., 3, Voluptas odit nobis est ut explicabo officia aut facere eligendi quas vel itaque sequi beatae mollitia voluptatem aut delectus voluptatem tempore laborum consequatur minima et vitae quia repellendus distinctio minima cum incidunt nostrum doloremque dolor est ipsum ullam omnis et., Numquam qui reiciendis sint aut incidunt dolores dolorem voluptatem earum id labore ut voluptatum accusamus odit necessitatibus rem commodi odio aut harum voluptatem ut error ut dolor fugiat modi nisi repellendus eveniet et sint enim recusandae blanditiis non necessitatibus provident illo illum laudantium aliquid et similique omnis aut ut placeat eum est rerum dignissimos consequatur provident temporibus ea consequatur laboriosam similique nobis impedit ut., Quam optio voluptatem sint enim dolorem amet excepturi nisi nam., Est ut rerum aspernatur quod officia et., 2014-07-03 00:50:28))' in /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php:555
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php(338): Illuminate\Database\Connection->run('insert into `ga...', Array, Object(Closure))
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Connection.php(295): Illuminate\Database\Connection->statement('insert into `ga...', Array)
+#2 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(1748): Illuminate\Database\Connection->insert('insert into `ga...', Array)
+#3 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/GalleriesTableSeeder.php(31): Illuminate\Database\Query\Builder->insert(Array)
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): GalleriesTableSeeder->run()
+#5 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(66): Illuminate\Database\Seeder->call('GalleriesTableS...')
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#14 {main} [] []
+[2014-07-03 00:51:51] local.ERROR: 500 - Trying to get property of non-object @ /
+exception 'ErrorException' with message 'Trying to get property of non-object' in /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateRequestsTableSeeder.php:17
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateRequestsTableSeeder.php(17): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', '/Users/ZaL/vapr...', 17, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateRequestsTableSeeder->run()
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateRequ...')
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-07-03 00:51:51] local.ERROR: exception 'ErrorException' with message 'Trying to get property of non-object' in /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateRequestsTableSeeder.php:17
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateRequestsTableSeeder.php(17): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', '/Users/ZaL/vapr...', 17, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateRequestsTableSeeder->run()
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateRequ...')
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-07-03 00:52:04] local.ERROR: 500 - Trying to get property of non-object @ /
+exception 'ErrorException' with message 'Trying to get property of non-object' in /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php:17
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php(17): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', '/Users/ZaL/vapr...', 17, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateStatusesTableSeeder->run()
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-07-03 00:52:04] local.ERROR: exception 'ErrorException' with message 'Trying to get property of non-object' in /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php:17
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php(17): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', '/Users/ZaL/vapr...', 17, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateStatusesTableSeeder->run()
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-07-03 00:52:14] local.ERROR: 500 - Trying to get property of non-object @ /
+exception 'ErrorException' with message 'Trying to get property of non-object' in /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php:17
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php(17): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', '/Users/ZaL/vapr...', 17, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateStatusesTableSeeder->run()
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-07-03 00:52:14] local.ERROR: exception 'ErrorException' with message 'Trying to get property of non-object' in /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php:17
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php(17): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', '/Users/ZaL/vapr...', 17, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateStatusesTableSeeder->run()
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-07-03 00:52:34] local.ERROR: 500 - Trying to get property of non-object @ /
+exception 'ErrorException' with message 'Trying to get property of non-object' in /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php:17
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php(17): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', '/Users/ZaL/vapr...', 17, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateStatusesTableSeeder->run()
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-07-03 00:52:34] local.ERROR: exception 'ErrorException' with message 'Trying to get property of non-object' in /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php:17
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php(17): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', '/Users/ZaL/vapr...', 17, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateStatusesTableSeeder->run()
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-07-03 00:52:54] local.ERROR: 500 - Trying to get property of non-object @ /
+exception 'ErrorException' with message 'Trying to get property of non-object' in /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php:17
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php(17): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', '/Users/ZaL/vapr...', 17, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateStatusesTableSeeder->run()
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-07-03 00:52:54] local.ERROR: exception 'ErrorException' with message 'Trying to get property of non-object' in /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php:17
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateStatusesTableSeeder.php(17): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', '/Users/ZaL/vapr...', 17, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateStatusesTableSeeder->run()
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(64): Illuminate\Database\Seeder->call('CertificateStat...')
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-07-03 00:53:42] local.ERROR: 500 - Trying to get property of non-object @ /
+exception 'ErrorException' with message 'Trying to get property of non-object' in /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateRequestOptionTableSeeder.php:14
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateRequestOptionTableSeeder.php(14): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', '/Users/ZaL/vapr...', 14, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateRequestOptionTableSeeder->run()
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(66): Illuminate\Database\Seeder->call('CertificateRequ...')
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []
+[2014-07-03 00:53:42] local.ERROR: exception 'ErrorException' with message 'Trying to get property of non-object' in /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateRequestOptionTableSeeder.php:14
+Stack trace:
+#0 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/CertificateRequestOptionTableSeeder.php(14): Illuminate\Exception\Handler->handleError(8, 'Trying to get p...', '/Users/ZaL/vapr...', 14, Array)
+#1 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(37): CertificateRequestOptionTableSeeder->run()
+#2 /Users/ZaL/vaprobash/jrgroup/app/database/seeds/DatabaseSeeder.php(66): Illuminate\Database\Seeder->call('CertificateRequ...')
+#3 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Database/Console/SeedCommand.php(52): DatabaseSeeder->run()
+#4 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(108): Illuminate\Database\Console\SeedCommand->fire()
+#5 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Command/Command.php(241): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 /Users/ZaL/vaprobash/jrgroup/vendor/laravel/framework/src/Illuminate/Console/Command.php(96): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(885): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(191): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\SeedCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 /Users/ZaL/vaprobash/jrgroup/vendor/symfony/console/Symfony/Component/Console/Application.php(121): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 /Users/ZaL/vaprobash/jrgroup/artisan(59): Symfony\Component\Console\Application->run()
+#11 {main} [] []

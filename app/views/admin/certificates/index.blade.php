@@ -105,8 +105,11 @@
             </div>
         </div>
         <div class="col-sm-9 col-md-9">
-
+            <btn class="btn btn-default"><a href="{{ action('AdminCertificateRequestsController@create')}}">Request a Certificate </a> </btn>
+            <h1> Certificate Requests </h1>
             <table class="well table table-hover">
+
+
                 <thead>
                 <tr>
                     <th>CertificateType</th>

@@ -17,7 +17,7 @@ class CreateCertificateRequestOptions extends Migration {
 			$table->increments('id');
             $table->integer('request_id')->unsigned()->index();
             $table->integer('option_id')->unsigned()->index();
-            $table->float('price');
+            $table->float('price')->nullable();
 			$table->timestamps();
 		});
 	}

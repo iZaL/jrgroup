@@ -27,7 +27,7 @@ class CertificatesTableSeeder extends Seeder {
                     'updated_at' => $dateNow
                 ]
             );
-            DB::table('certificates')->insert($followers);
+//            DB::table('certificates')->insert($followers);
 
         }
 	}

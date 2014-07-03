@@ -52,17 +52,20 @@
                         <td ><h5><strong>{{ $request->type->price }} KD</strong></h5></td>
                     </tr>
                     @foreach($request->requestOption as $requestOption)
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td><h5>{{ $requestOption->option->name }}</h5></td>
-                        <?php
-                            $optionPrice = $requestOption->getPriceSingle($request->type->id,$requestOption->option_id);
-                        ?>
-                        <td ><h5><strong>{{ $optionPrice->price }} KD</strong></h5></td>
-                    </tr>
+
+                        @if(isset($requestOption->id) && ($requestOption->price > 0))
+                            <tr>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>   </td>
+                                <td><h5>{{ $requestOption->option->name }}</h5></td>
+                                <?php
+                                    $optionPrice = $requestOption->getPriceSingle($request->type->id,$requestOption->option_id);
+                                ?>
+                                <td ><h5><strong>{{ $optionPrice->price }} KD</strong></h5></td>
+                            </tr>
+                        @endif
                     @endforeach
                     <tr>
                         <td>   </td>

@@ -60,10 +60,10 @@ class DatabaseSeeder extends Seeder {
         $this->call('CertificateTypesTableSeeder');
         $this->call('CertificateMetasTableSeeder');
         $this->call('CertificateOptionsTableSeeder');
-//        $this->call('CertificateOptionTypeTableSeeder');
-//        $this->call('CertificatesTableSeeder');
-//        $this->call('CertificateStatusesTableSeeder');
-//        $this->call('CertificateRequestOptionTableSeeder');
+        $this->call('CertificateOptionTypeTableSeeder');
+        $this->call('CertificateRequestsTableSeeder');
+        $this->call('CertificateStatusesTableSeeder');
+        $this->call('CertificateRequestOptionTableSeeder');
 //        $this->call('GalleriesTableSeeder');
 	}
 
