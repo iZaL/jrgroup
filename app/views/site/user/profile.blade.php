@@ -9,6 +9,7 @@
 
     <ul class="nav nav-tabs" id="myTab">
         <li class="active"><a href="#profile" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;{{ Lang::get('site.general.profile') }}</a></li>
+        <li><a href="#posts" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;{{ Lang::get('site.nav.posts') }}</a></li>
         <li><a href="#subscriptions" data-toggle="tab"><i class="fa fa-ticket"></i>&nbsp;{{ Lang::get('site.general.subscriptions') }}</a></li>
     </ul>
 
@@ -23,6 +24,26 @@
             </div>
 
         </div>
+        <div class="tab-pane" id="posts">
+            <div class="panel panel-primary">
+                <ul class="list-group">
+                    @if(Helper::isOwner($user->id))
+                    @foreach($user->posts as $post)
+                        <li class="list-group-item">
+                            <div class="pull-right">
+                                <i class="fa fa-edit "></i>
+                                <a href="{{ action('BlogsController@edit',$post->id)}}">{{ Lang::get('site.general.edit') }}</a>
+                            </div>
+                            {{ link_to_action('BlogsController@show',$post->title,$post->id) }}
+                        </li>
+                    @endforeach
+                    @else
+                    <h1> Sorry You have no posts </h1>
+                    @endif
+                </ul>
+            </div>
+        </div>
+
         <div class="tab-pane" id="subscriptions">
             <div class="panel panel-primary">
                 <ul class="list-group">

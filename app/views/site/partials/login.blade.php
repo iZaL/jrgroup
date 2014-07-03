@@ -41,6 +41,16 @@
                 <i class="fa fa-cog" style="font-size: 11px;"></i>&nbsp;'. Lang::get('site.general.admin_panel') .'
             </a>' : '' }}
         </li>
+        <li class="dropdown-header">
+            {{ (Helper::isMod()) ? '<a type="button" class="btn btn-default btn-sm" href="'. URL::action('BlogsController@create') .'">
+                <i class="fa fa-cog" style="font-size: 11px;"></i>&nbsp;'. Lang::get('site.general.add_blog_post') .'
+            </a>' : '' }}
+        </li>
+        <li class="dropdown-header">
+            {{ (Helper::isMod()) ? '<a type="button" class="btn btn-default btn-sm" href="'. URL::action('CertificateRequestsController@create') .'">
+                <i class="fa fa-cog" style="font-size: 11px;"></i>&nbsp;'. Lang::get('site.general.request_certificate') .'
+            </a>' : '' }}
+        </li>
     </div>
 
 @endif

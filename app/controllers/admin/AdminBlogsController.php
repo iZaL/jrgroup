@@ -79,7 +79,6 @@ class AdminBlogsController extends AdminBaseController {
     public function store()
     {
         // Validate the inputs
-
         $validation = new $this->post(Input::except('thumbnail'));
         $validation->slug = Str::slug(Input::get('title'));
         if (!$validation->save()) {

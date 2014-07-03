@@ -13,17 +13,27 @@ class BlogsController extends BaseController {
      * @var User
      */
     protected $user;
+    /**
+     * @var Category
+     */
+    private $category;
+    /**
+     * @var Photo
+     */
+    private $photo;
 
     /**
      * Inject the models.
      * @param Post $post
      * @param User $user
      */
-    public function __construct(Post $model, User $user)
+    public function __construct(Post $model, User $user, Category $category, Photo $photo)
     {
         parent::__construct();
         $this->model = $model;
         $this->user = $user;
+        $this->category = $category;
+        $this->photo = $photo;
     }
     
 	/**
@@ -38,39 +48,79 @@ class BlogsController extends BaseController {
         return $this->view('site.blogs.index',compact('posts'));
 	}
 
-	/**
-	 * View a blog post.
-	 *
-	 * @param  string  $slug
-	 * @return View
-	 * @throws NotFoundHttpException
-	 */
-	public function show($slug)
-	{
-		// Get this blog post data
-		$post = $this->model->with(array('category','photos','author'))->where('slug', '=', $slug)->first();
+    /**
+     * View a blog post.
+     *
+     * @param  string  $slug
+     * @return View
+     * @throws NotFoundHttpException
+     */
+    public function show($id)
+    {
+        // Get this blog post data
+        $post = $this->model->with(array('category','photos','author'))->find($id);
         return $this->view('site.blogs.view',compact('post'));
-	}
+    }
 
+    public function create(){
+        // Title
+        $category = [''=>'select a category'] + $this->category->getPostCategories()->lists('name', 'id');
+        $this->view('site.blogs.create',compact('category'));
+    }
 
-    public function consultancy() {
-        $posts=  $this->model
-            ->with(array('category','photos','author'))
-            ->select('posts.*')
-            ->leftJoin('categories','categories.id','=','posts.category_id')
-////            ->leftJoin('photos','photos.imageable_id','=','posts.id')
-////            ->where('photos.imageable_type','=','Post')
-            ->where('categories.name_en','=','consultancy')
-//            ->where('category_id','=','5')
-            ->orderBy('posts.created_at','DESC')
-            ->paginate(4);
-//        $posts = $this->model->getConsultancies();
+    public function store()
+    {
+        // Validate the inputs
+        $validation = new $this->model(array_merge(['user_id'=>Auth::user()->id],Input::except('thumbnail')));
+        $validation->slug = Str::slug(Input::get('title'));
+        if (!$validation->save()) {
+            return Redirect::back()->withInput()->withErrors($validation->getErrors());
+        }
+        if(Input::hasFile('thumbnail')) {
+            // call the attach image function from Photo class
+            if(!$this->photo->attachImage($validation->id,Input::file('thumbnail'),'Post','0')) {
+                return Redirect::action('BlogsController@edit',$validation->id)->with('error',$this->photo->getErrors());
+            }
+        }
 
-        $this->layout->login = View::make('site.layouts.login');
-//        $this->layout->ads = view::make('site.layouts.ads');
-        $this->layout->nav = view::make('site.layouts.nav');
-        $this->layout->maincontent = view::make('site.blog.consultancy', compact('posts'));
-        $this->layout->sidecontent = view::make('site.layouts.sidebar');
-        $this->layout->footer = view::make('site.layouts.footer');
+        return Redirect::action('BlogsController@index')->with('success','Added Blog to the Database');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     * @param $id
+     * @internal param $post
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $category = $this->category->getPostCategories()->lists('name', 'id');
+        $post = $this->model->find($id);
+        $this->view('site.blogs.edit',compact('category','post'));
+        // Show the page
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param $id
+     * @internal param $post
+     * @return Response
+     */
+    public function update($id)
+    {
+        $validation = $this->model->find($id);
+        $validation->fill(Input::except('thumbnail'));
+        if (!$validation->save()) {
+            return Redirect::back()->withInput()->withErrors($validation->getErrors());
+        }
+        if (Input::hasFile('thumbnail')) {
+            if(!$this->photo->attachImage($validation->id,Input::file('thumbnail'),'Post','0')) {
+                return Redirect::back()->withErrors($this->photo->getErrors());
+            }
+        }
+        $post = $this->model->find($validation->id);
+        $post->slug = Str::slug(Input::get('title'));
+        $post->save();
+        return Redirect::action('BlogsController@index')->with('success','Updated Blog '. $validation->title);
     }
 }

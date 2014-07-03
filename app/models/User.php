@@ -151,6 +151,9 @@ class User extends ConfideUser{
     public function events() {
         return $this->hasMany('EventModel');
     }
+    public function posts() {
+        return $this->hasMany('Post')->latest();
+    }
 
     public function followings() {
         return $this->belongsToMany('EventModel', 'followers','user_id','event_id');
@@ -246,6 +249,17 @@ class User extends ConfideUser{
 
     public function isMember() {
         return $this->member;
+    }
+
+
+    public function setMobileAttribute($value)
+    {
+        $this->attributes['mobile'] = (int)($value);
+    }
+
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = (int)($value);
     }
 
 //    protected function getDateFormat()

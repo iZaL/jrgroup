@@ -292,8 +292,8 @@ class UserController extends BaseController {
      */
     public function getProfile($id)
     {
-        $user = $this->user->with(array('favorites','subscriptions','followings','country'))->findOrFail($id);
-        $this->view('site/user/profile', compact('user'));
+        $user = $this->user->with(array('favorites','subscriptions','followings','country','posts'))->findOrFail($id);
+        $this->view('site.user.profile', compact('user'));
     }
 
     public function getSettings()

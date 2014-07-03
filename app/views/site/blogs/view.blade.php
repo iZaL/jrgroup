@@ -3,9 +3,11 @@
 <div class="row">
     <div class="col-md-6">
         @if(count($post->photos))
-        {{ HTML::image('uploads/medium/'.$post->photos[0]->name.'','image1',array('class'=>'img-responsive news-image')) }}
+            {{ HTML::image('uploads/medium/'.$post->photos[0]->name.'','image1',array('class'=>'img-responsive news-image')) }}
+        @else
+            <img class="img-responsive news-image" src="http://placehold.it/650x500/bb3333" alt=""/>
         @endif
-        <img class="img-responsive news-image" src="" alt=""/>
+
     </div>
     <div class="col-md-6">
         <h4>

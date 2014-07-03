@@ -7,7 +7,7 @@
         <ul>
             @foreach($latest_blog_posts as $post)
                 <li class="unstyled"><i class="glyphicon glyphicon-book"></i>
-                    <a href="{{URL::action('BlogsController@show',$post->slug)}}">
+                    <a href="{{URL::action('BlogsController@show',$post->id)}}">
                         {{ LocaleHelper::getLocaled($post->title,$post->title_en) }}
                     </a>
                 </li>

@@ -349,3 +349,7 @@ Fix Modal overflow bug
 .modal-open-noscroll {
     overflow-y: hidden !important;
 }
+
+.red {
+    color: #d14;
+}

@@ -1,6 +1,6 @@
 @extends('admin.layouts.print')
 @section('content')
-<table class="well table">
+<table class=" table ">
     <tr>
         <td></td>
         <td><b>Name in English<b></td>

@@ -7,7 +7,8 @@ class Post extends BaseModel {
 
     public static $rules = array(
         'title'=>'required',
-        'content'=>'required'
+        'content'=>'required',
+        'category_id'=>'required'
     );
 	/**
 	 * Deletes a blog post and all
@@ -70,22 +71,6 @@ class Post extends BaseModel {
 		return Url::to($this->slug);
 	}
 
-	/**
-	 * Returns the date of the blog post creation,
-	 * on a good and more readable format :)
-	 *
-	 * @return string
-	 */
-
-
-	/**
-	 * Returns the date of the blog post last update,
-	 * on a good and more readable format :)
-	 *
-	 * @return string
-	 */
-
-
     public function getPresenter()
     {
         return new PostPresenter($this);
@@ -114,5 +99,9 @@ class Post extends BaseModel {
     }
     public function photos() {
         return $this->morphMany('Photo','imageable');
+    }
+
+    public function setMetaTitle() {
+        return $this->title;
     }
 }

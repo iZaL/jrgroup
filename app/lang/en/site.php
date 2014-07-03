@@ -115,7 +115,10 @@ return array(
         'latest_news'          => 'Latest News',
         'edit_profile'         => 'Edit Profile',
         'subscriptions'        => 'Subscriptions',
-        'update'               => 'Update'
+        'update'               => 'Update',
+        'add_blog_post'         =>' Add Blog Post',
+        'request_certificate'         =>' Request Certificate',
+        'edit' => 'Edit'
     ],
     'subscription' => [
         'subscribed'         => 'You :attribute this event',

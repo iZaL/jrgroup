@@ -30,7 +30,7 @@ Route::group(
         Route::resource('gallery', 'GalleriesController', array('index','view') );
         Route::get('gallery/{id}/album', ['as'=>'album','uses'=>'GalleriesController@showAlbum']);
         Route::resource('course','EventsController', array('index','view'));
-        Route::resource('blog', 'BlogsController', array('index','view'));
+        Route::resource('blog', 'BlogsController');
 
         Route::get('course/{id}/subscribe',array('as'=>'event.subscribe','uses'=>'SubscriptionsController@subscribe'));
         Route::get('course/{id}/unsubscribe',array('as'=>'event.unsubscribe','uses'=>'SubscriptionsController@unsubscribe'));
@@ -58,6 +58,9 @@ Route::group(
         Route::post('contact-us/contact','ContactsController@contact');
 
         Route::post('newsletter','NewslettersController@store');
+
+        Route::get('certificate-request/{id}/print/','CertificateRequestsController@printDetail');
+        Route::resource('certificate-request','CertificateRequestsController');
     }
 );
 

@@ -179,5 +179,15 @@ class BaseModel extends Eloquent
         return $date;
     }
 
+
+    public function setMobileAttribute($value)
+    {
+        $this->attributes['mobile'] = (int)($value);
+    }
+
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = (int)($value);
+    }
 }
 ?>

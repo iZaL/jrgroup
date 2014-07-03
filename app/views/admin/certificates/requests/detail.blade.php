@@ -15,7 +15,7 @@
 </style>
 <div class="row" style="margin-top: 80px;">
     <div class="col-md-12">
-        <table class="table">
+        <table class=" table ">
             <thead>
                 <tr>
                     <th></th>
