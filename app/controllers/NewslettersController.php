@@ -22,10 +22,9 @@ class NewslettersController extends BaseController{
         $email['email'] = $getEmail;
         try {
             Notify::subscribeUser('76f171b4b9',$email);
-            return Redirect::home()->with(['message'=>'You have been subscribed']);
+            return Redirect::home()->with('success','Please confirm your Subscription in the email we have sent you');
         } catch (\Exception $e) {
-            dd($e->getMessage());
-            return Redirect::home()->withErrors($e->getMessage());
+            return Redirect::home()->with('error',$e->getMessage());
         }
     }
 
