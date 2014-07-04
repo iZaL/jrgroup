@@ -14,21 +14,21 @@
             <li class="{{ (Request::segment('2') == 'gallery' ? 'active' : false  ) }}"><a href="{{ action('GalleriesController@index') }}">{{ Lang::get('site.general.coursesgallery') }} </a></li>
             <li class="{{ (Request::segment('2') == 'blog' ? 'active' :   false ) }} "><a href="{{ action('BlogsController@index') }}">{{ Lang::get('site.nav.posts') }}</a></li>
             <li class="{{ (Request::segment('2') == 'contact-us' ? 'active' : false  ) }}"><a href="{{ action('ContactsController@index') }}">{{ Lang::get('site.nav.contactus') }}</a></li>
-            <li><a class="ads" href="#"  data-toggle="modal" data-target="#myModal">
-                    <span class="fa-rotate-270" style="float: right; width: 220%; position: relative; bottom: 70%; left: 50%;">Ad Goes here</span>
-            </a></li>
+<!--            <li><a class="ads" href="#"  data-toggle="modal" data-target="#myModal">-->
+<!--                    <span class="fa-rotate-270" style="float: right; width: 220%; position: relative; bottom: 70%; left: 50%;">Ad Goes here</span>-->
+<!--            </a></li>-->
         </ul>
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <img class="img-responsive" src="http://placehold.it/650x650?text=usama-ahmed" alt=""/>
-            </div>
-
-        </div>
-    </div>
-</div>
+<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-body">-->
+<!--                <img class="img-responsive" src="http://placehold.it/650x650?text=usama-ahmed" alt=""/>-->
+<!--            </div>-->
+<!---->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
