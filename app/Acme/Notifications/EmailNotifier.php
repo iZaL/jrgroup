@@ -34,13 +34,13 @@ class EmailNotifier implements NotifierInterface {
     {
         // You probably shouldn't place this here.
         // Add it to Mailchimp class, or a config file.
-        $lessonNotificationsListId = 'de1f937717';
+        $lessonNotificationsListId = '76f171b4b9';
 
         $this->blast->send('regular', [
             'list_id'    => $lessonNotificationsListId,
             'subject'    => 'New Event Posted!' .\Str::limit($event->title,'20'),
-            'from_name'  => 'Kaizen',
-            'from_email' => 'z4ls@live.com',
+            'from_name'  => 'JRGROUP',
+            'from_email' => 'noreply@jrgroupkw.com',
             'to_name'    => 'Subscriber'
         ], [
             'html' => $event->description,
