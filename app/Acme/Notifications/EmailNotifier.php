@@ -52,7 +52,7 @@ class EmailNotifier implements NotifierInterface {
     {
         // You probably shouldn't place this here.
         // Add it to Mailchimp class, or a config file.
-        $lessonNotificationsListId = 'de1f937717';
+        $lessonNotificationsListId = '76f171b4b9';
 
         $this->blast->send('regular', [
             'list_id'    => $lessonNotificationsListId,
