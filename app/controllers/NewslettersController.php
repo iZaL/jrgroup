@@ -21,7 +21,7 @@ class NewslettersController extends BaseController{
         $getEmail = Input::get('email');
         $email['email'] = $getEmail;
         try {
-            Notify::subscribeUser('de1f937717',$email);
+            Notify::subscribeUser('76f171b4b9',$email);
             return Redirect::home()->with(['message'=>'You have been subscribed']);
         } catch (\Exception $e) {
             dd($e->getMessage());
