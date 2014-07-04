@@ -82,18 +82,29 @@
     var total = $('#total-amount');
     var quantityVal = $('#quantity-value');
 
+    $("#type_id").change(function () {
+        fetchTypePrice();
+
+        //update options
+        $('.options').each(function (priceDiv, obj) {
+            var optionId = obj.value;
+
+            // If option value is selected
+            if (optionId) {
+                fetchOptionPrice(optionId, priceDiv)
+            }
+        });
+    });
+
     function fetchTypePrice() {
         var typeId = $('#type_id').val();
         if (typeId) {
+            // fetch price from db async
             $.ajax({
                 url: '/admin/certificate-type/' + typeId + '/get-price',
                 type: 'GET',
                 cache: true,
                 dataType: "json",
-                error: function (xhr, textStatus, errorThrown) {
-                    //
-                    return false;
-                },
                 success: function (data) {
                     if (data) {
                         typePrice.html(data);
@@ -102,23 +113,21 @@
                 }
             });
         } else {
-            return false;
+            typePrice.html('0');
         }
     }
 
-    // fetch price from db async
+    // fetch price from DB
     function fetchOptionPrice(optionId, priceDiv) {
         var optionPriceDiv = $('#option-price' + priceDiv);
         optionPriceDiv.empty();
-        if (typeVal) {
+        var a = $('#type_id').val();
+        if (a) {
             $.ajax({
-                url: '/admin/certificate-option/' + typeVal + '/option/' + optionId + '/get-price',
+                url: '/admin/certificate-option/' + a + '/option/' + optionId + '/get-price',
                 type: 'GET',
                 cache: true,
                 dataType: "json",
-                error: function (xhr, textStatus, errorThrown) {
-                    return false;
-                },
                 success: function (data) {
                     if (data) {
                         optionPriceDiv.html(data);
@@ -126,27 +135,11 @@
                     }
                 }
             });
-        } else {
-            return false;
         }
     }
 
-    $("#type_id").change(function () {
-        fetchTypePrice();
-
-        //update options
-        $('.options').each(function (priceDiv, obj) {
-            var optionId = obj.value;
-            fetchOptionPrice(optionId, priceDiv)
-        });
-    });
-
     // option_id on change function
     function getOptionPrice(priceDiv, obj) {
-
-        if (isNaN(typeVal)) {
-            alert('Please Select Certificate Type First');
-        }
         var optionId = obj.value;
         fetchOptionPrice(optionId, priceDiv);
     }
@@ -155,7 +148,9 @@
     function getOptPrice() {
         $('.options').each(function (priceDiv, obj) {
             var optionId = obj.value;
-            fetchOptionPrice(optionId, priceDiv)
+            if(optionId) {
+                fetchOptionPrice(optionId, priceDiv)
+            }
         });
     }
 
@@ -185,26 +180,28 @@
         total.html(amount + 'KD');
     }
 
-    $("#quantity").ionRangeSlider({
-        min: 0,
-        max: 100,
-        type: 'single',
-        step: 1,
-        from: 1,
-        postfix: " certificates",
-        prettify: false,
-        hasGrid: true,
-        onFinish: function (obj) {
-            calculate(obj);
-            // calculate price
-        }
-    });
-
     $('document').ready(function () {
         // reset quantity
         // get selected prices
+        // getOptionPrice('.$i.', this)
+
         fetchTypePrice();
         getOptPrice();
+
+        $("#quantity").ionRangeSlider({
+            min: 0,
+            max: 100,
+            type: 'single',
+            step: 1,
+            from: 1,
+            postfix: " certificates",
+            prettify: false,
+            hasGrid: true,
+            onFinish: function (obj) {
+                calculate(obj);
+                // calculate price
+            }
+        });
     });
 </script>
 @stop
