@@ -65,7 +65,6 @@ class AdminEventsController extends AdminBaseController
      */
     public function store()
     {
-        dd(Input::get('type'));
         //validate and save
         $validation = new $this->model(Input::except(array('thumbnail','addresspicker_map','type')));
         if (!$validation->save()) {
