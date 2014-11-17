@@ -85,6 +85,11 @@ Route::get('account/activate/{token}', ['as' => 'user.token.confirm', 'uses' => 
 
 Route::post('account/send-activation-link', ['as' => 'user.token.send-activation', 'uses' => 'AuthController@sendActivationLink']);
 
+/*********************************************************************************************************
+ * Posts
+ ********************************************************************************************************/
+
+Route::resource('blog', 'BlogsController', array('only' => array('index', 'show', 'view')));
 
 /*********************************************************************************************************
  * User Routes

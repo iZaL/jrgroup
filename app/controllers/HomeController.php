@@ -24,7 +24,6 @@ class HomeController extends BaseController {
     {
         $events = $this->eventRepository->getSliderEvents();
         $ads    = $this->adRepository->getAds();
-
         $this->render('site.home', compact('events', 'ads'));
     }
 

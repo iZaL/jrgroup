@@ -112,6 +112,8 @@ return array(
         'Intervention\Image\ImageServiceProvider',
         'Barryvdh\DomPDF\ServiceProvider',
 
+        'Barryvdh\Debugbar\ServiceProvider',
+        'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 	),
 
 	/*
@@ -183,6 +185,7 @@ return array(
         'Intervention' => 'Intervention\Image\Facades\Image',
         'Carbon'          => 'Carbon\Carbon', // Carbon
         'PDF' => 'Barryvdh\DomPDF\Facade',
+        'Debugbar' => 'Barryvdh\Debugbar\Facade',
 
     ),
 

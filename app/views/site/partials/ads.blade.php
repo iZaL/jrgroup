@@ -1,5 +1,4 @@
 <!-- Advertisment section-->
-
     <div id="ads-section" class="row hidden-sm hidden-xs top10">
         @if($ad1)
         <div id="ads-1" class="col-md-6 ">

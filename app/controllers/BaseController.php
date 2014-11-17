@@ -12,7 +12,7 @@ abstract class BaseController extends Controller {
     {
         $this->beforeFilter('csrf', array('on' => array('post', 'delete', 'put')));
         $this->initSidebarPosts();
-        $this->initRegion();
+//        $this->initRegion();
     }
 
     protected function setupLayout()
