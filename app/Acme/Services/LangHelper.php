@@ -28,12 +28,9 @@ class LangHelper {
                 $this->localed= $arabicString;
             }
         } else {
-            if($arabicString) {
-                $this->localed= $arabicString;
-            } else {
-                throw new InvalidArgumentException;
-            }
+            $this->localed= $arabicString;
         }
+
         return $this->localed;
     }
 
