@@ -120,7 +120,9 @@ return array(
         'latest_news'          => 'آخر الأخبار',
         'edit_profile'         => 'تعديل معلوماتي',
         'subscriptions'        => 'اشتراكات',
-        'update'               => 'Update'
+        'update'               => 'Update',
+        'add_blog_post' => 'اضافة المدونة',
+        'request_certificate' => 'طلب الشهادة'
 
     ],
     'subscription' => [

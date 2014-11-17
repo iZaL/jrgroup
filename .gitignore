@@ -9,6 +9,7 @@
 app/storage/cache/*
 app/storage/views/*
 app/storage/sessions/*
+app/storage/logs/*
 
 #/app/config/production
 
