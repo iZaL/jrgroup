@@ -91,7 +91,7 @@ class AdminEventsController extends AdminBaseController
         if(!empty($event->total_seats))
             $event->available_seats = $event->total_seats;
             $event->save();
-        return Redirection::action('AdminEventsController@index')->with('success','Added Event to the Database');
+        return Redirect::action('AdminEventsController@index')->with('success','Added Event to the Database');
     }
 
 
