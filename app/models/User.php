@@ -1,90 +1,166 @@
 <?php
 
-use Zizaco\Confide\ConfideUser;
-use Zizaco\Confide\Confide;
-use Zizaco\Confide\ConfideEloquentRepository;
+use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Auth\UserInterface;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use McCool\LaravelAutoPresenter\PresenterInterface;
 use Zizaco\Entrust\HasRole;
-use Carbon\Carbon;
 
-class User extends ConfideUser{
+class User extends BaseModel implements UserInterface, RemindableInterface, PresenterInterface {
+
     use HasRole;
-    protected $guarded = array('confirmation_code','confirmed','id');
+
+    protected $guarded = ['id', 'password_confirmation', 'remember_token', '_method', '_token'];
 
     protected $hidden = array('password');
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
     protected $table = 'users';
 
-    public static $rules = array(
-        'username' => 'required|alpha_dash|unique:users',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|between:4,11|confirmed',
-        'password_confirmation' => 'between:4,11',
-        'first_name' => 'between:3,30',
-        'last_name' =>  'between:3,30',
-        'mobile' =>   'numeric',
-        'phone' =>    'numeric',
-        'twitter' =>    'url',
-        'instagram' =>   'url',
-        'prev_event_comment' =>  'min:5'
-    );
-
-    public static $update_rules = array(
-        'password' => 'between:4,11|confirmed',
-        'password_confirmation' => 'between:4,11',
-        'first_name' => 'between:3,30',
-        'last_name' =>  'between:3,30',
-        'mobile' =>   'numeric',
-        'phone' =>    'numeric',
-        'twitter' =>    'url',
-        'instagram' =>   'url',
-        'prev_event_comment' =>  'min:5'
-    );
-
-    public function getRules() {
-        return self::$rules;
-    }
-
-    public function getUpdateRules() {
-        return self::$update_rules;
-    }
-
-    public function getPresenter()
-    {
-        return new UserPresenter($this);
-    }
-
-    /**
-     * Get user by username
-     * @param $username
-     * @return mixed
-     */
-    public function getUserByUsername( $username )
+    public function getUserByUsername($username)
     {
         return $this->where('username', '=', $username)->first();
     }
 
+    /*********************************************************************************************************
+     * Eloquent Relationships
+     ********************************************************************************************************/
     /**
-     * Get the date the user was created.
-     *
+     * get all comments by the user
+     */
+    public function comments()
+    {
+        return $this->morphMany('Comment', 'commentable');
+    }
+
+    public function events()
+    {
+        return $this->hasMany('EventModel');
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany('EventModel', 'followers', 'user_id', 'event_id');
+    }
+
+    public function subscriptions()
+    {
+        return $this->belongsToMany('EventModel', 'subscriptions', 'user_id', 'event_id');
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany('EventModel', 'favorites', 'user_id', 'event_id');
+    }
+
+    public function statuses()
+    {
+        return $this->belongsToMany('EventModel', 'statuses', 'user_id', 'event_id');
+    }
+
+    public function requests()
+    {
+        return $this->belongsToMany('EventModel', 'requests', 'user_id', 'event_id');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('Role', 'assigned_roles', 'user_id', 'role_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('Country');
+    }
+
+    /*********************************************************************************************************
+     * Setters
+     ********************************************************************************************************/
+    public function setMobileAttribute($value)
+    {
+        $this->attributes['mobile'] = (int) ($value);
+    }
+
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = (int) ($value);
+    }
+
+    /**
+     * @param $password
+     * Auto Has the Password
+     */
+    public function setPasswordAttribute($password)
+    {
+
+        $this->attributes['password'] = Hash::make($password);
+    }
+
+    /*********************************************************************************************************
+     * Getters
+     ********************************************************************************************************/
+    /**
+     * Get the unique identifier for the user.
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Get the password for the user.
      * @return string
      */
-    public function joined()
+    public function getAuthPassword()
     {
-        return String::date(Carbon::createFromFormat('Y-n-j G:i:s', $this->created_at));
+        return $this->password;
     }
+
+    /**
+     * Get the e-mail address where password reminders are sent.
+     * @return string
+     */
+    public function getReminderEmail()
+    {
+        return $this->email;
+    }
+
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value;
+    }
+
+    /**
+     * Get the presenter class.
+     *
+     * @return string The class path to the presenter.
+     */
+    public function getPresenter()
+    {
+        return 'Acme\User\Presenter';
+    }
+    /*********************************************************************************************************
+     * Custom Methods
+     ********************************************************************************************************/
 
     /**
      * Save roles inputted from multiselect
      * @param $inputRoles
      */
-    public function saveRoles($inputRoles)
+    public function saveRoles(array $inputRoles)
     {
-        if(! empty($inputRoles)) {
+        $inputRoles = array_filter($inputRoles); // remove empty arrays
+        if ( !empty($inputRoles) ) {
             $this->roles()->sync($inputRoles);
         } else {
             $this->roles()->detach();
@@ -97,173 +173,65 @@ class User extends ConfideUser{
      */
     public function currentRoleIds()
     {
-        $roles = $this->roles;
+        $roles   = $this->roles;
         $roleIds = false;
-        if( !empty( $roles ) ) {
+        if ( !empty($roles) ) {
             $roleIds = array();
-            foreach( $roles as &$role )
-            {
+            foreach ( $roles as &$role ) {
                 $roleIds[] = $role->id;
             }
         }
+
         return $roleIds;
     }
 
     /**
-     * Redirect after auth.
-     * If ifValid is set to true it will redirect a logged in user.
-     * @param $redirect
-     * @param bool $ifValid
-     * @return mixed
+     * check if is the user admin
+     * @return bool
+     * @todo
      */
-    public static function checkAuthAndRedirect($redirect, $ifValid=false)
+    public function isAdmin()
     {
-        // Get the user information
-        $user = Auth::user();
-        $redirectTo = false;
-
-        if(empty($user->id) && ! $ifValid) // Not logged in redirect, set session.
-        {
-            Session::put('loginRedirect', $redirect);
-            $redirectTo = Redirect::to('user/login')
-                ->with( 'notice', Lang::get('user/user.login_first') );
-        }
-        elseif(!empty($user->id) && $ifValid) // Valid user, we want to redirect.
-        {
-            $redirectTo = Redirect::to($redirect);
-        }
-
-        return array($user, $redirectTo);
-    }
-
-    public function currentUser()
-    {
-        return (new Confide(new ConfideEloquentRepository()))->user();
+        return false;
     }
 
     /**
-     * get all comments by the user
+     * Check if the User is owner of the profile, post etc
      */
-    public function comments() {
-        return $this->morphMany('Comment','commentable');
-    }
-
-    public function events() {
-        return $this->hasMany('EventModel');
-    }
-    public function posts() {
-        return $this->hasMany('Post')->latest();
-    }
-
-    public function followings() {
-        return $this->belongsToMany('EventModel', 'followers','user_id','event_id');
-
-//        return $this->hasMany('Follower');
-    }
-
-    public function subscriptions() {
-//        return $this->hasMany('Subscription');
-        return $this->belongsToMany('EventModel', 'subscriptions','user_id','event_id');
-        // the second query returns Events for the subscriptions
-    }
-
-    public function favorites() {
-        return $this->belongsToMany('EventModel', 'favorites','user_id','event_id');
-//        return $this->hasMany('Favorite');
-    }
-
-    public function statuses() {
-        return $this->belongsToMany('EventModel', 'statuses','user_id','event_id');
-//        return $this->hasMany('Favorite');
-    }
-
-    /**
-     * @param String $roleName
-     * @return mixed users
-     * get user by their role .. ex: Admin, Author, Moderator
-     */
-    public function getRoleByName($roleName) {
-        $query=  $this->with('roles')->whereHas('roles', function($q) use ($roleName)
-        {
-            $q->where('name', '=', $roleName);
-
-        })->get();
-        return $query;
-    }
-
-    public function country() {
-        return $this->belongsTo('Country');
-    }
-
-    public static function isSubscribed($id,$userId) {
-        $query = Subscription::where('user_id', '=', $userId)->where('event_id', '=', $id)->count();
-        return ($query >= 1 ) ? true : false;
-    }
-
-    public function getDates()
+    public function isOwner()
     {
-        return array_merge(array(static::CREATED_AT, static::UPDATED_AT, static::DELETED_AT), array('expires_at'));
-    }
+        if ( Auth::check() ) {
+            if ( !($this->isAdmin() || Auth::user()->id == $this->id) ) return false;
 
-    public function setExpiresAtAttribute($value)
-    {
-        $this->attributes['expires_at'] = $this->dateStringToCarbon($value);
-    }
-    protected function dateStringToCarbon($date, $format = 'm/d/Y')
-    {
-        if(!$date instanceof Carbon) {
-            $validDate = false;
-            try {
-                $date = Carbon::createFromFormat($format, $date);
-                $validDate = true;
-            } catch(Exception $e) { }
-
-            if(!$validDate) {
-                try {
-                    $date = Carbon::parse($date);
-                    $validDate = true;
-                } catch(Exception $e) { }
-            }
-
-            if(!$validDate) {
-                $date = NULL;
-            }
+            return true;
         }
-        return $date;
+
+        return false;
     }
 
-    public function getRememberToken()
+    public function beforeDelete()
     {
-        return $this->remember_token;
+        //delete settings
+        $this->comments()->delete();
+
+        $subscriptions = $this->hasMany('Subscription', 'user_id');
+        foreach ( $subscriptions->get(array('subscriptions.id')) as $subscription ) {
+            $subscription->delete();
+        }
+
+        // delete followings
+        $followings = $this->hasMany('Follower', 'user_id');
+        foreach ( $followings->get(array('followers.id')) as $following ) {
+            $following->delete();
+        }
+
+        // delete favorites
+        $favorites = $this->hasMany('Favorite', 'user_id');
+        foreach ( $favorites->get(array('favorites.id')) as $favorite ) {
+            $favorite->delete();
+        }
+
     }
 
-    public function setRememberToken($value)
-    {
-        $this->remember_token = $value;
-    }
 
-    public function getRememberTokenName()
-    {
-        return 'remember_token';
-    }
-
-    public function isMember() {
-        return $this->member;
-    }
-
-
-    public function setMobileAttribute($value)
-    {
-        $this->attributes['mobile'] = (int)($value);
-    }
-
-    public function setPhoneAttribute($value)
-    {
-        $this->attributes['phone'] = (int)($value);
-    }
-
-//    protected function getDateFormat()
-//    {
-//        return 'Y-m-d';
-//    }
 }

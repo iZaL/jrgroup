@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration {
             $table->string('name_en')->nullable();
             $table->string('name_ar')->nullable();
             $table->integer('mobile')->nullable();
-            $table->integer('phone')->nullable();
-            $table->integer('civilid')->nullable();
+            $table->string('phone')->nullable();
+            $table->bigInteger('civilid')->nullable();
             $table->string('country_id')->nullable();
             $table->text('address')->nullable();
             $table->string('gender')->nullable();
@@ -34,16 +34,10 @@ class CreateUsersTable extends Migration {
             $table->boolean('confirmed')->default(false);
             $table->timestamp('expires_at');
             $table->string('remember_token',100)->nullable();
+            $table->timestamp('last_logged_at')->nullable();
             $table->timestamps();
         });
-        // Creates password reminders table
-        Schema::create('password_reminders', function($table)
-        {
-            $table->engine = 'InnoDB';
-            $table->string('email');
-            $table->string('token');
-            $table->timestamp('created_at');
-        });
+
     }
 
     /**
@@ -55,7 +49,6 @@ class CreateUsersTable extends Migration {
     {
         Schema::table('users', function(Blueprint $table)
         {
-            Schema::drop('password_reminders');
             Schema::drop('users');
         });
     }

@@ -1,39 +1,43 @@
 <?php
 
+use Acme\Blog\BlogRepository;
+use Acme\Category\CategoryRepository;
+use Acme\Tag\TagRepository;
+use Acme\User\UserRepository;
+
 class BlogsController extends BaseController {
 
-    /**
-     * Post Model
-     * @var Post
-     */
     protected $model;
+    /**
+     * @var Acme\Blog\BlogRepository
+     */
+    private $blogRepository;
+    /**
+     * @var Acme\Users\UserRepository
+     */
+    private $userRepository;
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
+    /**
+     * @var TagRepository
+     */
+    private $tagRepository;
 
     /**
-     * User Model
-     * @var User
+     * @param BlogRepository $blogRepository
+     * @param UserRepository $userRepository
+     * @param CategoryRepository $categoryRepository
+     * @param TagRepository $tagRepository
      */
-    protected $user;
-    /**
-     * @var Category
-     */
-    private $category;
-    /**
-     * @var Photo
-     */
-    private $photo;
+    public function __construct(BlogRepository $blogRepository, UserRepository $userRepository, CategoryRepository $categoryRepository, TagRepository $tagRepository){
 
-    /**
-     * Inject the models.
-     * @param Post $post
-     * @param User $user
-     */
-    public function __construct(Post $model, User $user, Category $category, Photo $photo)
-    {
+        $this->blogRepository = $blogRepository;
+        $this->userRepository = $userRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->tagRepository = $tagRepository;
         parent::__construct();
-        $this->model = $model;
-        $this->user = $user;
-        $this->category = $category;
-        $this->photo = $photo;
     }
     
 	/**
@@ -44,83 +48,43 @@ class BlogsController extends BaseController {
 	public function index()
 	{
 		// Get all the blog posts
-        $posts = $this->model->with(array('category','photos','author'))->latest()->paginate(1);
-        return $this->view('site.blogs.index',compact('posts'));
+        $this->title =  trans('word.blog');
+
+        $posts = $this->blogRepository->getAllPaginated(['category','photos','author']);
+
+        $categories = $this->categoryRepository->getPostCategories()->get();
+
+        $tags = $this->tagRepository->getBlogTags();
+		// Show the page
+        $this->render('site.blog.index', compact('posts','categories','tags'));
 	}
 
     /**
      * View a blog post.
      *
-     * @param  string  $slug
+     * @param $id
+     * @internal param string $slug
      * @return View
-     * @throws NotFoundHttpException
      */
-    public function show($id)
-    {
-        // Get this blog post data
-        $post = $this->model->with(array('category','photos','author'))->find($id);
-        return $this->view('site.blogs.view',compact('post'));
-    }
+	public function show($id)
+	{
+		// Get this blog post data
+		$post = $this->blogRepository->findById($id,['category','photos','author']);
 
-    public function create(){
-        // Title
-        $category = [''=>'select a category'] + $this->category->getPostCategories()->lists('name', 'id');
-        $this->view('site.blogs.create',compact('category'));
-    }
+        $this->title =  $post->title;
 
-    public function store()
-    {
-        // Validate the inputs
-        $validation = new $this->model(array_merge(['user_id'=>Auth::user()->id],Input::except('thumbnail')));
-        $validation->slug = Str::slug(Input::get('title'));
-        if (!$validation->save()) {
-            return Redirect::back()->withInput()->withErrors($validation->getErrors());
-        }
-        if(Input::hasFile('thumbnail')) {
-            // call the attach image function from Photo class
-            if(!$this->photo->attachImage($validation->id,Input::file('thumbnail'),'Post','0')) {
-                return Redirect::action('BlogsController@edit',$validation->id)->with('error',$this->photo->getErrors());
-            }
-        }
-
-        return Redirect::action('BlogsController@index')->with('success','Added Blog to the Database');
-    }
+        $this->render('site.blog.view', compact('post'));
+	}
 
     /**
-     * Show the form for editing the specified resource.
-     * @param $id
-     * @internal param $post
-     * @return Response
+     * Get Posts For Consultancies
      */
-    public function edit($id)
-    {
-        $category = $this->category->getPostCategories()->lists('name', 'id');
-        $post = $this->model->find($id);
-        $this->view('site.blogs.edit',compact('category','post'));
-        // Show the page
-    }
+    public function consultancy() {
 
-    /**
-     * Update the specified resource in storage.
-     * @param $id
-     * @internal param $post
-     * @return Response
-     */
-    public function update($id)
-    {
-        $validation = $this->model->find($id);
-        $validation->fill(Input::except('thumbnail'));
-        if (!$validation->save()) {
-            return Redirect::back()->withInput()->withErrors($validation->getErrors());
-        }
-        if (Input::hasFile('thumbnail')) {
-            if(!$this->photo->attachImage($validation->id,Input::file('thumbnail'),'Post','0')) {
-                return Redirect::back()->withErrors($this->photo->getErrors());
-            }
-        }
-        $post = $this->model->find($validation->id);
-        $post->slug = Str::slug(Input::get('title'));
-        $post->save();
-        return Redirect::action('BlogsController@index')->with('success','Updated Blog '. $validation->title);
+        $this->title =  trans('word.consultancies');
+
+        $posts=  $this->blogRepository->getConsultancyPosts();
+
+        $this->render('site.blog.consultancy', compact('posts'));
     }
 }

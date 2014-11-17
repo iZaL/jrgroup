@@ -5,32 +5,32 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreatePhotosTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('photos', function(Blueprint $table) {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('photos', function(Blueprint $table) {
             $table->engine = 'InnoDB';
-			$table->increments('id');
-			$table->string('name');
+            $table->increments('id');
+            $table->string('name')->nullable();
             $table->morphs('imageable');
-            $table->boolean('featured');
-			$table->timestamps();
-		});
-	}
+            $table->boolean('featured')->default(0)->nullable();
+            $table->timestamps();
+        });
+    }
 
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('photos');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('photos');
+    }
 
 }

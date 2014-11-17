@@ -108,16 +108,10 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
         /* Additional Providers */
-        'Zizaco\Confide\ConfideServiceProvider', // Confide Provider
         'Zizaco\Entrust\EntrustServiceProvider', // Entrust Provider for roles
-        'Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider',
-        'Acme\Providers\NotificationServiceProvider',
-        'Acme\Providers\EmailBlastServiceProvider',
-        'Acme\Providers\LangHelperServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Barryvdh\DomPDF\ServiceProvider',
 
-        'Basset\BassetServiceProvider', // Better Asset Management
 	),
 
 	/*
@@ -185,16 +179,9 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 
         /* Additional Aliases */
-        'Confide'         => 'Zizaco\Confide\ConfideFacade', // Confide Alias
         'Entrust'         => 'Zizaco\Entrust\EntrustFacade', // Entrust Alias
-        'LaravelLocalization'   => 'Mcamara\LaravelLocalization\Facades\LaravelLocalization',
-        'Notify'          => 'Acme\Facades\Notify',
         'Intervention' => 'Intervention\Image\Facades\Image',
-
-        'Basset'          => 'Basset\Facade', // Better Asset Management
-        'String'          => 'Andrew13\Helpers\String', // String
         'Carbon'          => 'Carbon\Carbon', // Carbon
-        'LocaleHelper'    => 'Acme\Facades\LocaleHelper',
         'PDF' => 'Barryvdh\DomPDF\Facade',
 
     ),

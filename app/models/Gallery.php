@@ -1,31 +1,13 @@
 <?php
 
 class Gallery extends BaseModel {
-	protected $guarded = array();
+	protected $guarded = [];
     protected  $table = "galleries";
-
-    public static $rules = array(
-        'event_id' => 'integer',
-        'category_id' => 'integer | required'
-    );
-
-//    public function type() {
-//        return $this->type();
-//    }
 
     public function category() {
         return $this->belongsTo('Category','category_id')->where('type','=','Gallery');
     }
 
-    public function getDates()
-    {
-        return array_merge(array(static::CREATED_AT, static::UPDATED_AT, static::DELETED_AT), array('date_start'));
-    }
-
-    public function setDateStartAttribute($value)
-    {
-        $this->attributes['date_start'] = $this->dateStringToCarbon($value);
-    }
     public function photos() {
         return $this->morphMany('Photo','imageable');
     }
@@ -33,7 +15,4 @@ class Gallery extends BaseModel {
         return $this->morphMany('Video','videoable');
     }
 
-    public function findByCategoryId($id){
-        return $this->where('category_id',$id);
-    }
 }

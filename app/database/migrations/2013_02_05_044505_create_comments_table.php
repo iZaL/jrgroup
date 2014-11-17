@@ -4,35 +4,34 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCommentsTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		// Create the `Comments` table
-		Schema::create('comments', function($table)
-		{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        // Create the `Comments` table
+        Schema::create('comments', function($table)
+        {
             $table->engine = 'InnoDB';
-			$table->increments('id');
-			$table->integer('user_id')->unsigned()->index();
+            $table->increments('id');
+            $table->integer('user_id')->unsigned()->index();
             $table->morphs('commentable');
-			$table->text('content');
-			$table->timestamps();
-//            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-		});
-	}
+            $table->text('content');
+            $table->timestamps();
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		// Delete the `Comments` table
-		Schema::drop('comments');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        // Delete the `Comments` table
+        Schema::drop('comments');
+    }
 
 }
