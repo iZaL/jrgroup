@@ -11,7 +11,7 @@
         "zizaco/entrust": "dev-master",
         "twbs/bootstrap":  "3.0.0",
         "jasonlewis/basset": "dev-master",
-        "j20/php-uuid": "dev-master",
+        //"j20/php-uuid": "dev-master",
         "mailchimp/mailchimp": "2.0.4",
         "intervention/image": "dev-master",
         "leafo/lessphp": "v0.4.0",
