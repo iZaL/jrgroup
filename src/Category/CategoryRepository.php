@@ -33,8 +33,8 @@ class CategoryRepository extends AbstractRepository  {
     public function getEventCategories() {
         return $this->model->where('type','=', 'EventModel');
     }
-    public function getPostCategories() {
-        return $this->model->where('type','=', 'Post');
+    public function getBlogCategories() {
+        return $this->model->where('type','=', 'Blog');
     }
 
     public function type() {

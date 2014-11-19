@@ -73,7 +73,7 @@ class AdminBlogsController extends AdminBaseController {
     public function create()
     {
         // Title
-        $category = $this->select + $this->categoryRepository->getPostCategories()->lists('name_ar', 'id');
+        $category = $this->select + $this->categoryRepository->getBlogCategories()->lists('name_ar', 'id');
         $author   = $this->select + $this->userRepository->getRoleByName('author')->lists('username', 'id');
         $title    = Lang::get('admin.blogs.title.create_a_new_blog');
         $tags     = [''=>''] + $this->tagRepository->getList('name_ar','id');

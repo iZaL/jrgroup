@@ -15,7 +15,8 @@ class CreateCertificateMetas extends Migration {
 		Schema::create('certificate_metas', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->string('name');
+            $table->string('name_en');
+            $table->string('name_ar');
 			$table->timestamps();
 		});
 	}

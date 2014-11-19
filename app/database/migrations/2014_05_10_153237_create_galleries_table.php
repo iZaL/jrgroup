@@ -17,14 +17,14 @@ class CreateGalleriesTable extends Migration {
 			$table->increments('id');
             $table->integer('event_id');
             $table->integer('category_id');
-            $table->string('title');
             $table->string('title_en');
-            $table->text('description');
+            $table->string('title_ar');
             $table->text('description_en');
-            $table->timestamp('date_start')->nullable()->defaults(null); // here also
-            $table->string('name');
+            $table->text('description_ar');
             $table->string('name_en');
-			$table->timestamps();
+            $table->string('name_ar');
+            $table->timestamp('date_start')->nullable()->defaults(null); // here also
+            $table->timestamps();
 		});
 	}
 

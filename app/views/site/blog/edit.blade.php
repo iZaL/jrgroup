@@ -1,4 +1,4 @@
-@extends('site.master')
+@extends('site.layouts._two_column')
 
 @section('style')
 @parent

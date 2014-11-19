@@ -1,23 +1,13 @@
-@extends('site.master')
-@section('title')
-    Events
-@stop
-@section('style')
-    @parent
-@stop
-@section('scripts')
-    @parent
-@stop
+@extends('site.layouts._two_column')
 
 @section('breadcrumb')
-<li><a href="{{ action('GalleriesController@index') }} ">{{ Lang::get('site.general.coursesgallery') }}</a></li>
+<li><a href="{{ action('GalleriesController@index') }} ">{{ trans('word.gallery') }}</a></li>
 @stop
-
 
 @section('content')
 <div class="row">
     @foreach($categories as $category)
-        <div class="col-sm-6 col-md-4">
+        <div class="col-sm-6 col-md-6">
             <div class="thumbnail gallery">
                 @if(count($category->galleries))
                 <a href="{{ action('GalleriesController@show',$category->id) }}">
@@ -33,7 +23,7 @@
                 <div class="caption">
                     <p class="text-center">
                         <a href="{{ action('GalleriesController@show',$category->id) }}">
-                            {{ LocaleHelper::getLocaled($category->name,$category->name_en ) }}
+                            {{ $category->name }}
                         </a>
                     </p>
                     <a href="#" class="pull-right"><span class="glyphicon glyphicon-camera"></span>

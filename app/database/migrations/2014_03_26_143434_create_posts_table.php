@@ -12,7 +12,7 @@ class CreatePostsTable extends Migration {
     public function up()
     {
         // Create the `Posts` table
-        Schema::create('posts', function($table)
+        Schema::create('blogs', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -35,7 +35,7 @@ class CreatePostsTable extends Migration {
     public function down()
     {
         // Delete the `Posts` table
-        Schema::drop('posts');
+        Schema::drop('blogs');
     }
 
 }

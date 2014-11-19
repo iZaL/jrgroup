@@ -10,7 +10,7 @@ class Blog extends BaseModel implements PresenterInterface {
 
     protected $guarded = [];
 
-    protected $table = "posts";
+    protected $table = "blogs";
 
     protected $localeStrings = ['title', 'description'];
 

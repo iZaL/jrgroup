@@ -96,7 +96,6 @@ return [
     'enter'                 => 'دخول',
     'register'              => 'تسجيل',
     'more'                  => 'المزيد',
-    'title'                 => 'الدخول',
     'description'           => 'تفاصيل',
     'forgot_password'       => 'نسيت كلمة المرور',
     'remember'              => 'تذكرني',
@@ -130,4 +129,8 @@ return [
     'gallery' => 'معرض الدورات',
     'add_blog_post'         =>'اضافة المدونة',
     'request_certificate'         =>'طلب الشهادة',
+    'content' => 'المحتوي',
+    'image'=> 'صورة',
+    'in_english' => ' بالانكليزي',
+    'in_arabic' => ' بالعربي',
 ];

@@ -14,14 +14,13 @@
         {{ Form::label('english_name', 'English Name:') }}
         {{ Form::text('name_en', NULL,array('class'=>'form-control')) }}
     </div>
-
-        <div class="form-group">
-            {{ Form::label('type', 'Type:') }}
-            {{ Form::select('type',['EventModel' => 'Event','Post' => 'Blog'],NULL,array('class'=>'form-control')) }}
-        </div>
-        <div class="form-group">
-            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-        </div>
+    <div class="form-group">
+        {{ Form::label('type', 'Type:') }}
+        {{ Form::select('type',['EventModel' => 'Event','Blog' => 'Blog', 'Gallery'=>'Gallery' ],NULL,array('class'=>'form-control')) }}
+    </div>
+    <div class="form-group">
+        {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+    </div>
 {{ Form::close() }}
 
 @if ($errors->any())

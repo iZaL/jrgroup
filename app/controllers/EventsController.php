@@ -53,59 +53,10 @@ class EventsController extends BaseController {
 
     public function index()
     {
-        $perPage = 10;
 
-        $expiredEvents = $this->eventRepository->getPastEvents($perPage);
-        //find countries,authors,and categories to display in search form
-        $countries  = [0 => trans('word.choose_country')] + $this->countryRepository->getAll()->lists('name_' . getLocale(), 'id');
-        $categories = [0 => trans('word.choose_category')] + $this->categoryRepository->getEventCategories()->lists('name_' . getLocale(), 'id');
-        $authors    = [0 => trans('word.choose_author')] + $this->userRepository->getRoleByName('author')->lists('name_' . getLocale(), 'id');
+        $events= $this->eventRepository->getAllPaginated(['photos'],12);
 
-        // find selected form values
-        $search   = trim(Input::get('search'));
-        $category = Request::get('category');
-        $author   = Request::get('author');
-        $country  = Request::get('country');
-        $expired  = Request::get('past');
-
-        $this->title = trans('word.events');
-        // if the form is selected
-        // perform search
-        if ( !empty($search) || !empty($category) || !empty($author) || !empty($country) ) {
-            $events = $this->eventRepository->getAll()
-                ->where(function ($query) use ($search, $category, $author, $country) {
-                    if ( !empty($search) ) {
-                        $query->where('title_ar', 'LIKE', "%$search%")
-                            ->orWhere('title_en', 'LIKE', "%$search%");
-                    }
-                    if ( !empty($category) ) {
-                        $query->where('category_id', $category);
-                    }
-                    if ( !empty($author) ) {
-                        $query->where('user_id', $author);
-                    }
-                    if ( !empty($country) ) {
-                        $locations = $this->countryRepository->findById($country)->locations()->lists('id');
-                        $query->whereIn('location_id', $locations);
-                    }
-                })
-                ->orderBy('date_start', 'ASC')
-                ->orderBy('created_at', 'DESC')
-                ->paginate($perPage);
-
-        } elseif ( isset($expired) && $expired == 'true' ) {
-            // Past Events
-            $this->title = trans('word.expired_events');
-            $events      = $expiredEvents;
-        } else {
-            $events = $this->eventRepository->getNonExpiredEvents($perPage);
-        }
-
-        $eventCategories = $this->categoryRepository->getEventCategories()->get();
-
-        $tags = $this->tagRepository->getEventTags();
-
-        $this->render('site.events.index', compact('events', 'authors', 'categories', 'countries', 'search', 'category', 'author', 'country', 'eventCategories', 'tags', 'expiredEvents'));
+        return $this->render('site.events.index', compact('events'));
     }
 
     /**
@@ -127,23 +78,13 @@ class EventsController extends BaseController {
 
             View::composer('site.events.view', function ($view) use ($id, $user, $event) {
                 // return boolean true false
-                $favorited  = $event->favorites->contains($user->id);
                 $subscribed = $event->subscribers->contains($user->id);
-                $followed   = $event->followers->contains($user->id);
 
-                // check if this event has online option
-                if ( $this->isOnlineEvent($event) ) {
-                    // return bool
-                    $canWatchOnline = $this->eventRepository->ongoingEvent($event->date_start, $event->date_end);
-                } else {
-                    $canWatchOnline = false;
-                }
-
-                $view->with(array('favorited' => $favorited, 'subscribed' => $subscribed, 'followed' => $followed, 'canWatchOnline' => $canWatchOnline));
+                $view->with(['subscribed' => $subscribed]);
             });
         } else {
             View::composer('site.events.view', function ($view) {
-                $view->with(array('favorited' => false, 'subscribed' => false, 'followed' => false, 'canWatchOnline' => 'false'));
+                $view->with(['subscribed' => false]);
             });
         }
 

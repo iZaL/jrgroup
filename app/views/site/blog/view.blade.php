@@ -1,4 +1,5 @@
-@extends('site.master')
+@extends('site.layouts._two_column')
+
 @section('content')
 <div class="row">
     <div class="col-md-6">

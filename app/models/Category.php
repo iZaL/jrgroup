@@ -17,8 +17,12 @@ class Category extends BaseModel {
         return $this->hasMany('EventModel');
     }
 
-    public function posts()
+    public function blogs()
     {
         return $this->hasMany('Blog');
+    }
+
+    public function galleries(){
+        return $this->hasMany('Gallery');
     }
 }

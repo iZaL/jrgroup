@@ -15,7 +15,8 @@ class CreateCertificateTypes extends Migration {
 		Schema::create('certificate_types', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->string('name');
+            $table->string('name_en');
+            $table->string('name_ar');
             $table->float('price');
 			$table->timestamps();
 		});

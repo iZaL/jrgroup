@@ -1,114 +1,64 @@
 <?php
 
+use Acme\Category\CategoryRepository;
+use Acme\EventModel\EventRepository;
+use Acme\Gallery\GalleryRepository;
+
 class GalleriesController extends BaseController {
 
-	/**
-	 * Country Repository
-	 *
-	 * @var Country
-	 */
-	protected $model;
     /**
-     * @var Category
+     * @var GalleryRepository
      */
-    private $category;
+    private $galleryRepository;
     /**
-     * @var EventModel
+     * @var CategoryRepository
      */
-    private $event;
+    private $categoryRepository;
+    /**
+     * @var EventRepository
+     */
+    private $eventRepository;
 
 
-    public function __construct(Gallery $model,Category $category, EventModel $event)
+    /**
+     * @param GalleryRepository $galleryRepository
+     * @param CategoryRepository $categoryRepository
+     * @param EventRepository $eventRepository
+     */
+    public function __construct(GalleryRepository $galleryRepository, CategoryRepository $categoryRepository, EventRepository $eventRepository)
 	{
-		$this->model = $model;
-        $this->category = $category;
-        $this->event = $event;
+        $this->galleryRepository = $galleryRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->eventRepository = $eventRepository;
+        parent::__construct();
     }
 
 	/**
-	 * Display a listing of the resource.
+	 * Display categories For the Gallery
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-//		$galleries = $this->model->with(array('photos'))->paginate(9);
-//		return $this->view('site.galleries.index',compact('galleries'));
-        //return gallery categories;
-//        $galleries = $this->model->with(['category','photos'])->paginate(9);
-//        $galleries = $this->category->where('type','=','Gallery')->get();
-//        $categories = $this->category
-//                        ->with(array('galleries.photos'))
-//                        ->whereHas('galleries.photos',function($q){
-//                            $q->where('id','>','0');
-//                        })
-//                        ->where('type','=','Gallery')
-//                        ->get();
-        $categories = $this->category
-                        ->with(array('galleries'))
+        $categories = $this->categoryRepository->model
+                        ->with(['galleries'])
                         ->where('type','=','Gallery')
                         ->paginate(9);
-//        foreach($categories as $category) {
-//            var_dump($category->toArray());
-//            foreach($category->galleries as $gallery) {
-//                var_dump($gallery->toArray());
-//                foreach($gallery->photos as $photo) {
-//                    var_dump($photo->toArray());
-//                }
-//            }
-//        }
-
-        return $this->view('site.galleries.index',compact('categories'));
+        return $this->render('site.galleries.index',compact('categories'));
 
     }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('countries.create');
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$input = Input::all();
-		$validation = Validator::make($input, Country::$rules);
-
-		if ($validation->passes())
-		{
-			$this->model->create($input);
-
-			return Redirect::route('countries.index');
-		}
-
-		return Redirect::route('countries.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-//		$model = $this->model->findOrFail($id);
-		$galleries = $this->category->with('galleries')->find($id);
-//        dd($galleries->toArray());
-        return $this->view('site.galleries.view',compact('galleries'));
-	}
-
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $galleries = $this->categoryRepository->findById($id,['galleries']);
+        return $this->render('site.galleries.view',compact('galleries'));
+    }
 
     public function getDate($galleryId) {
         $date = '';

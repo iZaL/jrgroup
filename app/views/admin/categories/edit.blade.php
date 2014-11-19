@@ -14,10 +14,9 @@
         {{ Form::label('english_name', 'English Name:') }}
         {{ Form::text('name_en', NULL,array('class'=>'form-control')) }}
     </div>
-
     <div class="form-group">
-        {{ Form::label('type', 'Type:',array('class'=>'control-label')) }}
-        {{ Form::text('type',NULL,array('class'=>'form-control')) }}
+        {{ Form::label('type', 'Type:') }}
+        {{ Form::select('type',['EventModel' => 'Event','Post' => 'Blog','Gallery'=>'Gallery'],NULL,array('class'=>'form-control')) }}
     </div>
     <div class="form-group">
         {{ Form::submit('Update', array('class' => 'btn btn-info')) }}

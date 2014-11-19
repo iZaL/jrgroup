@@ -22,9 +22,19 @@ class HomeController extends BaseController {
 
     public function index()
     {
-        $events = $this->eventRepository->getSliderEvents();
+//        $events = $this->eventRepository->getSliderEvents();
+//        $ads    = $this->adRepository->getAds();
+//        $this->render('site.home', compact('events', 'ads'));
+        $event = $this->eventRepository->model->with('photos')
+//            ->where('events.date_start','<', Carbon::now()->toDateTimeString())
+            ->orderBy('events.date_start','DESC')
+            ->limit(1)
+            ->first()
+        ;
         $ads    = $this->adRepository->getAds();
-        $this->render('site.home', compact('events', 'ads'));
+
+        return $this->render('site.home',compact('event','ads'));
+
     }
 
     /**

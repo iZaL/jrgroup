@@ -15,4 +15,5 @@ class Gallery extends BaseModel {
         return $this->morphMany('Video','videoable');
     }
 
+
 }

@@ -25,6 +25,8 @@
                         Event
                         @elseif($category->type == 'Post')
                         Blog
+                        @elseif($category->type == 'Gallery')
+                        Gallery
                         @endif
 
 					</td>

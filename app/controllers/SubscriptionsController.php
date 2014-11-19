@@ -52,17 +52,11 @@ class SubscriptionsController extends BaseController {
             return Redirect::action('EventsController@show', $eventId)->with('warning', trans('word.system_error'));
         }
 
-        // if event is currently going on
-//        if ( $this->eventRepository->ongoingEvent($event->date_start, $event->date_end) ) {
-//
-//            return Redirect::action('EventsController@show', $eventId)->with('warning', trans('general.event_ongoing'));
-//        }
-
         // If event is Expired
-//        if ( $this->eventRepository->eventExpired($event->date_start) ) {
-//
-//            return Redirect::action('EventsController@show', $eventId)->with('warning', trans('word.event_expired'));
-//        }
+        if ( $this->eventRepository->eventExpired($event->date_start) ) {
+
+            return Redirect::action('EventsController@show', $eventId)->with('warning', trans('word.event_expired'));
+        }
 
         // If no subscription entry in the database
         if ( !$subscription ) {
@@ -79,7 +73,7 @@ class SubscriptionsController extends BaseController {
             return Redirect::home()->with('errors', [$subscriber->messages->first('errors')]);
         } else {
             // If no errors occured while subscription process
-            return Redirect::action('EventsController@getSuggestedEvents', $eventId)->with('success', trans('general.subscription_check_email'));
+            return Redirect::action('EventsController@show', $eventId)->with('success', trans('general.subscription_check_email'));
         }
     }
 
@@ -105,11 +99,6 @@ class SubscriptionsController extends BaseController {
             return Redirect::action('EventsController@show', $eventId)->with('warning', trans('word.event_expired'));
         }
 
-        // if event is currently going on
-//        if ( $this->eventRepository->ongoingEvent($event->date_start, $event->date_end) ) {
-//
-//            return Redirect::action('EventsController@show', $eventId)->with('warning', trans('general.event_ongoing'));
-//        }
 
         if ( $subscription ) {
 
@@ -121,12 +110,12 @@ class SubscriptionsController extends BaseController {
                 return Redirect::action('EventsController@index')->with('errors', [$subscriber->messages->first('errors')]);
             } else {
                 // If no errors occured while subscription process
-                return Redirect::action('EventsController@index')->with('success', trans('general.unsubscribed'));
+                return Redirect::back()->with('success', trans('general.unsubscribed'));
             }
 
         }
 
-        return Redirect::action('EventsController@index')->with('success', trans('general.subscription.unsubscribed_fail'));
+        return Redirect::back()->with('success', trans('general.subscription.unsubscribed_fail'));
     }
 
     public function subscribePackage($userId = 1, $packageId = 1)

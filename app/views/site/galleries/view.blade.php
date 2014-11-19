@@ -1,18 +1,9 @@
-@extends('site.master')
-@section('title')
-    Events
-@stop
-@section('style')
-    @parent
-@stop
-@section('scripts')
-    @parent
-@stop
+@extends('site.layouts._two_column')
+
 
 @section('breadcrumb')
-<li><a href="{{ action('GalleriesController@index') }} ">{{ Lang::get('site.general.coursesgallery') }}</a></li>
-<li><a href="{{ action('GalleriesController@show', $galleries->id) }} "> {{ LocaleHelper::getLocaled($galleries->name,$galleries->name_en) }}</a></li>
-
+<li><a href="{{ action('GalleriesController@index') }} ">{{ trans('word.gallery') }}</a></li>
+<li><a href="{{ action('GalleriesController@show', $galleries->id) }} "> {{ $galleries->name}}</a></li>
 @stop
 
 @section('content')

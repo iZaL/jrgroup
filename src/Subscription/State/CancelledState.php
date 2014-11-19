@@ -37,10 +37,10 @@ class CancelledState extends AbstractState implements SubscriberState {
 
     public function processUnsubscription()
     {
-        $this->processPayment();
+//        $this->processPayment();
 
         // Set Payment Token to Null
-        $this->setPaymentTokenToNull();
+//        $this->setPaymentTokenToNull();
 
         // update available seats ..
         $this->subscriber->model->event->updateAvailableSeats();
