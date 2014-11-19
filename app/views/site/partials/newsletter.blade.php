@@ -1,19 +1,18 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        {{ Lang::get('site.general.newsletter_subscribe') }}
+        {{ trans('word.newsletter') }}
     </div>
     <div class="panel-body">
         <div class="form-group">
-            {{ Form::open(array('action'=>'NewslettersController@store')) }}
+            {{ Form::open(array('action'=>'NewslettersController@subscribe')) }}
             <div class="input-group">
-                <div class="input-icon">
-                    <i class="glyphicon glyphicon-envelope"></i>
-                    {{Form::input('email','email',NULL,array('class'=>'form-control','placeholder'=> Lang::get('site.nav.email') ,'required'=>'"required"'))}}
-                </div>
-            <span class="input-group-btn">
-                <button id="submit" class="btn btn-primary" type="submit">
-                    <i class="glyphicon glyphicon-arrow-left glyphicon-fw"></i></button>
-            </span>
+                <span class="input-group-addon">
+                    <i class="fa fa-envelope"></i>
+                </span>
+                {{Form::input('email','email',NULL,array('class'=>'form-control','placeholder'=>trans('word.email') ,'required'=>'"required"'))}}
+                <span class="input-group-btn">
+                    <button id="submit" class="btn btn-primary" type="submit"><i class="fa fa-arrow-left fa-fw"></i> </button>
+                </span>
             </div>
             {{Form::close()}}
         </div>

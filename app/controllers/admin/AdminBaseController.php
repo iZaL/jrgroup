@@ -1,47 +1,12 @@
 <?php
 
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
 abstract class AdminBaseController extends BaseController
 {
+    protected $layout = 'admin.master';
 
-    //Inject the Model into the Constructor method of the controller
+    protected $select = [''=>'Select one'];
 
-    protected $model;
-//    protected $layout = 'site.layouts.default';
-
-    /**
-     * Initializer.
-     *
-     * @access   public
-     * @return \AdminBaseController
-     */
-    public function __construct()
-    {
-        $this->beforeFilter('csrf', array('on' => array('post', 'delete', 'put')));
-
-    }
-
-    protected function redirectToAdmin()
-    {
-        return Redirect::to('admin');
-    }
-    protected function redirectToUser()
-    {
-        return Redirect::to('admin/users');
-    }
-
-    protected function redirectToAdminBlog()
-    {
-        return Redirect::to('admin/blogs');
-    }
-
-    protected function getUserId()
-    {
-        if (Auth::check()) {
-            return Auth::user()->getAuthIdentifier();
-        } else {
-            return NULL;
-        }
+    public function __construct() {
+        parent::__construct();
     }
 }

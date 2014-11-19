@@ -1,4 +1,4 @@
-@extends('admin.layouts.default')
+@extends('admin.master')
 
 {{-- Content --}}
 @section('content')
@@ -8,7 +8,7 @@
 {{ Form::open(array('action' => 'AdminCategoriesController@store')) }}
     <div class="form-group">
         {{ Form::label('arabic_name', 'Arabic Name:') }}
-        {{ Form::text('name', NULL,array('class'=>'form-control')) }}
+        {{ Form::text('name_ar', NULL,array('class'=>'form-control')) }}
     </div>
     <div class="form-group">
         {{ Form::label('english_name', 'English Name:') }}
@@ -17,7 +17,7 @@
 
         <div class="form-group">
             {{ Form::label('type', 'Type:') }}
-            {{ Form::select('type',['EventModel' => 'Event','Post' => 'Blog','Gallery' => 'Gallery'],NULL,array('class'=>'form-control')) }}
+            {{ Form::select('type',['EventModel' => 'Event','Post' => 'Blog'],NULL,array('class'=>'form-control')) }}
         </div>
         <div class="form-group">
             {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}

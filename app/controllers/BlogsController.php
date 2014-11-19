@@ -76,15 +76,28 @@ class BlogsController extends BaseController {
         $this->render('site.blog.view', compact('post'));
 	}
 
-    /**
-     * Get Posts For Consultancies
-     */
-    public function consultancy() {
-
-        $this->title =  trans('word.consultancies');
-
-        $posts=  $this->blogRepository->getConsultancyPosts();
-
-        $this->render('site.blog.consultancy', compact('posts'));
+    public function create(){
+        // Title
+        $category = [''=>'select a category'] + $this->category->getPostCategories()->lists('name', 'id');
+        $this->view('site.blogs.create',compact('category'));
     }
+
+    public function store()
+    {
+        // Validate the inputs
+        $validation = new $this->model(array_merge(['user_id'=>Auth::user()->id],Input::except('thumbnail')));
+        $validation->slug = Str::slug(Input::get('title'));
+        if (!$validation->save()) {
+            return Redirect::back()->withInput()->withErrors($validation->getErrors());
+        }
+        if(Input::hasFile('thumbnail')) {
+            // call the attach image function from Photo class
+            if(!$this->photo->attachImage($validation->id,Input::file('thumbnail'),'Post','0')) {
+                return Redirect::action('BlogsController@edit',$validation->id)->with('error',$this->photo->getErrors());
+            }
+        }
+
+        return Redirect::action('BlogsController@index')->with('success','Added Blog to the Database');
+    }
+
 }

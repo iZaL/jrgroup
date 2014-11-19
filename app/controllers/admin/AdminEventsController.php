@@ -1,31 +1,50 @@
 <?php
-
-use Acme\Mail\EventsMailer;
-use Illuminate\Support\Facades\Auth;
+use Acme\Category\CategoryRepository;
+use Acme\EventModel\EventRepository;
+use Acme\Location\LocationRepository;
+use Acme\Package\PackageRepository;
+use Acme\Photo\PhotoRepository;
+use Acme\Setting\SettingRepository;
+use Acme\Tag\TagRepository;
+use Acme\User\UserRepository;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-class AdminEventsController extends AdminBaseController
-{
 
-    protected $model;
+class AdminEventsController extends AdminBaseController {
+
+    protected $eventRepository;
     protected $user;
-    protected $mailer;
     protected $category;
     protected $photo;
+    protected $photoRepository;
+    protected $locationRepository;
+    protected $eventTags;
+    /**
+     * @var Acme\Setting\SettingRepository
+     */
+    private $settingRepository;
+    /**
+     * @var Acme\EventModel\EventPhotoService
+     */
+    private $imageService;
 
+    /**
+     * @var Acme\Tag\TagRepository
+     */
+    private $tagRepository;
 
-    function __construct(EventModel $model, User $user, EventsMailer $mailer, Category $category, Photo $photo)
+    function __construct(EventRepository $eventRepository, CategoryRepository $categoryRepository, LocationRepository $locationRepository, UserRepository $userRepository, PhotoRepository $photoRepository, SettingRepository $settingRepository, eventModel $eventTags, TagRepository $tagRepository)
     {
-        $this->model = $model;
-        $this->user = $user;
-        $this->mailer = $mailer;
-        $this->category = $category;
-        $this->photo = $photo;
+        $this->eventRepository    = $eventRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->userRepository     = $userRepository;
+        $this->photoRepository    = $photoRepository;
+        $this->locationRepository = $locationRepository;
+        $this->settingRepository  = $settingRepository;
+        $this->eventTags          = $eventTags;
+        $this->tagRepository      = $tagRepository;
         parent::__construct();
-        $this->beforeFilter('Admin', array('except' => array('index','settings','getFollowers','getFavorites','getSubscriptions')));
-//      $this->beforeFilter('Admin', array('on' => array('store','update','destroy','mailFollowers', 'mailFavorites','mailSubscribers')
     }
 
     /**
@@ -34,15 +53,12 @@ class AdminEventsController extends AdminBaseController
      * @return Response
      */
 
-    // master layout
-
     public function index()
     {
-        $events = parent::all();
-        $statuses = Status::all();
-        return View::make('admin.events.index', compact('events'));
-    }
+        $events   = $this->eventRepository->getAll(array('category', 'location.country', 'setting'))->paginate(10);
 
+        $this->render('admin.events.index', compact('events'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -51,11 +67,11 @@ class AdminEventsController extends AdminBaseController
      */
     public function create()
     {
-        $category = $this->category->getEventCategories()->lists('name', 'id');
-        $author = $this->user->getRoleByName('author')->lists('username', 'id');
-        $location = Location::all()->lists('name', 'id');
-        $country = Country::all()->lists('name', 'id');
-        return View::make('admin.events.create', compact('category', 'author', 'location','country'));
+        $category = $this->select + $this->categoryRepository->getEventCategories()->lists('name_ar', 'id');
+        $author   = $this->select + $this->userRepository->getRoleByName('author')->lists('username', 'id');
+        $location = $this->select + $this->locationRepository->getAll()->lists('name_ar', 'id');
+        $tags     = [''=>''] + $this->tagRepository->getList('name_ar','id');
+        $this->render('admin.events.create', compact('category', 'author', 'location', 'tags'));
     }
 
     /**
@@ -65,36 +81,33 @@ class AdminEventsController extends AdminBaseController
      */
     public function store()
     {
-        dd(Input::get('type'));
-        //validate and save
-        $validation = new $this->model(Input::except(array('thumbnail','addresspicker_map','type')));
-        if (!$validation->save()) {
-            return Redirect::back()->withInput()->withErrors($validation->getErrors());
-        }
-        // if file is uploaded, try to attach it and save it the db
-        if(Input::hasFile('thumbnail')) {
-            // call the attach image function from Photo class
-            if(!$this->photo->attachImage($validation->id,Input::file('thumbnail'),'EventModel','1')) {
-                return Redirect::to('admin/event/' . $validation->id . '/edit')->withErrors($this->photo->getErrors());
-            }
+        $val = $this->eventRepository->getCreateForm();
+
+        if ( !$val->isValid() ) {
+            return Redirect::back()->withInput()->withErrors($val->getErrors());
         }
 
-        $type = new Type();
-        $type->event_id= $validation->id;
-        $type->type = Input::get('type');
-
-        if (!$type->save()) {
-            return Redirect::to('admin/event/' . $validation->id . '/edit')->withErrors($type->getErrors());
+        if ( Input::get('date_start') > Input::get('date_end') ) {
+            return Redirect::back()->with('error', 'Date Start must be lesser than date end')->withInput();
         }
 
-        //update available seats
-        $event = $this->model->find($validation->id);
-        if(!empty($event->total_seats))
-            $event->available_seats = $event->total_seats;
-            $event->save();
-        return Redirection::action('AdminEventsController@index')->with('success','Added Event to the Database');
+        if ( !$event = $this->eventRepository->create($val->getInputData()) ) {
+            return Redirect::back()->with('errors', $this->eventRepository->errors())->withInput();
+        }
+
+        $event->updateAvailableSeats();
+
+        // update the tags
+        $tags = is_array(Input::get('tags')) ? array_filter(Input::get('tags')) : [];
+        $this->tagRepository->attachTags($event, $tags);
+
+        // Create a settings record for the inserted event
+        // Settings Record needs to know Which type of Record and The Foreign Key it needs to Create
+        // So pass these fields with Session (settableType,settableId)
+
+        return Redirect::action('AdminSettingsController@edit', $setting->id);
+
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -104,14 +117,15 @@ class AdminEventsController extends AdminBaseController
      */
     public function edit($id)
     {
-        {
-            $event = $this->model->with('photos','type')->find($id);
-            $category = $this->category->getEventCategories()->lists('name', 'id');
-            $author = $this->user->getRoleByName('author')->lists('username', 'id');
-            $location = Location::all()->lists('name', 'id');
-            $country = Country::all()->lists('name', 'id');
-            return View::make('admin.events.edit', compact('event', 'category', 'author', 'location','country'));
-        }
+        $event      = $this->eventRepository->findById($id, ['photos']);
+        $tags       = $this->tagRepository->getList('name_ar','id');
+        $dbTags =     $event->tags->lists('id');
+
+        $category = $this->select + $this->categoryRepository->getEventCategories()->lists('name_ar', 'id');
+        $author   = $this->select + $this->userRepository->getRoleByName('author')->lists('username', 'id');
+        $location = $this->select + $this->locationRepository->getAll()->lists('name_ar', 'id');
+
+        $this->render('admin.events.edit', compact('event', 'category', 'author', 'location', 'dbTags', 'tags'));
     }
 
     /**
@@ -122,37 +136,33 @@ class AdminEventsController extends AdminBaseController
      */
     public function update($id)
     {
-        $validation = $this->model->find($id);
-        $validation->fill(Input::except(array('thumbnail','addresspicker_map','type')));
-        if (!$validation->save()) {
-            return Redirect::back()->withInput()->withErrors($validation->getErrors());
-        }
-        if (Input::hasFile('thumbnail')) {
-            if(!$this->photo->attachImage($validation->id,Input::file('thumbnail'),'EventModel','1')) {
-                return Redirect::back()->withErrors($this->photo->getErrors());
-            }
+        $event = $this->eventRepository->findById($id);
+
+        $val = $this->eventRepository->getEditForm($id);
+
+        if ( !$val->isValid() ) {
+
+            return Redirect::back()->with('errors', $val->getErrors())->withInput();
         }
 
-        //update type
-        $type = Type::where('event_id',$id)->first();
-        if(!$type) {
-            $type = new Type();
-            $type->event_id = $id;
-        }
-        $type->type = Input::get('type');
-        if (!$type->save()) {
-            return Redirect::action('AdminEventsController@edit',$validation->id)->withErrors($type->getErrors());
+        if ( Input::get('date_start') > Input::get('date_end') ) {
+            return Redirect::back()->with('error', 'Event Date Start Cannot be greater than Event End Date');
         }
 
-        //update available seats
-        $event = $this->model->find($validation->id);
-        $total_seats = $event->total_seats;
-        $total_seats_taken = Subscription::findEventCount($event->id);
-        $available_seats = $total_seats - $total_seats_taken;
-        $event->available_seats = $available_seats;
-        $event->save();
-        return Redirect::action('AdminEventsController@index')->with('success','Updated Event '. $validation->title);
+        if ( !$this->eventRepository->update($id, $val->getInputData()) ) {
+
+            return Redirect::back()->with('errors', $this->eventRepository->errors())->withInput();
+        }
+
+        $event->updateAvailableSeats();
+        // update the tags
+        $tags = is_array(Input::get('tags')) ? array_filter(Input::get('tags')) : [];
+        $this->tagRepository->attachTags($event, $tags);
+
+        return Redirect::action('AdminEventsController@index')->with('success', 'Updated');
+
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -162,61 +172,127 @@ class AdminEventsController extends AdminBaseController
      */
     public function destroy($id)
     {
-        if ($this->model->findOrFail($id)->delete()) {
+        if ( $this->eventRepository->findById($id)->delete() ) {
             //  return Redirect::home();
-            return parent::redirectToAdmin()->with('success','Event Deleted');
+            return Redirect::action('AdminEventsController@index')->with('success', 'Event Deleted');
         }
-        return Redirect::action('AdminEventsController@index')->with('error','Error: Event Not Found');
-    }
 
+        return Redirect::action('AdminEventsController@index')->with('error', 'Error: Event Not Found');
+    }
 
     /**
      * @param $id
      * @return statement
      * Send Notification Email for the Event Followers
      */
-
-    public function mailFollowers($id)
+    public function getMailFollowers($id)
     {
-        $event = $this->model->find($id)->followers;
-        try {
-            $this->mailer->sendMail($event,Input::all());
-        } catch(\Exception $e) {
-            return Redirect::back()->with('error','Email Could not send');
-        }
-        return Redirect::back()->with('success','Email Sent');
+        $event = $this->eventRepository->findById($id);
+        $this->render('admin.events.mail-followers', compact('event'));
     }
 
-    public function mailFavorites($id)
+    public function postMailFollowers($id)
     {
-        $event = $this->model->find($id)->favorites;
-        try {
-           $this->mailer->sendMail($event,Input::all());
-        } catch(\Exception $e) {
-            return Redirect::back()->with('error','Email Could not send');
+        $event     = $this->eventRepository->findById($id);
+        $followers = $event->followers;
+        if ( count($followers) >= 1 ) {
+            $array = array_merge(['subscribers' => $followers->toArray()], Input::all());
+            try {
+                Event::fire('events.mail-subscribers', [$array]);
+            }
+            catch ( \Exception $e ) {
+                return Redirect::back()->with('error', 'Email Could not send');
+            }
         }
-        return Redirect::back()->with('success','Email Sent');
-    }
-    public function mailSubscribers($id)
-    {
-        $event = $this->model->find($id)->subscribers;
-        try {
-            $this->mailer->sendMail($event,Input::all());
-        } catch(\Exception $e) {
-            return Redirect::back()->with('error','Email Could not send');
-        }
-        return Redirect::back()->with('success','Email Sent');
+
+        return Redirect::action('AdminEventsController@getFollowers', $event->id)->with('success', 'Email Sent');
     }
 
-    public function settings($id)
+    public function getMailFavorites($id)
     {
-        $event = $this->model->find($id);
-        $subscriptions_count =$event->subscriptions()->count();
-        $favorites_count =$event->favorites()->count();
-        $followers_count =$event->followers()->count();
-        $requests_count = $event->statuses()->count();
-        return View::make('admin.events.settings',compact('event','subscriptions_count','favorites_count','followers_count','requests_count'));
+        $event = $this->eventRepository->findById($id);
+        $this->render('admin.events.mail-favorites', compact('event'));
     }
+
+    public function postMailFavorites($id)
+    {
+        $event     = $this->eventRepository->findById($id);
+        $favorites = $event->favorites;
+
+        if ( count($favorites) >= 1 ) {
+            $array = array_merge(['subscribers' => $favorites->toArray()], Input::all());
+
+            try {
+                Event::fire('events.mail-subscribers', [$array]);
+            }
+
+            catch ( \Exception $e ) {
+                return Redirect::back()->with('error', 'Email Could not send');
+            }
+        }
+
+        return Redirect::action('AdminEventsController@getFavorites', $event->id)->with('success', 'Email Sent');
+    }
+
+
+    public function getMailSubscribers($id)
+    {
+        $event = $this->eventRepository->findById($id);
+        $this->render('admin.events.mail-subscribers', compact('event'));
+    }
+
+    public function postMailSubscribers($id)
+    {
+        $status = Input::get('status');
+
+        $event = $this->eventRepository->findById($id);
+
+        if ( isset($status) && !(empty($status)) ) {
+            $subscribers = $event->subscribers()->ofStatus(strtoupper($status))->get()->toArray();
+        } else {
+            $subscribers = $event->subscribers->toArray();
+        }
+        if ( count($subscribers) >= 1 ) {
+            $array = array_merge(['subscribers' => $subscribers], Input::all());
+
+            try {
+                Event::fire('events.mail-subscribers', [$array]);
+            }
+
+            catch ( \Exception $e ) {
+                return Redirect::back()->with('error', 'Email Could not send');
+            }
+
+        }
+
+        return Redirect::action('AdminEventsController@getSubscriptions', $event->id)->with('success', 'Email Sent');
+    }
+
+    public function getSettings($id)
+    {
+        $event               = $this->eventRepository->findById($id);
+        $subscriptions_count = $event->subscriptions()->where('status', 'CONFIRMED')->count();
+        $favorites_count     = $event->favorites()->count();
+        $followers_count     = $event->followers()->count();
+        $requests_count      = $event->subscriptions()->count();
+
+        $this->render('admin.events.settings', compact('event', 'subscriptions_count', 'favorites_count', 'followers_count', 'requests_count'));
+    }
+
+    public function getDetails($id)
+    {
+        $event               = $this->eventRepository->findById($id);
+        $subscriptions_count = $event->subscriptions()->count();
+        $favorites_count     = $event->favorites()->count();
+        $followers_count     = $event->followers()->count();
+        $requests_count      = $event->requests()->count();
+
+        $event->updateAvailableSeats();
+
+        $this->render('admin.events.details', compact('event', 'subscriptions_count', 'favorites_count', 'followers_count', 'requests_count'));
+    }
+
+
     /**
      * @param $id
      * @return mixed
@@ -224,9 +300,10 @@ class AdminEventsController extends AdminBaseController
      */
     public function getFollowers($id)
     {
-        $users = $this->model->find($id)->followers;
-        $event = $this->model->find($id);
-        return View::make('admin.events.followers',compact('users','event'));
+        $users = $this->eventRepository->findById($id)->followers;
+        $event = $this->eventRepository->findById($id);
+
+        $this->render('admin.events.followers', compact('users', 'event'));
     }
 
     /**
@@ -236,9 +313,10 @@ class AdminEventsController extends AdminBaseController
      */
     public function getFavorites($id)
     {
-        $users = $this->model->find($id)->favorites;
-        $event = $this->model->find($id);
-        return View::make('admin.events.favorites',compact('users','event'));
+        $users = $this->eventRepository->findById($id)->favorites;
+        $event = $this->eventRepository->findById($id);
+
+        $this->render('admin.events.favorites', compact('users', 'event'));
     }
 
     /**
@@ -248,17 +326,36 @@ class AdminEventsController extends AdminBaseController
      */
     public function getSubscriptions($id)
     {
-        $users = $this->model->find($id)->subscriptions;
-        $event = $this->model->find($id);
-        return View::make('admin.events.subscriptions',compact('users','event'));
+
+        $status = Input::get('status');
+        $type   = Input::get('type');
+
+        if ( !isset($type) ) {
+            $type = 'event';
+        }
+        $event = $this->eventRepository->findById($id);
+
+        if ( isset($status) ) {
+            $subscriptions = $event->subscriptions()->ofStatus(strtoupper($status))->get();
+        } else {
+            $subscriptions = $event->subscriptions;
+        }
+
+        $this->render('admin.events.subscriptions', compact('event', 'subscriptions', 'type'));
+
     }
 
     public function getRequests($id)
     {
-        $event = $this->model->with('statuses')->find($id);
-        return View::make('admin.events.requests',compact('event'));
+        $event = $this->eventRepository->findById($id,['requests.user']);
+        $this->render('admin.events.requests', compact('event'));
     }
 
+
+    public function selectType()
+    {
+        $this->render('admin.events.select-type');
+    }
 
 
 }

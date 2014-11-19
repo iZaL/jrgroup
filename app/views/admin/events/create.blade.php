@@ -1,19 +1,19 @@
-@extends('admin.layouts.default')
+@extends('admin.master')
+
+@section('style')
+@parent
+{{ HTML::style('assets/css/jquery.datetimepicker.css') }}
+{{ HTML::style('assets/vendors/select2/select2.css') }}
+{{ HTML::style('assets/vendors/select2/select2-bootstrap.css') }}
+@stop
 
 {{-- Content --}}
 @section('content')
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script src="{{ asset('js/address.picker.js') }}"></script>
-<h1>Edit Course</h1>
+
+@include('admin.events.breadcrumb',['active'=>'info'])
 {{ Form::open(array('method' => 'POST', 'action' => array('AdminEventsController@store'), 'role'=>'form', 'files' => true)) }}
+
 <div class="row">
-
-    <div class="form-group col-md-12">
-        {{ Form::label('type', 'Course Type:') }}
-        {{ Form::select('type', array(''=>'Select','PUBLIC' => 'PUBLIC', 'MEMBERS' => 'MEMBERS'),'PUBLIC',array('class'=>'form-control')) }}
-    </div>
-
 
     <div class="form-group col-md-4">
         {{ Form::label('user_id', 'Author:',array('class'=>'control-label')) }}
@@ -31,54 +31,47 @@
     </div>
 </div>
 <div class="row">
-    <div class="form-group col-md-12">
-        {{ Form::label('title', 'Title in Arabic:*') }}
-        {{ Form::text('title',NULL,array('class'=>'form-control')) }}
-    </div>
-</div>
 
-<div class="row">
-    <div class="form-group col-md-12">
+    <div class="form-group col-md-6">
         {{ Form::label('title_en', 'Title in English:') }}
         {{ Form::text('title_en',NULL,array('class'=>'form-control')) }}
     </div>
-</div>
-
-
-<div class="row">
-    <div class="form-group col-md-12">
-        {{ Form::label('description', 'Description in Arabic:*') }}
-        {{ Form::textarea('description',NULL,array('class'=>'form-control wysihtml5')) }}
-    </div>
-</div>
-
-<div class="row">
-    <div class="form-group col-md-12">
-        {{ Form::label('description_en', 'Description in English:') }}
-        {{ Form::textarea('description_en',NULL,array('class'=>'form-control wysihtml5')) }}
-    </div>
-</div>
-<div class="row">
-    <div class="form-group col-md-12">
-        {{ Form::label('total_seats', 'Total Seats For this Course:') }}
-        {{ Form::text('total_seats',NULL,array('class'=>'form-control')) }}
-    </div>
-</div>
-<div class="row">
-    <div class="form-group col-md-2 col-sm-4 col-xs-4">
-        {{ Form::label('free_event', 'Is this a Free Course ?:') }}
-        <br/>
-        {{ Form::checkbox('free', '1', true) }}
-    </div>
-    <div class="form-group col-md-10 col-sm-8 col-xs-8">
-        {{ Form::label('price', 'Course Price:') }}
-        {{ Form::text('price',NULL,array('class'=>'form-control')) }}
+    <div class="form-group col-md-6">
+        {{ Form::label('title_ar', 'Title in Arabic:*') }}
+        {{ Form::text('title_ar',NULL,array('class'=>'form-control right')) }}
     </div>
 </div>
 
 <div class="row">
     <div class="form-group col-md-6">
-        {{ Form::label('date_start', 'Course Start Date:') }}
+        {{ Form::label('description_en', 'Description in English:') }}
+        {{ Form::textarea('description_en',NULL,array('class'=>'form-control wysihtml5')) }}
+    </div>
+    <div class="form-group col-md-6">
+        {{ Form::label('description_ar', 'Description in Arabic:*') }}
+        {{ Form::textarea('description_ar',NULL,array('class'=>'form-control wysihtml5 right', 'id'=>'description_ar')) }}
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-md-6">
+        {{ Form::label('total_seats', 'Total Seats For this Event:') }}
+        {{ Form::text('total_seats',NULL,array('class'=>'form-control')) }}
+    </div>
+    <div class="form-group col-md-2 col-sm-4 col-xs-4">
+            {{ Form::label('free_event', 'Is this a Free Event ?:') }}
+            <br/>
+            {{ Form::hidden('free', 0); }}
+            {{ Form::checkbox('free', '1', true,['class'=>'free']) }}
+        </div>
+    <div class="form-group col-md-4">
+        {{ Form::label('price', 'Event Price:') }}
+        {{ Form::text('price',NULL,array('class'=>'form-control','id'=>'price')) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group col-md-6">
+        {{ Form::label('date_start', 'Event Start Date:') }}
         <div class="input-group">
             {{ Form::text('date_start',NULL,array('class'=>'form-control')) }}
             <span class="input-group-addon">
@@ -87,7 +80,7 @@
         </div>
     </div>
     <div class="form-group col-md-6">
-        {{ Form::label('date_end', 'Course End Date:') }}
+        {{ Form::label('date_end', 'Event End Date:') }}
         <div class="input-group">
             {{ Form::text('date_end',NULL,array('class'=>'form-control')) }}
             <span class="input-group-addon">
@@ -97,27 +90,26 @@
     </div>
 </div>
 
-
-<div class="row">
-    <div class="form-group col-md-6">
-        {{ Form::label('address', 'Address in Arabic:*') }}
-        {{ Form::text('address',NULL,array('class'=>'form-control')) }}
-    </div>
-
-    <div class="form-group col-md-6">
-        {{ Form::label('street', 'Street Name in Arabic:*') }}
-        {{ Form::text('street',NULL,array('class'=>'form-control')) }}
-    </div>
-</div>
 <div class="row">
     <div class="form-group col-md-6">
         {{ Form::label('address_en', 'Address in English:') }}
         {{ Form::text('address_en',NULL,array('class'=>'form-control')) }}
     </div>
+    <div class="form-group col-md-6">
+        {{ Form::label('address_ar', 'Address in Arabic:*') }}
+        {{ Form::text('address_ar',NULL,array('class'=>'form-control right')) }}
+    </div>
+</div>
 
+<div class="row">
     <div class="form-group col-md-6">
         {{ Form::label('street_en', 'Street Name in English:') }}
         {{ Form::text('street_en',NULL,array('class'=>'form-control')) }}
+    </div>
+
+    <div class="form-group col-md-6">
+        {{ Form::label('street_ar', 'Street Name in Arabic:*') }}
+        {{ Form::text('street_ar',NULL,array('class'=>'form-control right')) }}
     </div>
 </div>
 
@@ -127,7 +119,7 @@
         <div class="input-group">
             {{ Form::text('phone',NULL,array('class'=>'form-control')) }}
             <span class="input-group-addon">
-                <i class="fa fa-calendar"></i>
+                <i class="fa fa-phone"></i>
             </span>
         </div>
     </div>
@@ -136,7 +128,7 @@
         <div class="input-group">
             {{ Form::text('email',NULL,array('class'=>'form-control')) }}
             <span class="input-group-addon">
-                <i class="fa fa-calendar"></i>
+                <i class="fa fa-envelope"></i>
             </span>
         </div>
     </div>
@@ -152,29 +144,35 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="form-group col-md-12">
-        {{ Form::label('button_en', 'Is this a Featured Course ? : (Featured Course Will be included in Slider)') }}
+        {{ Form::label('button_en', 'Is this a Featured Event ? : (Featured Event Will be included in Slider)') }}
         <br>
         {{ Form::checkbox('featured', '1', false) }}
     </div>
 </div>
+
 <div class="row">
     <div class="form-group col-md-6">
-        {{ Form::label('button', 'Course Button Text in Arabic:') }}
-        {{ Form::text('button','سجل',array('class'=>'form-control')) }}
+        {{ Form::label('tags', 'Tags:') }}
+        {{ Form::select('tags[]',$tags,null,['class'=>'form-control','id'=>'tags','multiple'=>'multiple','data-placeholder'=>'Select Tags']) }}
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-md-6">
+        {{ Form::label('button_ar', 'Event Button Text in Arabic:') }}
+        {{ Form::text('button_ar','سجل',array('class'=>'form-control')) }}
     </div>
     <div class="form-group col-md-6">
-        {{ Form::label('button_en', 'Course Button Text English:') }}
+        {{ Form::label('button_en', 'Event Button Text English:') }}
         {{ Form::text('button_en','Register',array('class'=>'form-control')) }}
     </div>
 </div>
-<div class="row">
-    <div class="form-group col-md-12">
-        {{ Form::label('thumbnail', 'Course Thumbnail:') }}
-        {{ Form::file('thumbnail',NULL,array('class'=>'form-control')) }}
-    </div>
-</div>
+
+@if(isset($_GET['package_id']))
+{{ Form::hidden('package_id', $_GET['package_id']) }}
+@endif
 
 <div class="row">
     <div class="form-group col-md-12">
@@ -191,26 +189,59 @@
     </div>
 </div>
 @endif
+
 <?php
 $latitude = '29.357';
 $longitude = '47.951';
 ?>
-<script>
+
+@stop
+
+@section('script')
+@parent
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+{{HTML::script('assets/js/jquery-ui.min.js') }}
+{{HTML::script('assets/js/jquery.datetimepicker.js') }}
+{{HTML::script('assets/js/address.picker.js') }}
+{{ HTML::script('assets/vendors/select2/select2.min.js') }}
+
+<script type="text/javascript">
+
+    $('document').ready(function() {
+        // initial load
+        if ($('.free').is(':checked')) {
+            $("#price").prop('disabled', true);
+            $("#price").val('0');
+        } else if ($('#price').val() == 0) {
+            // on a reload
+            $('.free').prop('checked', true);
+            $("#price").prop('disabled', true);
+        }
+    });
+
+    $(".free").change(function() {
+        if(this.checked) {
+            $("#price").val('0');
+            $("#price").prop('disabled', true);
+        } else {
+            $("#price").val('0');
+            $("#price").prop('disabled', false);
+        }
+    });
+
     $(function() {
         var latitude = '<?php echo $latitude?>';
         var longitude = '<?php echo $longitude ?>';
 
-
         get_map(latitude,longitude);
 
-        var addresspicker = $( "#addresspicker" ).addresspicker();
         var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
-//            regionBias: "KW",
             updateCallback: showCallback,
-                elements: {
+            elements: {
                 map:      "#map",
-                    lat:      "#latitude",
-                    lng:      "#longitude"
+                lat:      "#latitude",
+                lng:      "#longitude"
             }
 
         });
@@ -225,32 +256,27 @@ $longitude = '47.951';
 
         function showCallback(geocodeResult, parsedGeocodeResult) {
             $('#callback_result').text(JSON.stringify(parsedGeocodeResult, null, 4));
-
-//            alert(JSON.stringify(parsedGeocodeResult, null, 4));
         }
-
 
     });
 
     $(function(){
         $('#date_start').datetimepicker({
-            format:'Y-m-d H:i',
-            onShow:function( ct ){
-//                this.setOptions({
-//                    maxDate:$('#date_end').val()?$('#date_end').val():false
-//                })
-            }
+            format:'Y-m-d H:i'
         });
         $('#date_end').datetimepicker({
-            format:'Y-m-d H:i',
-            onShow:function( ct ){
-//                this.setOptions({
-//                    minDate:$('#date_start').val()?$('#date_start').val():false
-//                })
-            }
+            format:'Y-m-d H:i'
         });
 
     });
 
+    $(document).ready(function() {
+        $('#tags').select2({
+            placeholder: "Select Tags",
+            allowClear: true
+        });
+    });
+
 </script>
+
 @stop

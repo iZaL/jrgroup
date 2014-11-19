@@ -47,8 +47,8 @@ class EventsController extends BaseController {
         $this->userRepository         = $userRepository;
         $this->subscriptionRepository = $subscriptionRepository;
         $this->tagRepository          = $tagRepository;
-        parent::__construct();
         $this->beforeFilter('auth', ['only' => ['showSubscriptionOptions', 'reorganizeEvents', 'streamEvent']]);
+        parent::__construct();
     }
 
     public function index()

@@ -1,4 +1,4 @@
-@extends('admin.layouts.default')
+@extends('admin.master')
 
 {{-- Content --}}
 @section('content')
@@ -8,14 +8,11 @@
 <p>{{ link_to_action('AdminLocationsController@create', 'Add new location') }}</p>
 
 @if ($locations->count())
-
-<div id="wrap">
-    <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Country</th>
-            <th>Actions</th>
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Country</th>
 			</tr>
 		</thead>
 
@@ -23,17 +20,17 @@
 			@foreach ($locations as $location)
 				<tr>
 					<td>{{{ $location->name }}}</td>
-					<td>{{{ $location->country->name }}}</td>
-                    <td>{{ link_to_action('AdminLocationsController@edit', 'Edit', $location->id) }}
+					<td>{{{ $location->country ? $location->country->name : '' }}}</td>
+                    <td>{{ link_to_action('AdminLocationsController@edit', 'Edit', array($location->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>
                         {{ Form::open(array('method' => 'DELETE', 'action' => array('AdminLocationsController@destroy', $location->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-xs btn-danger')) }}
+                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>
 			@endforeach
 		</tbody>
 	</table>
-</div>
 @else
 	There are no locations
 @endif

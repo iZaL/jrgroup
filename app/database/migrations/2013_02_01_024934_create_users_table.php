@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration {
             $table->string('twitter')->nullable();
             $table->string('confirmation_code')->nullable();
             $table->boolean('member')->default(0);
-            $table->boolean('confirmed')->default(false);
+            $table->boolean('active')->default(0);
             $table->timestamp('expires_at');
             $table->string('remember_token',100)->nullable();
             $table->timestamp('last_logged_at')->nullable();

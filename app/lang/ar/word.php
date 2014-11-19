@@ -128,5 +128,6 @@ return [
     'tags' => 'علامات',
     'request_reorganize_events' => 'طلب اعادة الفعالية',
     'gallery' => 'معرض الدورات',
-
+    'add_blog_post'         =>'اضافة المدونة',
+    'request_certificate'         =>'طلب الشهادة',
 ];

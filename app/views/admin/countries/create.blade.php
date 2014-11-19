@@ -1,4 +1,4 @@
-@extends('admin.layouts.default')
+@extends('admin.master')
 
 {{-- Content --}}
 @section('content')
@@ -10,11 +10,21 @@
     <!-- CSRF Token -->
     <div class="form-group">
         {{ Form::label('arabic_name', 'Arabic Name:') }}
-        {{ Form::text('name', NULL,array('class'=>'form-control')) }}
+        {{ Form::text('name_ar', NULL,array('class'=>'form-control')) }}
     </div>
     <div class="form-group">
         {{ Form::label('english_name', 'English Name:') }}
         {{ Form::text('name_en', NULL,array('class'=>'form-control')) }}
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('iso code', 'ISO Code:') }}
+        {{ Form::text('iso_code', NULL,array('class'=>'form-control')) }}
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('country code', 'Country Currency:') }}
+        {{ Form::text('currency', NULL,array('class'=>'form-control')) }}
     </div>
 
     {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
