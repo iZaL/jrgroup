@@ -51,13 +51,13 @@ class BlogsController extends BaseController {
         // Get all the blog posts
         $this->title = trans('word.blog');
 
-        $posts = $this->blogRepository->getAllPaginated(['category', 'photos', 'author'],1);
+        $posts = $this->blogRepository->getAllPaginated(['category', 'photos', 'author'], 1);
 
         $categories = $this->categoryRepository->getBlogCategories()->get();
 
         $tags = $this->tagRepository->getBlogTags();
         // Show the page
-        $this->render('site.blog.index', compact('posts', 'categories', 'tags'));
+        $this->render('site.blogs.index', compact('posts', 'categories', 'tags'));
     }
 
     /**
@@ -74,14 +74,14 @@ class BlogsController extends BaseController {
 
         $this->title = $post->title;
 
-        $this->render('site.blog.view', compact('post'));
+        $this->render('site.blogs.view', compact('post'));
     }
 
     public function create()
     {
         // Title
         $category = ['' => trans('word.choose_category')] + $this->categoryRepository->getBlogCategories()->lists('name_ar', 'id');
-        $this->render('site.blog.create', compact('category'));
+        $this->render('site.blogs.create', compact('category'));
     }
 
     public function store()
@@ -89,24 +89,61 @@ class BlogsController extends BaseController {
         // Validate the inputs
         $val = $this->blogRepository->getCreateForm();
 
-        if ( ! $val->isValid() ) {
+        if ( !$val->isValid() ) {
             return Redirect::back()->withInput()->withErrors($val->getErrors());
         }
 
-        if ( ! $record = $this->blogRepository->create($val->getInputData()) ) {
+        if ( !$record = $this->blogRepository->create($val->getInputData()) ) {
             return Redirect::back()->with('errors', $this->blogRepository->errors())->withInput();
         }
 
 //        return Redirect::action('AdminPhotosController@create', ['imageable_type' => 'Blog', 'imageable_id' => $record->id]);
+        if ( Input::hasFile('name') ) {
 
-        if ( Input::hasFile('thumbnail') ) {
-            // call the attach image function from Photo class
-            if ( !$this->photo->attachImage($record->id, Input::file('thumbnail'), 'Blog', '0') ) {
-                return Redirect::action('BlogsController@edit', $record->id)->with('error', $this->photo->getErrors());
-            }
+            $photoService = App::make('PhotosController');
+
+            // workaround to pass imageable_id to photos
+            $upload               = $photoService->store();
+            $upload->imageable_id = $record->id;
+            $upload->save();
+
         }
 
         return Redirect::action('BlogsController@index')->with('success', 'Added Blog to the Database');
+    }
+
+    public function edit($id)
+    {
+        $post     = $this->blogRepository->findById($id, ['category', 'photos', 'author']);
+        $category = ['' => trans('word.choose_category')] + $this->categoryRepository->getBlogCategories()->lists('name_ar', 'id');
+        $this->render('site.blogs.edit', compact('post', 'category'));
+    }
+
+    public function update($id)
+    {
+        $record = $this->blogRepository->findById($id);
+
+        $val = $this->blogRepository->getEditForm($id);
+
+        if ( !$val->isValid() ) {
+
+            return Redirect::back()->with('errors', $val->getErrors())->withInput();
+        }
+
+        if ( !$this->blogRepository->update($id, $val->getInputData()) ) {
+
+            return Redirect::back()->with('errors', $this->blogRepository->errors())->withInput();
+        }
+
+        if ( Input::hasFile('name') ) {
+
+            $photoService = App::make('PhotosController');
+
+            // workaround to pass imageable_id to photos
+            $photoService->store();
+        }
+
+        return Redirect::action('BlogsController@edit', $id)->with('success', 'Updated');
     }
 
 }

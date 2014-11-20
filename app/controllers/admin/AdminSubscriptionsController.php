@@ -37,25 +37,15 @@ class AdminSubscriptionsController extends AdminBaseController {
     public function index()
     {
         $status = Input::get('status');
-        $type   = Input::get('type');
 
-        if ( !isset($type) ) {
-            $type = 'event';
-        }
+        $type = 'event';
 
-        if ( $type == 'event' ) {
-            if ( isset($status) ) {
-                $subscriptions = $this->subscriptionRepository->getAllByStatus($status, ['user', 'event']);
-            } else {
-                $subscriptions = $this->subscriptionRepository->getAll(['user', 'event']);
-            }
+        if ( isset($status) ) {
+            $subscriptions = $this->subscriptionRepository->getAllByStatus($status, ['user', 'event']);
         } else {
-            if ( isset($status) ) {
-                $subscriptions = $this->packageRepository->getAll(['user', 'event']);
-            } else {
-                $subscriptions = $this->packageRepository->getAll(['user', 'event']);
-            }
+            $subscriptions = $this->subscriptionRepository->getAll(['user', 'event']);
         }
+
         $this->render('admin.subscriptions.index', compact('subscriptions', 'type'));
     }
 

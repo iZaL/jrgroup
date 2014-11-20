@@ -2,7 +2,6 @@
 
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Auth\UserInterface;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use McCool\LaravelAutoPresenter\PresenterInterface;
 use Zizaco\Entrust\HasRole;
 
@@ -70,6 +69,10 @@ class User extends BaseModel implements UserInterface, RemindableInterface, Pres
     public function country()
     {
         return $this->belongsTo('Country');
+    }
+
+    public function blogs(){
+        return $this->hasMany('Blog');
     }
 
     /*********************************************************************************************************

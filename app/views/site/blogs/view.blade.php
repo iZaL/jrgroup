@@ -12,10 +12,10 @@
     </div>
     <div class="col-md-6">
         <h4>
-            {{ LocaleHelper::getLocaled($post->title,$post->title_en) }}
+            {{ $post->title }}
         </h4>
         <p>
-            {{ LocaleHelper::getLocaled($post->content,$post->content_en) }}
+            {{$post->description }}
         </p>
     </div>
     <!-- end of news -->

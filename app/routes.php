@@ -94,9 +94,9 @@ Route::resource('blog', 'BlogsController');
 /*********************************************************************************************************
  * User Routes
  ********************************************************************************************************/
-Route::get('user/{id}/profile', array('as' => 'profile', 'uses' => 'UserController@getProfile'));
+Route::get('user/{id}/profile', array('as' => 'profile', 'uses' => 'UsersController@getProfile'));
 
-Route::resource('user', 'UserController');
+Route::resource('user', 'UsersController');
 
 /*********************************************************************************************************
  * Category Routes
@@ -124,6 +124,11 @@ Route::get('gallery/{id}/album', ['as'=>'album','uses'=>'GalleriesController@sho
 Route::get('certificate-request/{id}/print/','CertificateRequestsController@printDetail');
 
 Route::resource('certificate-request','CertificateRequestsController');
+
+/*********************************************************************************************************
+ * Photos Contorller
+ ********************************************************************************************************/
+Route::resource('photos','PhotosController');
 
 /*********************************************************************************************************
  * MISC ROUTES

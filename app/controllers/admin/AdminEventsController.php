@@ -55,7 +55,7 @@ class AdminEventsController extends AdminBaseController {
 
     public function index()
     {
-        $events   = $this->eventRepository->getAll(array('category', 'location.country', 'setting'))->paginate(10);
+        $events   = $this->eventRepository->getAll(array('category', 'location.country'))->paginate(10);
 
         $this->render('admin.events.index', compact('events'));
     }
@@ -275,13 +275,10 @@ class AdminEventsController extends AdminBaseController {
     {
         $event               = $this->eventRepository->findById($id);
         $subscriptions_count = $event->subscriptions()->count();
-        $favorites_count     = $event->favorites()->count();
-        $followers_count     = $event->followers()->count();
-        $requests_count      = $event->requests()->count();
 
         $event->updateAvailableSeats();
 
-        $this->render('admin.events.details', compact('event', 'subscriptions_count', 'favorites_count', 'followers_count', 'requests_count'));
+        $this->render('admin.events.details', compact('event', 'subscriptions_count'));
     }
 
 

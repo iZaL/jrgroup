@@ -4,7 +4,7 @@ use Acme\Country\CountryRepository;
 use Acme\User\UserRepository;
 use Illuminate\Support\Facades\Redirect;
 
-class UserController extends BaseController {
+class UsersController extends BaseController {
 
     protected $userRepository;
 
@@ -54,7 +54,7 @@ class UserController extends BaseController {
             return Redirect::back()->with('errors', $this->userRepository->errors())->withInput();
         }
 
-        return Redirect::action('UserController@getProfile', $id)->with('success', 'word.saved');
+        return Redirect::action('UsersController@getProfile', $id)->with('success', 'word.saved');
     }
 
     public function destroy($id)
@@ -77,7 +77,7 @@ class UserController extends BaseController {
      */
     public function getProfile($id)
     {
-        $user = $this->userRepository->findById($id, ['favorites', 'subscriptions', 'followings', 'country']);
+        $user = $this->userRepository->findById($id, ['favorites', 'subscriptions', 'followings', 'country','blogs']);
         $this->render('site.users.profile', compact('user'));
     }
 

@@ -1,6 +1,6 @@
 <div class="pull-left">
     <li class="dropdown-header">
-        <a type="button" class="btn btn-default btn-sm" href="{{ action('UserController@getProfile', Auth::user()->id) }}">
+        <a type="button" class="btn btn-default btn-sm" href="{{ action('UsersController@getProfile', Auth::user()->id) }}">
             <i class="glyphicon glyphicon-user" style="font-size: 11px;"></i>&nbsp;{{ trans('word.profile') }}
         </a>
     </li>
