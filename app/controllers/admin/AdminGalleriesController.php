@@ -1,55 +1,106 @@
 <?php
 
+use Acme\Category\CategoryRepository;
+use Acme\EventModel\EventRepository;
+use Acme\Gallery\GalleryRepository;
+
 class AdminGalleriesController extends AdminBaseController {
 
     private $galleryRepository;
+    /**
+     * @var EventRepository
+     */
+    private $eventRepository;
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
 
     /**
-     * @param \Acme\Gallery\GalleryRepository $galleryRepository
+     * @param GalleryRepository $galleryRepository
+     * @param EventRepository $eventRepository
+     * @param CategoryRepository $categoryRepository
      */
-    public function __construct(\Acme\Gallery\GalleryRepository $galleryRepository)
-	{
-
-        parent::__construct();
+    public function __construct(GalleryRepository $galleryRepository, EventRepository $eventRepository, CategoryRepository $categoryRepository)
+    {
+        $this->galleryRepository  = $galleryRepository;
+        $this->eventRepository    = $eventRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->beforeFilter('Admin');
-        $this->galleryRepository = $galleryRepository;
+        parent::__construct();
     }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$categories = $this->galleryRepository->getAll();
-		return View::make('admin.galleries.index', compact('categories'));
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $galleries = $this->galleryRepository->getAll();
+        $this->render('admin.galleries.index', compact('galleries'));
+    }
 
-    public function show($id){
+    public function show($id)
+    {
 
     }
 
     public function create()
     {
-
+        $events     = ['' => trans('word.choose_event')] + $this->eventRepository->getAll()->lists('title_' . getLocale(), 'id');
+        $categories = ['' => trans('word.choose_category')] + $this->categoryRepository->model->where('type', 'Gallery')->lists('name_' . getLocale(), 'id');
+        $this->render('admin.galleries.create', compact('categories', 'events'));
     }
 
     public function store()
     {
+        $val = $this->galleryRepository->getCreateForm();
+
+        if ( !$val->isValid() ) {
+
+            return Redirect::back()->withInput()->withErrors($val->getErrors());
+        }
+
+        $this->galleryRepository->create($val->getInputData());
+
+        return Redirect::action('AdminGalleriesController@index')->with('success', trans('word.saved'));
 
     }
 
-    public function edit($id){
-
+    public function edit($id)
+    {
+        $gallery    = $this->galleryRepository->findById($id);
+        $events     = ['' => trans('word.choose_event')] + $this->eventRepository->getAll()->lists('title_' . getLocale(), 'id');
+        $categories = ['' => trans('word.choose_category')] + $this->categoryRepository->model->where('type', 'Gallery')->lists('name_' . getLocale(), 'id');
+        $this->render('admin.galleries.edit', compact('categories', 'events', 'gallery'));
     }
 
-    public function update($id){
+    public function update($id)
+    {
+        $record = $this->galleryRepository->findById($id);
 
+        $val = $this->galleryRepository->getEditForm($id);
+
+        if ( !$val->isValid() ) {
+
+            return Redirect::back()->with('errors', $val->getErrors())->withInput();
+        }
+
+        if ( !$this->galleryRepository->update($id, $val->getInputData()) ) {
+
+            return Redirect::back()->with('errors', $this->galleryRepository->errors())->withInput();
+        }
+
+        return Redirect::action('AdminGalleriesController@index')->with('success', trans('word.saved'));
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
+        $gallery = $this->galleryRepository->findById($id);
+        $gallery->delete();
 
+        return Redirect::action('AdminGalleriesController@index')->with('success', trans('word.deleted'));
     }
 
 }

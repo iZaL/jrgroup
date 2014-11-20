@@ -109,7 +109,7 @@ class BlogsController extends BaseController {
 
         }
 
-        return Redirect::action('BlogsController@index')->with('success', 'Added Blog to the Database');
+        return Redirect::action('BlogsController@index')->with('success', trans('word.created'));
     }
 
     public function edit($id)
@@ -143,7 +143,7 @@ class BlogsController extends BaseController {
             $photoService->store();
         }
 
-        return Redirect::action('BlogsController@edit', $id)->with('success', 'Updated');
+        return Redirect::action('BlogsController@edit', $id)->with('success', trans('word.created'));
     }
 
 }

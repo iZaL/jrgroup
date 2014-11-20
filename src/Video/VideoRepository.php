@@ -1,12 +1,12 @@
-<?php namespace Acme\Gallery;
+<?php namespace Acme\Video;
 
 use Acme\Core\CrudableTrait;
 use Illuminate\Support\MessageBag;
 use Acme\Core\Repositories\Illuminate;
 use Acme\Core\Repositories\AbstractRepository;
-use Gallery;
+use Video;
 
-class GalleryRepository extends AbstractRepository {
+class VideoRepository extends AbstractRepository {
 
     use CrudableTrait;
 
@@ -17,9 +17,9 @@ class GalleryRepository extends AbstractRepository {
 
     /**
      * Construct
-     * @param Gallery $model
+     * @param Video $model
      */
-    public function __construct(Gallery $model)
+    public function __construct(Video $model)
     {
         parent::__construct(new MessageBag);
 

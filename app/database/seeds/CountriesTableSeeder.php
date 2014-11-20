@@ -12,7 +12,7 @@ class CountriesTableSeeder extends Seeder {
         {
 		    $countries = array(
                 [
-                    'name' => $faker->country,
+                    'name_ar' => $faker->country,
                     'name_en' =>$faker->country,
                     'created_at' => new DateTime,
                     'updated_at' => new DateTime

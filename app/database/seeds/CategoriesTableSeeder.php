@@ -12,11 +12,9 @@ class CategoriesTableSeeder extends Seeder {
         {
             $categories = array(
                 [
-                    'parent_id' => '0',
-                    'name' => $faker->name,
+                    'name_ar' => $faker->name,
                     'name_en' => $faker->name,
-                    'slug' => $faker->name,
-                    'type'=>$faker->randomElement(['EventModel','Post']),
+                    'type'=>$faker->randomElement(['EventModel','Blog','Gallery']),
                     'created_at' => new DateTime,
                     'updated_at' => new DateTime
                 ]

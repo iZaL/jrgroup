@@ -13,7 +13,7 @@ class LocationsTableSeeder extends Seeder {
             $locations = array(
                 [
                     'country_id' => $country,
-                    'name' => $faker->city,
+                    'name_ar' => $faker->city,
                     'name_en'=> $faker->city,
                     'created_at' => new DateTime,
                     'updated_at' => new DateTime

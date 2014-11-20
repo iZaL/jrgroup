@@ -19,7 +19,7 @@
 
 <div class="form-group">
     {{ Form::label('arabic_name', 'Title Arabic:') }}
-    {{ Form::text('title', NULL,array('class'=>'form-control')) }}
+    {{ Form::text('title_ar', NULL,array('class'=>'form-control')) }}
 </div>
 
 <div class="form-group">
@@ -29,7 +29,7 @@
 
 <div class="form-group">
     {{ Form::label('arabic_name', 'Description Arabic:') }}
-    {{ Form::textarea('description', NULL,array('class'=>'form-control')) }}
+    {{ Form::textarea('description_ar', NULL,array('class'=>'form-control')) }}
 </div>
 
 <div class="form-group">
