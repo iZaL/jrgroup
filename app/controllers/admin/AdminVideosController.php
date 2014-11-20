@@ -6,15 +6,21 @@ use Illuminate\Support\Facades\Redirect;
 
 class AdminVideosController extends AdminBaseController {
 
-    private $photoRepository;
+    private $videoRepository;
 
     private $photoImageService;
 
-    function __construct(PhotoRepository $photoRepository, ImageService $photoImageService)
+    function __construct(\Acme\Video\VideoRepository $videoRepository, ImageService $photoImageService)
     {
-        $this->photoRepository   = $photoRepository;
+        $this->videoRepository   = $videoRepository;
         $this->photoImageService = $photoImageService;
         parent::__construct();
+    }
+
+    public function index()
+    {
+        $videos = $this->videoRepository->getAll();
+        $this->render('admin.videos.index',compact('videos'));
     }
 
     public function create()
@@ -29,28 +35,13 @@ class AdminVideosController extends AdminBaseController {
     }
 
     /**
-     * Non Ajax Version
-     */
-    public function createNormal()
-    {
-        $imageableType = Input::get('imageable_type');
-        $imageableId   = Input::get('imageable_id');
-        if ( empty($imageableType) || empty($imageableId) ) {
-            return Redirect::action('AdminEventsController@index')->with('warning', 'Wrong Access');
-        }
-
-        $this->render('admin.photos.create-normal', compact('imageableType', 'imageableId'));
-    }
-
-    /**
      * Store the Image
      * Resolve the Dependent class for polymorphic relation
      *
      */
     public function store()
     {
-        $val           = $this->photoRepository->getCreateForm();
-        $imageableType = Input::get('imageable_type');
+        $val           = $this->videoRepository->getCreateForm();
 
         if ( !$val->isValid() ) {
 
@@ -58,34 +49,20 @@ class AdminVideosController extends AdminBaseController {
 
             return Redirect::back()->withInput()->withErrors($val->getErrors());
         }
-        // resolve the class .. imageabele_type is the class name
-        $imageService = App::make('Acme\\' . $imageableType . '\\ImageService');
 
-        // uplad the file to the server
-        $upload = $imageService->store(Input::file('name'));
-
-        if ( !$upload ) {
-            if ( Request::ajax() ) return false;
-
-            return Redirect::back()->withInput()->with('errors', $imageService->errors());
+        if($this->isYoutubeVideo(Input::get('url'))) {
+            dd('valid');
+        } else {
+            dd('invalid');
         }
+
+
+        // resolve the class .. imageabele_type is the class name
 
         // save in the database
-        try {
-            $this->photoRepository->create(array_merge(['name' => $upload->getHashedName()], $val->getInputData()));
-        }
-        catch ( \Exception $e ) {
+        $this->videoRepository->create($val->getInputData());
 
-            // if something goes wrong, and cant save the photo in the database
-            // then delete the files from the server
-            $upload->destroy($upload->getHashedName());
-
-            return Redirect::back()->withInput()->with('error', 'Sorry, Could Not Save the Image info in the database');
-        }
-
-        if ( Request::ajax() ) return null;
-
-        return Redirect::back()->with('success', 'photo saved');
+        return Redirect::action('AdminVideosController@index')->with('success', trans('word.saved'));
 
     }
 
@@ -107,5 +84,43 @@ class AdminVideosController extends AdminBaseController {
         return Redirect::back()->with('error', 'Error: Photo Not Found');
     }
 
+    public function isYoutubeVideo($value) {
+        $isValid = false;
+    //validate the url, see: http://snipplr.com/view/50618/
+        //code adapted from Moridin: http://snipplr.com/view/19232/
+        $idLength = 11;
+        $idOffset = 3;
+        $idStarts = strpos($value, "?v=");
+        if ($idStarts === FALSE) {
+            $idStarts = strpos($value, "&v=");
+        }
+        if ($idStarts === FALSE) {
+            $idStarts = strpos($value, "/v/");
+        }
+        if ($idStarts === FALSE) {
+            $idStarts = strpos($value, "#!v=");
+            $idOffset = 4;
+        }
+        if ($idStarts === FALSE) {
+            $idStarts = strpos($value, "youtu.be/");
+            $idOffset = 9;
+        }
+        if ($idStarts !== FALSE) {
+            //there is a videoID present, now validate it
+            $videoID = substr($value, $idStarts + $idOffset, $idLength);
+            $result = json_decode(file_get_contents('http://gdata.youtube.com/feeds/api/videos/'.$videoID));
+//            $http = new HTTP("http://gdata.youtube.com");
+//            $result = $http->doRequest("/feeds/api/videos/".$videoID, "GET");
+//            returns Array('headers' => Array(), 'body' => String);
+            dd($result);
+            dd($result);
+            $code = $result['headers']['http_code'];
+            //did the request return a http code of 2xx?
+            if (substr($code, 0, 1) == 2) {
+                $isValid = true;
+            }
+        }
+        return $isValid;
+    }
 
 }

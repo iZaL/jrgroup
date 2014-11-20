@@ -6,27 +6,24 @@
 
 <p>{{ link_to_action('AdminGalleriesController@create', 'Add new Gallery') }}</p>
 
-@if ($galleries->count())
+@if ($videos->count())
 <div id="wrap">
     <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
         <thead>
             <tr>
 				<th>Name</th>
-                <th>Date</th>
-				<th>Type</th>
+				<th>URL</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
 
 		<tbody>
-			@foreach ($galleries as $gallery)
+			@foreach ($videos as $video)
 				<tr>
-					<td>{{ $gallery->title }}</td>
-                    <td>{{ $gallery->date_start }}</td>
-                    <td><a href="{{ URL::action('AdminPhotosController@create', ['imageable_type' => 'Gallery', 'imageable_id' => $gallery->id]) }}" class="btn btn-xs btn-success">Add Photos</a></td>
-                    <td><a href="{{ URL::action('AdminVideosController@create', ['videoable_type' => 'Gallery', 'videoable_id' => $gallery->id]) }}" class="btn btn-xs btn-success">Add Videos</a></td>
-                    <td><a href="{{ URL::action('AdminGalleriesController@edit',  $gallery->id ) }}" class="iframe btn btn-xs btn-default">Edit</a>
-                        {{ Form::open(array('method' => 'DELETE', 'action' => array('AdminGalleriesController@destroy', $gallery->id))) }}
+					<td>{{ $video->name }}</td>
+					<td>{{ $video->url }}</td>
+                    <td><a href="{{ URL::action('AdminGalleriesController@edit',  $video->id ) }}" class="iframe btn btn-xs btn-default">Edit</a>
+                        {{ Form::open(array('method' => 'DELETE', 'action' => array('AdminVideosController@destroy', $video->id))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-xs btn-danger')) }}
                         {{ Form::close() }}
                     </td>

@@ -16,7 +16,7 @@ class UpdateValidator extends AbstractValidator {
     public function getInputData()
     {
         return array_only($this->inputData, [
-            'name_ar','name_en','url','videoable_id','videoable_type'
+            'title_ar','title_en','url','videoable_id','videoable_type','featured'
         ]);
     }
 
