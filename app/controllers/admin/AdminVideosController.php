@@ -20,7 +20,7 @@ class AdminVideosController extends AdminBaseController {
     public function index()
     {
         $videos = $this->videoRepository->getAll();
-        $this->render('admin.videos.index',compact('videos'));
+        $this->render('admin.videos.index', compact('videos'));
     }
 
     public function create()
@@ -41,7 +41,7 @@ class AdminVideosController extends AdminBaseController {
      */
     public function store()
     {
-        $val           = $this->videoRepository->getCreateForm();
+        $val = $this->videoRepository->getCreateForm();
 
         if ( !$val->isValid() ) {
 
@@ -50,19 +50,14 @@ class AdminVideosController extends AdminBaseController {
             return Redirect::back()->withInput()->withErrors($val->getErrors());
         }
 
-        if($this->isYoutubeVideo(Input::get('url'))) {
-            dd('valid');
-        } else {
-            dd('invalid');
+        if (! $this->isYoutubeVideo(Input::get('url')) ) {
+
+            return Redirect::action('AdminVideosController@index')->with('error', 'Not a Valid Youtube URL');
         }
 
-
-        // resolve the class .. imageabele_type is the class name
-
-        // save in the database
-        $this->videoRepository->create($val->getInputData());
-
+        $this->videoRepository->create(array_merge(['videoable_id'=>Input::get('id'),'videoable_type'=>Input::get('videoable_type')],$val->getInputData())) ;
         return Redirect::action('AdminVideosController@index')->with('success', trans('word.saved'));
+
 
     }
 
@@ -84,43 +79,14 @@ class AdminVideosController extends AdminBaseController {
         return Redirect::back()->with('error', 'Error: Photo Not Found');
     }
 
-    public function isYoutubeVideo($value) {
-        $isValid = false;
-    //validate the url, see: http://snipplr.com/view/50618/
-        //code adapted from Moridin: http://snipplr.com/view/19232/
-        $idLength = 11;
-        $idOffset = 3;
-        $idStarts = strpos($value, "?v=");
-        if ($idStarts === FALSE) {
-            $idStarts = strpos($value, "&v=");
-        }
-        if ($idStarts === FALSE) {
-            $idStarts = strpos($value, "/v/");
-        }
-        if ($idStarts === FALSE) {
-            $idStarts = strpos($value, "#!v=");
-            $idOffset = 4;
-        }
-        if ($idStarts === FALSE) {
-            $idStarts = strpos($value, "youtu.be/");
-            $idOffset = 9;
-        }
-        if ($idStarts !== FALSE) {
-            //there is a videoID present, now validate it
-            $videoID = substr($value, $idStarts + $idOffset, $idLength);
-            $result = json_decode(file_get_contents('http://gdata.youtube.com/feeds/api/videos/'.$videoID));
-//            $http = new HTTP("http://gdata.youtube.com");
-//            $result = $http->doRequest("/feeds/api/videos/".$videoID, "GET");
-//            returns Array('headers' => Array(), 'body' => String);
-            dd($result);
-            dd($result);
-            $code = $result['headers']['http_code'];
-            //did the request return a http code of 2xx?
-            if (substr($code, 0, 1) == 2) {
-                $isValid = true;
-            }
-        }
-        return $isValid;
+    /**
+     * @param $value
+     * @return bool
+     * @todo Implenet
+     */
+    private function isYoutubeVideo($value)
+    {
+        return true;
     }
 
 }

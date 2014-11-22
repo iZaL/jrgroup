@@ -9,16 +9,14 @@
     @foreach($categories as $category)
         <div class="col-sm-6 col-md-6">
             <div class="thumbnail gallery">
-                @if(count($category->galleries))
-                <a href="{{ action('GalleriesController@show',$category->id) }}">
-                    {{
-                    HTML::image('uploads/medium/'.$category->galleries[0]->photos[0]->name.'','image1',array('class'=>'img-responsive
-                    img-thumbnail')) }}
-                </a>
+                @if(count($category->galleries) && count($category->galleries[0]->photos))
+                    <a href="{{ action('GalleriesController@show',$category->id) }}">
+                        {{ HTML::image('uploads/medium/'.$category->galleries[0]->photos[0]->name.'','image1',array('class'=>'img-responsive img-thumbnail')) }}
+                    </a>
                 @else
-                <a href="{{ action('GalleriesController@show',$category->id) }}">
-                    <img src="http://placehold.it/350x310" class="img-responsive img-thumbnail">
-                </a>
+                    <a href="{{ action('GalleriesController@show',$category->id) }}">
+                        <img src="http://placehold.it/350x310" class="img-responsive img-thumbnail">
+                    </a>
                 @endif
                 <div class="caption">
                     <p class="text-center">
@@ -26,7 +24,7 @@
                             {{ $category->name }}
                         </a>
                     </p>
-                    <a href="#" class="pull-right"><span class="glyphicon glyphicon-camera"></span>
+                    <a href="#" class="pull-right"><i class="fa fa-camera"></i>
                         {{ count($category->galleries) }}
                     </a>
                 </div>
