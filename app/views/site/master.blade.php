@@ -9,33 +9,12 @@
     @yield('meta')
 
     @section('style')
-
         {{ HTML::style('css/bootstrap.min.css') }}
         {{ HTML::style('css/font-awesome.min.css') }}
 
         @if ( App::getLocale() == 'ar')
             {{ HTML::style('css/bootstrap-rtl.min.css') }}
         @endif
-        <style>
-            @import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
-            body {
-                font-family: 'Droid Arabic Kufi','Noto Sans Lao UI', serif;
-                background: rgb(227,33,21); /* Old browsers */
-                background: -moz-linear-gradient(top,  rgba(227,33,21,1) 0%, rgba(114,11,11,1) 100%); /* FF3.6+ */
-                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(227,33,21,1)), color-stop(100%,rgba(114,11,11,1))); /* Chrome,Safari4+ */
-                background: -webkit-linear-gradient(top,  rgba(227,33,21,1) 0%,rgba(114,11,11,1) 100%); /* Chrome10+,Safari5.1+ */
-                background: -o-linear-gradient(top,  rgba(227,33,21,1) 0%,rgba(114,11,11,1) 100%); /* Opera 11.10+ */
-                background: -ms-linear-gradient(top,  rgba(227,33,21,1) 0%,rgba(114,11,11,1) 100%); /* IE10+ */
-                background: linear-gradient(to bottom,  rgba(227,33,21,1) 0%,rgba(114,11,11,1) 100%); /* W3C */
-                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e32115', endColorstr='#720b0b',GradientType=0 ); /* IE6-9 */
-            }
-            h1,h2,h3,h4,span,p,div,table {
-                font-family: 'Droid Arabic Kufi' !important;
-            }
-            .container {
-                background-color: white;
-            }
-        </style>
 
         {{ HTML::style('css/custom.css') }}
 
@@ -58,7 +37,7 @@
 
     {{ $content }}
 
-    @include('site.layouts.footer')
+    @include('site.partials.footer')
 
     @section('script')
     <!-- Latest compiled and minified JavaScript -->

@@ -9,7 +9,6 @@
         width: 100%;
     }
     </style>
-
 @stop
 
 @section('sidebar')
