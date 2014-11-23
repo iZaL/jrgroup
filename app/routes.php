@@ -1,4 +1,5 @@
 <?php
+
 Route::pattern('id', '[0-9]+');
 
 Route::pattern('token', '[0-9a-z]+');
@@ -136,6 +137,13 @@ Route::resource('photos','PhotosController');
 Route::get('forbidden', function () {
     return View::make('error.forbidden');
 });
+
+Route::get('language/{lang}',
+    array(
+        'as' => 'language.select',
+        'uses' => 'LocaleController@setLocale'
+    )
+);
 
 Route::get('country/{country}', 'LocaleController@setCountry');
 
@@ -342,5 +350,7 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
     Route::get('/', 'AdminEventsController@index');
 });
 
-
+Route::get('test', function () {
+    dd(App::getLocale());
+});
 

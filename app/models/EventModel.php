@@ -135,16 +135,6 @@ class EventModel extends BaseModel implements PresenterInterface {
         $this->attributes['total_seats'] = (int) ($value);
     }
 
-    public function setLongitudeAttribute($value)
-    {
-        $this->attributes['longitude'] = floatval($value);
-    }
-
-    public function setPhoneAttribute($value)
-    {
-        $this->attributes['phone'] = (int) ($value);
-    }
-
     /*********************************************************************************************************
      * Getters
      ********************************************************************************************************/

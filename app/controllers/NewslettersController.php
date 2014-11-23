@@ -12,7 +12,7 @@ class NewslettersController extends BaseController{
     public function subscribe()
     {
         $this->init();
-        $this->setListId('76812be63e');
+        $this->setListId('1b3229e7c3');
         $email = Input::get('email');
 
         if (isset($email) && !empty($email)) {

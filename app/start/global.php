@@ -20,6 +20,9 @@ ClassLoader::addDirectories(array(
     app_path().'/database/seeds',
 
 ));
+
+App::setLocale(Session::get('lang', 'ar'));
+
 //\Debugbar::disable();
 /*
 |--------------------------------------------------------------------------

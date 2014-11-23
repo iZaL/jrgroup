@@ -4,24 +4,33 @@
         <ul class="dropdown">
             <!-- Hide this In Mobile -->
             <div class="hidden-xs">
-                @if(!Auth::user())
+                @if(!Auth::check())
                     @include('site.auth._login-form')
                 @else
                     @include('site.auth._settings-button')
                 @endif
             </div>
-            <!-- mobile -->
+
+            <!-- Show this in mobile -->
             <div class="visible-xs">
                 @if(!Auth::check())
-                    <a type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="glyphicon  glyphicon-lock"></i> &nbsp;{{ trans('word.login') }}
+                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" >
+                        <i class="fa  fa-lock"></i> &nbsp;{{ trans('word.login') }}
                         <span class="caret"></span>
-                    </a>
-                    @include('site.auth._login-form')
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        @include('site.auth._login-form')
+                    </ul>
                 @else
-                    @include('site.auth._settings-button')
-                @endif
+                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" >
+                        <i class="fa  fa-cog"></i> &nbsp;{{ trans('word.settings') }}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        @include('site.auth._settings-button')
+                    </ul>
 
+                @endif
             </div>
 
         </ul>
