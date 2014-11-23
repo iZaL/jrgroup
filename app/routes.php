@@ -351,6 +351,5 @@ Route::group(array('prefix' => 'admin','before'=>array('Auth','Moderator')), fun
 });
 
 Route::get('test', function () {
-    dd(App::getLocale());
 });
 

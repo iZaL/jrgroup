@@ -119,7 +119,7 @@
                     <th class="text-center">Status</th>
                     <th class="text-center">Details</th>
                     <th class="text-center">Action</th>
-                    <th> </th>
+                    <th class="text-center">Requested</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -158,7 +158,7 @@
                             {{ Form::close() }}
                         </td>
                         <td class="col-sm-1 col-md-2">
-                            Requested {{ $request->getHumanCreatedAtAttribute() }}
+                            {{ $request->created_at->diffForHumans() }}
                         </td>
                     </tr>
                 @endforeach

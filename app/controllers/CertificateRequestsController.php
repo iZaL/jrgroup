@@ -1,4 +1,5 @@
 <?php
+use Acme\CertificateStatuses\Pending;
 
 class CertificateRequestsController extends BaseController {
 
@@ -158,6 +159,7 @@ class CertificateRequestsController extends BaseController {
         }
 
         catch ( \Exception $e ) {
+            dd($e->getMessage());
             DB::rollBack();
 
             return Redirect::back()->with('error', 'Sorry, some error cord and Could not request your certificate. please contact admin ');

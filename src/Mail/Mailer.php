@@ -28,7 +28,7 @@ abstract class Mailer {
     public function send($view, $args,$user) {
         try {
             if(App::environment('production')) {
-                Mail::queue($view, $args, function($message) use($args,$user){
+                Mail::send($view, $args, function($message) use($args,$user){
                     $message->from($args['email'],$args['name']);
                     $message->sender($args['email'],$args['name'] );
                     $message->to($user->email, $user->username);
@@ -42,8 +42,6 @@ abstract class Mailer {
                     $message->subject($args['subject']);
                 });
             }
-
-
             return true;
         } catch (\Exception $e) {
             dd($e->getMessage());

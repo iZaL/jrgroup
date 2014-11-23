@@ -1,10 +1,9 @@
-<?php namespace Acme\Repo\CertificateStatuses;
+<?php namespace Acme\CertificateStatuses;
 
-use Acme\Repo\Statuses\Status;
-use Acme\Repo\Statuses\StatusInterface;
+use Acme\Statuses\Status;
 use Redirect;
 
-class Confirmed extends Status implements StatusInterface {
+class Confirmed extends Status {
 
     public function __construct() {
         parent::__construct();

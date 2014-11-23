@@ -2,15 +2,83 @@
 
 @section('style')
     @parent
-
     {{ HTML::style('assets/css/ion.rangeSlider.css') }}
     {{ HTML::style('assets/css/ion.rangeSlider.skinSimple.css') }}
 
 @stop
-@section('scripts')
+
+@section('content')
+
+    <h1>Request Certificate</h1>
+
+    {{ Form::open(array('action' => 'CertificateRequestsController@store')) }}
+    <div class="row">
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="form-group">
+                        {{ Form::label('type', 'Type:') }}
+                        {{ Form::select('type_id',$types,null,array('class'=>'form-control','id'=>'type_id')) }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h2><span id="type-price">0</span> KD</h2>
+                </div>
+            </div>
+
+            <?php $i = 0; ?>
+            @foreach($metas as $meta)
+                <?php $option = ['' => 'Select Certificate options'] + $meta->options->lists('name', 'id'); ?>
+                <div class="row">
+                    <div class="col-md-9">
+                        @if($option)
+                            <div class="form-group">
+                                <label>{{ $meta->name }} </label>
+                                {{ Form::select('option_id'.$i,$option,null,array('class'=>'form-control options','onChange'=>'getOptionPrice('.$i.', this)')) }}
+                            </div>
+                        @endif
+                    </div>
+                    <div class="col-md-3">
+                        <h2><span id="option-price{{$i}}" class="option-prices">0</span> KD</h2>
+                    </div>
+                </div>
+
+                <?php $i ++; ?>
+            @endforeach
+
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="form-group">
+                        {{ Form::label('quantity', 'Quantity:') }}
+                        {{ Form::text('quantity', null,array('class'=>'form-control')) }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h2><span id="quantity-value">0</span></h2>
+                </div>
+            </div>
+            <div class="form-group">
+                {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div id="total">
+                <h2>Total :</h2>
+
+                <h2 id="total-amount">
+
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    {{ Form::close() }}
+
+@stop
+
+@section('script')
     @parent
     {{ HTML::script('assets/js/ion.rangeSlider.min.js') }}
-
     <script>
         // fetch price from db async
         var typeVal = $('#type_id').val();
@@ -120,7 +188,6 @@
             // reset quantity
             // get selected prices
             // getOptionPrice('.$i.', this)
-
             fetchTypePrice();
             getOptPrice();
 
@@ -140,80 +207,4 @@
             });
         });
     </script>
-
-@stop
-@section('content')
-
-    <h1>Request Certificate</h1>
-
-    {{ Form::open(array('action' => 'CertificateRequestsController@store')) }}
-    <div class="row">
-        <div class="col-md-10">
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="form-group">
-                        {{ Form::label('type', 'Type:') }}
-                        {{ Form::select('type_id',$types,null,array('class'=>'form-control','id'=>'type_id')) }}
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <h2><span id="type-price">0</span> KD</h2>
-                </div>
-            </div>
-
-            <?php $i = 0; ?>
-            @foreach($metas as $meta)
-                <?php $option = ['' => 'Select Certificate options'] + $meta->options->lists('name', 'id'); ?>
-                <div class="row">
-                    <div class="col-md-9">
-                        @if($option)
-                            <div class="form-group">
-                                <label>{{ $meta->name }} </label>
-                                {{ Form::select('option_id'.$i,$option,null,array('class'=>'form-control options','onChange'=>'getOptionPrice('.$i.', this)')) }}
-                            </div>
-                        @endif
-                    </div>
-                    <div class="col-md-3">
-                        <h2><span id="option-price{{$i}}" class="option-prices">0</span> KD</h2>
-                    </div>
-                </div>
-
-                <?php $i ++; ?>
-            @endforeach
-
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="form-group">
-                        {{ Form::label('quantity', 'Quantity:') }}
-                        {{ Form::text('quantity', null,array('class'=>'form-control')) }}
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <h2><span id="quantity-value">0</span></h2>
-                </div>
-            </div>
-            <div class="form-group">
-                {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div id="total">
-                <h2>Total :</h2>
-
-                <h2 id="total-amount">
-
-                </h2>
-            </div>
-        </div>
-    </div>
-
-    {{ Form::close() }}
-
-    @if ($errors->any())
-        <div class="alert alert-danger alert-block">
-            {{ implode('', $errors->all('
-            <li class="error">:message</li>
-            ')) }}
-        </div>
-    @endif
 @stop

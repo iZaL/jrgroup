@@ -1,8 +1,13 @@
 <?php
 
 class CertificateOption extends BaseModel {
+    use \Acme\Core\LocaleTrait;
+
+    protected $localeStrings= ['name'];
+
     protected $guarded = array();
     protected $table = "certificate_options";
+
 
     public static $rules = array(
         'meta_id' => 'required | integer',

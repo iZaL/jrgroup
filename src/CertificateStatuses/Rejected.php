@@ -1,19 +1,10 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: ZaL
- * Date: 5/2/14
- * Time: 3:28 AM
- */
+<?php namespace Acme\CertificateStatuses;
 
-namespace Acme\Repo\CertificateStatuses;
-
-
-use Acme\Repo\Statuses\Status;
-use Acme\Repo\Statuses\StatusInterface;
+use Acme\Statuses\Status;
+use Acme\Statuses\StatusInterface;
 use Redirect;
 
-class Rejected extends Status implements StatusInterface {
+class Rejected extends Status {
     public function __construct() {
         parent::__construct();
     }

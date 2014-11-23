@@ -1,6 +1,6 @@
 <?php
 
-use Acme\Repo\CertificateStatuses\Pending;
+use Acme\CertificateStatuses\Pending;
 
 class AdminCertificateRequestsController extends AdminBaseController {
 

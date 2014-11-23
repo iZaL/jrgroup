@@ -7,8 +7,12 @@
 {{ Form::model($type, array('method' => 'PATCH', 'role'=>'form', 'action' => array('AdminCertificateTypesController@update', $type->id))) }}
 
 <div class="form-group">
-    {{ Form::label('type', 'Type:') }}
-    {{ Form::text('name',NULL,array('class'=>'form-control')) }}
+    {{ Form::label('type', 'Cetificate Type name in English:') }}
+    {{ Form::text('name_en',NULL,array('class'=>'form-control')) }}
+</div>
+<div class="form-group">
+    {{ Form::label('type', 'Cetificate Type name in Arabic:') }}
+    {{ Form::text('name_ar',NULL,array('class'=>'form-control')) }}
 </div>
 <div class="form-group">
     {{ Form::label('price', 'Price:') }}

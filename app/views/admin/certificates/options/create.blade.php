@@ -10,8 +10,12 @@
     {{ Form::select('meta_id',$metas,NULL,array('class'=>'form-control')) }}
 </div>
 <div class="form-group">
-    {{ Form::label('name', 'Option Name:') }}
-    {{ Form::text('name',NULL,array('class'=>'form-control')) }}
+    {{ Form::label('type', 'Certificate Option name  in English:') }}
+    {{ Form::text('name_en',NULL,array('class'=>'form-control')) }}
+</div>
+<div class="form-group">
+    {{ Form::label('type', 'Certificate Optionname  in Arabic:') }}
+    {{ Form::text('name_ar',NULL,array('class'=>'form-control')) }}
 </div>
 <div class="form-group">
     {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}

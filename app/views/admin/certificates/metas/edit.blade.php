@@ -6,8 +6,12 @@
 
 {{ Form::model($record, array('method' => 'PATCH', 'role'=>'form', 'action' => array('AdminCertificateMetasController@update', $record->id))) }}
 <div class="form-group">
-    {{ Form::label('type', 'Meta Title:') }}
-    {{ Form::text('name',NULL,array('class'=>'form-control')) }}
+    {{ Form::label('type', 'Certificate Meta name in English:') }}
+    {{ Form::text('name_en',NULL,array('class'=>'form-control')) }}
+</div>
+<div class="form-group">
+    {{ Form::label('type', 'Certificate Meta name in Arabic:') }}
+    {{ Form::text('name_ar',NULL,array('class'=>'form-control')) }}
 </div>
 <div class="form-group">
     {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}

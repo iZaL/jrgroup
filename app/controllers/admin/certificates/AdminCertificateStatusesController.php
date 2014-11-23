@@ -1,7 +1,7 @@
 <?php
 
 use Acme\Mail\SubscriptionMailer;
-use Acme\Repo\Statuses\StatusInterface;
+use Acme\Statuses\StatusInterface;
 
 class AdminCertificateStatusesController extends AdminBaseController {
 
@@ -20,12 +20,12 @@ class AdminCertificateStatusesController extends AdminBaseController {
         $this->user = $user;
         $this->status = $status;
         $this->mailer = $mailer;
-        parent::__construct();
-        $this->beforeFilter('admin');
         $this->request = $request;
+        $this->beforeFilter('admin');
+        parent::__construct();
     }
 
-    public function create(StatusInterface $repo)
+    public function create($repo)
     {
         $this->repo = $repo;
         return $this;
@@ -50,7 +50,7 @@ class AdminCertificateStatusesController extends AdminBaseController {
     public function update($id)
     {
         $setStatus = Input::get('status');
-        $reason = Input::get('body');
+        $reason = strip_tags(trim(Input::get('body')));
         $status = $this->status->findOrFail($id);
         $request  = $this->request->findOrFail($status->request_id);
         $user   = $this->user->findOrFail($request->user_id);
@@ -58,7 +58,7 @@ class AdminCertificateStatusesController extends AdminBaseController {
         // make the input value classname convention
         // instantiate the class
         // set status
-        $class = 'Acme\\Repo\\CertificateStatuses\\'. ucfirst(strtolower($setStatus));
+        $class = 'Acme\\CertificateStatuses\\'. ucfirst(strtolower($setStatus));
         return $this->create(new $class)->setStatus($request,$user,$status,$reason);
     }
 

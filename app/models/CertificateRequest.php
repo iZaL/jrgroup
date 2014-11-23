@@ -1,6 +1,9 @@
 <?php
 
 class CertificateRequest extends BaseModel {
+    use \Acme\Core\LocaleTrait;
+
+    protected $localeStrings= ['name'];
     protected $guarded = array();
     protected $table = "certificate_requests";
 

@@ -19,7 +19,6 @@ class CreateCertificateOptionType extends Migration {
             $table->integer('option_id')->unsigned()->index();
             $table->float('price');
 			$table->timestamps();
-
         });
 	}
 
