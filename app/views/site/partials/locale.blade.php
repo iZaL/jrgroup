@@ -1,34 +1,9 @@
 @if(App::getLocale() == 'en')
     <div class="hidden-xs localeCode pull-right">
+        {{link_to_route('language.select', 'العربية', array('ar'))}} <i class="fa fa-globe"></i>
+    </div>
 @else
     <div class="hidden-xs localeCode pull-left">
+        {{link_to_route('language.select', 'English', array('en'))}}  <i class="fa fa-globe"></i>
+    </div>
 @endif
-    @if ( LaravelLocalization::getCurrentLocaleName() == 'English')
-    <?php $localeCode = 'ar' ;?>
-    <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
-        العربية <i class="glyphicon  glyphicon-globe"></i>
-    </a>
-    @else
-    <?php $localeCode = 'en' ;?>
-    <a  rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
-        En <i class="glyphicon  glyphicon-globe"></i>
-    </a>
-    @endif
-</div>
-@if(App::getLocale() == 'en')
-    <div class="visible-xs localeCode pull-right">
-@else
-    <div class="visible-xs localeCode pull-left">
-@endif
-    @if ( LaravelLocalization::getCurrentLocaleName() == 'English')
-    <?php $localeCode = 'ar' ;?>
-    <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
-        العربية <i class="glyphicon  glyphicon-globe"></i>
-    </a>
-    @else
-    <?php $localeCode = 'en' ;?>
-    <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
-        En <i class="glyphicon  glyphicon-globe"></i>
-    </a>
-    @endif
-</div>

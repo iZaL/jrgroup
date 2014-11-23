@@ -1,6 +1,6 @@
 <?php
 
-use Acme\Mail\ContactsMailer;
+use Acme\Contact\ContactRepository;
 
 class ContactsController extends BaseController {
 
@@ -9,54 +9,52 @@ class ContactsController extends BaseController {
      *
      * @var Category
      */
-    protected $model;
+    protected $contactRepository;
 
-    /**
-     * @var Acme\Mail\ContactsMailer
-     */
-    private $mailer;
-
-    public function __construct(Contact $model, ContactsMailer $mailer)
+    public function __construct(ContactRepository $contactRepository)
     {
-        $this->model = $model;
-        $this->mailer = $mailer;
+        $this->contactRepository = $contactRepository;
+        $this->beforeFilter('csrf', ['only' => ['contact']]);
         parent::__construct();
     }
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-        $contact = $this->model->first();
-        $this->view('site.contacts.index', ['contact' => $contact]);
 
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function contact()
-	{
-        $args = Input::all();
-        $rules = array(
-            'email'=>'required|email',
-            'name'=>'required',
-            'comment'=>'required|min:5'
-        );
-        $user = $this->model->first();
-        $validate = Validator::make($args,$rules);
-        if($validate->passes()) {
-            if($this->mailer->sendMail($user,$args)) {
-                return Redirect::home()->with('success','Mail Sent');
-            }
-            return Redirect::home()->with('error','Error Sending Mail');
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $contact = $this->contactRepository->getFirst();
+        if ( !$contact ) {
+            return Redirect::home()->with('warning', trans('general.cannot_contact_admin'));
         }
-        return Redirect::back()->withInput()->with('error',$validate->errors()->all());
 
-	}
+        $this->title = trans('word.contact_us');
+        $this->render('site.layouts.contact', compact('contact'));
+    }
+
+    /**
+     * Send Contact Email.
+     *
+     * @return Response
+     */
+    public function contact()
+    {
+        // Get the contact info from DB
+        $user = $this->contactRepository->getFirst();
+
+        // Validate the input data
+        $val = $this->contactRepository->getContactForm();
+
+        if ( !$val->isValid() ) {
+            return Redirect::back()->withInput()->with('errors', $val->getErrors());
+        }
+
+        $input = array_merge(Input::only(['sender_name', 'sender_email', 'body']), $user->toArray());
+
+        Event::fire('contact.contact', [$input]);
+
+        return Redirect::home()->with('success', trans('word.mail_sent'));
+    }
 }

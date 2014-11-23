@@ -1,7 +1,5 @@
 <?php
 
-use Acme\Repo\CertificateStatuses\Pending;
-
 class CertificateRequestsController extends BaseController {
 
     /**
@@ -53,7 +51,7 @@ class CertificateRequestsController extends BaseController {
         $types = ['' => 'Select Certificate type'] + $this->type->all()->lists('name', 'id');
         $metas = $this->meta->all();
 
-        return View::make('site.certificates.requests.create', compact('types', 'metas'));
+        $this->render('site.certificates.requests.create', compact('types', 'metas'));
     }
 
 
@@ -61,7 +59,7 @@ class CertificateRequestsController extends BaseController {
     {
         $request = $this->model->with(array('user', 'type', 'status'))->find($id);
 
-        return View::make('site.certificates.view', compact('request'));
+        $this->render('site.certificates.view', compact('request'));
     }
 
 
@@ -70,7 +68,7 @@ class CertificateRequestsController extends BaseController {
         $types = ['' => 'Select Certificate type'] + $this->type->all()->lists('name', 'id');
         $metas = $this->meta->all();
 
-        return View::make('site.certificates.requests.create', compact('types', 'metas'));
+        $this->render('site.certificates.requests.create', compact('types', 'metas'));
     }
 
     /**
@@ -196,7 +194,7 @@ class CertificateRequestsController extends BaseController {
 
         return $pdf->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->stream(str_random(10).'.pdf');
 
-//        return View::make('admin.certificates.requests.detail', compact('request'));
+//        $this->render('admin.certificates.requests.detail', compact('request'));
 
     }
 

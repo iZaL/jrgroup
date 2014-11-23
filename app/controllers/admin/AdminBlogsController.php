@@ -1,5 +1,11 @@
 <?php
 
+use Acme\Blog\BlogRepository;
+use Acme\Category\CategoryRepository;
+use Acme\Photo\PhotoRepository;
+use Acme\Tag\TagRepository;
+use Acme\User\UserRepository;
+
 class AdminBlogsController extends AdminBaseController {
 
 
@@ -7,35 +13,41 @@ class AdminBlogsController extends AdminBaseController {
      * Post Model
      * @var Post
      */
-    protected $post;
+    protected $blogRepository;
     /**
      * @var Category
      */
-    private $category;
+    private $categoryRepository;
     /**
      * @var User
      */
-    private $user;
+    private $userRepository;
     /**
      * @var Photo
      */
-    private $photo;
+    private $photoRepository;
+    /**
+     * @var TagRepository
+     */
+    private $tagRepository;
 
     /**
      * Inject the models.
-     * @param Post $post
-     * @param Category $category
-     * @param User $user
-     * @param Photo $photo
+     * @param \Acme\Blog\BlogRepository|\Post $blogRepository
+     * @param CategoryRepository|\Category $categoryRepository
+     * @param Acme\User\UserRepository $userRepository
+     * @param Acme\Photo\PhotoRepository $photoRepository
+     * @param TagRepository $tagRepository
      */
-    public function __construct(Post $post,Category $category, User $user, Photo $photo)
+    public function __construct(BlogRepository $blogRepository, CategoryRepository $categoryRepository, UserRepository $userRepository, PhotoRepository $photoRepository, TagRepository $tagRepository)
     {
-        $this->post = $post;
-        $this->category = $category;
-        $this->user = $user;
-        $this->photo = $photo;
-        parent::__construct();
+        $this->blogRepository     = $blogRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->userRepository     = $userRepository;
+        $this->photoRepository    = $photoRepository;
         $this->beforeFilter('Admin');
+        parent::__construct();
+        $this->tagRepository = $tagRepository;
     }
 
     /**
@@ -46,13 +58,11 @@ class AdminBlogsController extends AdminBaseController {
     public function index()
     {
         // Title
-        $title = Lang::get('admin/blogs/title.blog_management');
+        $title = Lang::get('admin.blogs.title.blog_management');
         // Grab all the blog posts
-//        $posts = $this->post;
-        $posts = Post::select(array('posts.id', 'posts.title', 'posts.id as comments', 'posts.created_at'))->get();
-
+        $posts = $this->blogRepository->getAll();
         // Show the page
-        return View::make('admin/blogs/index', compact('posts', 'title'));
+        $this->render('admin.blogs.index', compact('posts', 'title'));
     }
 
     /**
@@ -63,12 +73,12 @@ class AdminBlogsController extends AdminBaseController {
     public function create()
     {
         // Title
-        $category = $this->category->getPostCategories()->lists('name', 'id');
-        $author = $this->user->getRoleByName('author')->lists('username', 'id');
-        $title = Lang::get('admin/blogs/title.create_a_new_blog');
-
+        $category = $this->select + $this->categoryRepository->getBlogCategories()->lists('name_ar', 'id');
+        $author   = $this->select + $this->userRepository->getRoleByName('author')->lists('username', 'id');
+        $title    = Lang::get('admin.blogs.title.create_a_new_blog');
+        $tags     = [''=>''] + $this->tagRepository->getList('name_ar','id');
         // Show the page
-        return View::make('admin/blogs/create', compact('title','category','author'));
+        $this->render('admin.blogs.create', compact('title', 'category', 'author','tags'));
     }
 
     /**
@@ -78,23 +88,21 @@ class AdminBlogsController extends AdminBaseController {
      */
     public function store()
     {
-        // Validate the inputs
-        $validation = new $this->post(Input::except('thumbnail'));
-        $validation->slug = Str::slug(Input::get('title'));
-        if (!$validation->save()) {
-            return Redirect::back()->withInput()->withErrors($validation->getErrors());
+        $val = $this->blogRepository->getCreateForm();
+
+        if ( ! $val->isValid() ) {
+            return Redirect::back()->withInput()->withErrors($val->getErrors());
         }
-        if(Input::hasFile('thumbnail')) {
-            // call the attach image function from Photo class
-            if(!$this->photo->attachImage($validation->id,Input::file('thumbnail'),'Post','0')) {
-                return Redirect::to('admin/blogs/' . $validation->id . '/edit')->withErrors($this->photo->getErrors());
-            }
+
+        if ( ! $record = $this->blogRepository->create($val->getInputData()) ) {
+            return Redirect::back()->with('errors', $this->blogRepository->errors())->withInput();
         }
-        //update slug
-//        $post = $this->post->find($validation->id);
-//        $post->slug = Str::slug(Input::get('title'));
-//        $post->save();
-        return parent::redirectToAdminBlog()->with('success','Added Blog to the Database');
+
+        $tags = is_array(Input::get('tags')) ? array_filter(Input::get('tags')) : [];
+        $this->tagRepository->attachTags($record, $tags);
+
+        return Redirect::action('AdminPhotosController@create', ['imageable_type' => 'Blog', 'imageable_id' => $record->id]);
+
     }
 
     /**
@@ -116,12 +124,15 @@ class AdminBlogsController extends AdminBaseController {
      */
     public function edit($id)
     {
-        $title = Lang::get('admin/blogs/title.blog_update');
-        $category = $this->category->getPostCategories()->lists('name', 'id');
-        $author = $this->user->getRoleByName('author')->lists('username', 'id');
-        $post = $this->post->find($id);
+        $title    = Lang::get('admin.blogs.title.blog_update');
+        $category = $this->select +  $this->categoryRepository->getPostCategories()->lists('name_ar', 'id');
+        $author   = $this->select + $this->userRepository->getRoleByName('author')->lists('username', 'id');
+        $post     = $this->blogRepository->findById($id);
+
+        $tags       = $this->tagRepository->getList('name_ar','id');
+        $dbTags =     $post->tags->lists('id');
         // Show the page
-        return View::make('admin/blogs/edit', compact('post', 'title','category','author'));
+        $this->render('admin.blogs.edit', compact('post', 'title', 'category', 'author','tags','dbTags'));
     }
 
     /**
@@ -132,31 +143,35 @@ class AdminBlogsController extends AdminBaseController {
      */
     public function update($id)
     {
-        $validation = $this->post->find($id);
-        $validation->fill(Input::except('thumbnail'));
-        if (!$validation->save()) {
-            return Redirect::back()->withInput()->withErrors($validation->getErrors());
+        $record = $this->blogRepository->findById($id);
+
+        $val = $this->blogRepository->getEditForm($id);
+
+        if ( ! $val->isValid() ) {
+
+            return Redirect::back()->with('errors', $val->getErrors())->withInput();
         }
-        if (Input::hasFile('thumbnail')) {
-            if(!$this->photo->attachImage($validation->id,Input::file('thumbnail'),'Post','0')) {
-                return Redirect::back()->withErrors($this->photo->getErrors());
-            }
+
+        if ( ! $this->blogRepository->update($id, $val->getInputData()) ) {
+
+            return Redirect::back()->with('errors', $this->blogRepository->errors())->withInput();
         }
-        $post = $this->post->find($validation->id);
-        $post->slug = Str::slug(Input::get('title'));
-        $post->save();
-        return parent::redirectToAdminBlog()->with('success','Updated Blog '. $validation->title);
+
+        $tags = is_array(Input::get('tags')) ? array_filter(Input::get('tags')) : [];
+        $this->tagRepository->attachTags($record, $tags);
+
+        return Redirect::action('AdminBlogsController@edit', $id)->with('success', 'Updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param $post
-     * @return Response
-     */
+
     public function delete($id)
     {
-        dd('h');
+        $post = $this->blogRepository->find($id);
+        // Title
+        $title = Lang::get('admin.blogs.title.blog_delete');
+
+        // Show the page
+        $this->render('admin.blogs.delete', compact('post', 'title'));
     }
 
 
@@ -167,14 +182,9 @@ class AdminBlogsController extends AdminBaseController {
      * @internal param $post
      * @return Response
      */
-    public function getDelete($id) {
+    public function getDelete($id)
+    {
 
-        $post = $this->post->find($id);
-        // Title
-        $title = Lang::get('admin/blogs/title.blog_delete');
-
-        // Show the page
-        return View::make('admin/blogs/delete', compact('post', 'title'));
     }
 
     /**
@@ -187,35 +197,12 @@ class AdminBlogsController extends AdminBaseController {
 
     public function destroy($id)
     {
-        $post = $this->post->findOrFail($id);
-        if ($post->delete()) {
-            //  return Redirect::home();
-            return parent::redirectToAdminBlog()->with('success','Blog Post Deleted');
+        if ($this->blogRepository->findById($id)->delete()) {
+
+            return Redirect::action('AdminBlogsController@index')->with('success','Deleted');
         }
-        return parent::redirectToAdminBlog()->with('error','Error: Blog Post Not Found');
-    }
+        return Redirect::action('AdminBlogsController@index')->with('error','Could not Delete');
 
-    /**
-     * Show a list of all the blog posts formatted for Datatables.
-     *
-     * @return Datatables JSON
-     */
-    public function getData()
-    {
-
-        $posts = Post::select(array('posts.id', 'posts.title', 'posts.id as comments', 'posts.created_at'));
-
-        return Datatables::of($posts)
-
-            ->edit_column('comments', '{{ DB::table(\'comments\')->where(\'commentable_id\', \'=\', $id)->where(\'commentable_type\',\'EventModel\')->count() }}')
-
-            ->add_column('actions', '<a href="{{{ URL::to(\'admin/blogs/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs " >{{{ Lang::get(\'button.edit\') }}}</a>
-                <a href="{{{ URL::to(\'admin/blogs/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger ">{{{ Lang::get(\'button.delete\') }}}</a>
-            ')
-
-            ->remove_column('id')
-
-            ->make();
     }
 
 }

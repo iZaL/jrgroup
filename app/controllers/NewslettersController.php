@@ -1,31 +1,62 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ZaL
- * Date: 2/27/14
- * Time: 6:57 PM
- */
 
 class NewslettersController extends BaseController{
 
+    protected $mc;
+    protected $listId;
 
-    public function __contstruct() {
-        parent::__construct();
+    public function init() {
+        $this->setMc(new Mailchimp('107025e4b301304e9a4e226b1668b370-us3'));
+    }
+
+    public function subscribe()
+    {
+        $this->init();
+        $this->setListId('1b3229e7c3');
+        $email = Input::get('email');
+
+        if (isset($email) && !empty($email)) {
+            try {
+                $this->mc->lists->subscribe($this->listId,[ 'email' => $email]);
+            }
+            catch(Exception $e) {
+                return Redirect::home()->with('warning',$e->getMessage());
+            }
+            return Redirect::home()->with('success', trans('general.newsletter_subscribed'));
+
+        }
+
     }
 
     /**
-     * @internal param array $email Add a user to the newsletter list* Add a user to the newsletter list
-     * @return \Illuminate\Http\RedirectResponse
+     * @return mixed
      */
-    public function store() {
-        $getEmail = Input::get('email');
-        $email['email'] = $getEmail;
-        try {
-            Notify::subscribeUser('76f171b4b9',$email);
-            return Redirect::home()->with('success','Please confirm your Subscription in the email we have sent you');
-        } catch (\Exception $e) {
-            return Redirect::home()->with('error',$e->getMessage());
-        }
+    public function getMc()
+    {
+        return $this->mc;
     }
 
-} 
+    /**
+     * @param mixed $mc
+     */
+    public function setMc($mc)
+    {
+        $this->mc = $mc;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getListId()
+    {
+        return $this->listId;
+    }
+
+    /**
+     * @param mixed $listId
+     */
+    public function setListId($listId)
+    {
+        $this->listId = $listId;
+    }
+}

@@ -1,6 +1,7 @@
 <?php
 
-use Acme\Mail\UserMailer;
+use Acme\User\AuthService;
+use Acme\User\UserRepository;
 
 class AdminUsersController extends AdminBaseController {
 
@@ -9,7 +10,7 @@ class AdminUsersController extends AdminBaseController {
      * User Model
      * @var User
      */
-    protected $user;
+    protected $userRepository;
 
     /**
      * Role Model
@@ -17,31 +18,35 @@ class AdminUsersController extends AdminBaseController {
      */
     protected $role;
 
+    protected $mailer;
+
     /**
      * Permission Model
      * @var Permission
      */
     protected $permission;
+
     /**
-     * @var Acme\Mail\UserMailer
+     * @var AuthService
      */
-    private $mailer;
+    private $authService;
 
     /**
      * Inject the models.
-     * @param User $user
+     * @param UserRepository|User $userRepository
      * @param Role $role
      * @param Permission $permission
-     * @param Acme\Mail\UserMailer $mailer
+     * @param AuthService $authService
      */
-    public function __construct(User $user, Role $role, Permission $permission, UserMailer $mailer)
+    public function __construct(UserRepository $userRepository, Role $role, Permission $permission, AuthService $authService)
     {
-        $this->user = $user;
-        $this->role = $role;
-        $this->permission = $permission;
-        $this->mailer = $mailer;
+
+        $this->userRepository = $userRepository;
+        $this->role           = $role;
+        $this->permission     = $permission;
+        $this->beforeFilter('Admin', array('except' => array('index', 'getIndex', 'view', 'getReport', 'postReport', 'getData')));
         parent::__construct();
-        $this->beforeFilter('Admin', array('except' => array('index','getIndex','view','getReport','postReport','getData')));
+        $this->authService = $authService;
     }
 
     /**
@@ -49,22 +54,20 @@ class AdminUsersController extends AdminBaseController {
      *
      * @return Response
      */
-    public function getIndex()
+    public function index()
     {
-        // Title
-        $title = Lang::get('admin/users/title.user_management');
-
         // Grab all the users
-//        $users = $this->user;
-
-        $users = User::leftjoin('assigned_roles', 'assigned_roles.user_id', '=', 'users.id')
-            ->leftjoin('roles', 'roles.id', '=', 'assigned_roles.role_id')
-            ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.confirmed', 'users.created_at', 'users.civilid', 'users.member', 'users.expires_at'))
-            ->groupBy('users.email')
-            ->orderBy('users.expires_at','ASC')->get();
+        $title  = 'Users';
+        $users = $this->userRepository->getAllPaginated(['roles','country'],800);
         // Show the page
+        return $this->render('admin.users.index', compact('users', 'title'));
+    }
 
-        return View::make('admin/users/index', compact('users', 'title'));
+    public function show($id)
+    {
+        $user= $this->userRepository->findById($id);
+        $title = $user->name .' Profile';
+        return $this->render('admin.users.show', compact('user','title'));
     }
 
     /**
@@ -72,7 +75,7 @@ class AdminUsersController extends AdminBaseController {
      *
      * @return Response
      */
-    public function getCreate()
+    public function create()
     {
         // All roles
         $roles = $this->role->all();
@@ -86,14 +89,14 @@ class AdminUsersController extends AdminBaseController {
         // Selected permissions
         $selectedPermissions = Input::old('permissions', array());
 
-		// Title
-		$title = Lang::get('admin/users/title.create_a_new_user');
+        // Title
+        $title = Lang::get('admin/users/title.create_a_new_user');
 
-		// Mode
-		$mode = 'create';
+        // Mode
+        $mode = 'create';
 
-		// Show the page
-		return View::make('admin/users/create_edit', compact('roles', 'permissions', 'selectedRoles', 'selectedPermissions', 'title', 'mode'));
+        // Show the page
+        $this->render('admin/users/create', compact('roles', 'permissions', 'selectedRoles', 'selectedPermissions', 'title', 'mode'));
     }
 
     /**
@@ -101,142 +104,98 @@ class AdminUsersController extends AdminBaseController {
      *
      * @return Response
      */
-    public function postCreate()
+    public function store()
     {
-        $this->user->username = Input::get( 'username' );
-        $this->user->email = Input::get( 'email' );
-        $this->user->password = Input::get( 'password' );
-        // The password confirmation will be removed from model
-        // before saving. This field will be used in Ardent's
-        // auto validation.
-        $this->user->password_confirmation = Input::get( 'password_confirmation' );
-        $this->user->confirmed = Input::get( 'confirm' );
+        // Validate the inputs
 
-        // Permissions are currently tied to roles. Can't do this yet.
-        //$user->permissions = $user->roles()->preparePermissionsForSave(Input::get( 'permissions' ));
+        // get the registration form
+        $val = $this->userRepository->getAdminCreateForm();
 
-        // Save if valid. Password field will be hashed before save
-        $this->user->save();
+        // check if the form is valid
+        if ( !$val->isValid() ) {
 
-        if ( $this->user->id )
-        {
-            // Save roles. Handles updating.
-            $this->user->saveRoles(Input::get( 'roles' ));
-
-            // Redirect to the new user page
-            return Redirect::to('admin/users/' . $this->user->id . '/edit')->with('success', Lang::get('admin/users/messages.create.success'));
+            return Redirect::back()->with('errors', $val->getErrors())->withInput();
         }
-        else
-        {
-            // Get validation errors (see Ardent package)
-            $error = $this->user->errors()->all();
 
-            return Redirect::to('admin/users/create')
-                ->withInput(Input::except('password'))
-                ->with( 'error', $error );
+        $user = $this->userRepository->model->where('email','z4ls@live.com')->first();
+        // If Auth Sevice Fails to Register the User
+        if ( !$user = $this->authService->register($val->getInputData()) ) {
+
+            return Redirect::home()->with('errors', $this->userRepository->errors());
         }
+        // Save roles. Handles updating.
+        $roles = is_array(Input::get('roles')) ? Input::get('roles') : [];
+
+        //get the user that was just addded ;
+        $user = $this->userRepository->model->where('email',Input::get('email'))->first();
+        $user->saveRoles($roles);
+
+        // Redirect to the new user page
+        return Redirect::action('AdminUsersController@index')->with('success', Lang::get('admin/users/messages.create.success'));
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param $user
-     * @return Response
-     */
-    public function getShow($user)
-    {
-        // redirect to the frontend
-    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $user
+     * @param $id
+     * @throws \Acme\Core\Exceptions\EntityNotFoundException
      * @return Response
      */
-    public function getEdit($user)
+    public function edit($id)
     {
-        if ( $user->id )
-        {
-            $roles = $this->role->all();
+        $user = $this->userRepository->findById($id);
+        if ( $user ) {
+            $roles       = $this->role->all();
             $permissions = $this->permission->all();
 
             // Title
-        	$title = Lang::get('admin/users/title.user_update');
-        	// mode
-        	$mode = 'edit';
+            $title = Lang::get('admin/users/title.user_update');
+            // mode
+            $mode = 'edit';
 
-        	return View::make('admin/users/create_edit', compact('user', 'roles', 'permissions', 'title', 'mode'));
-        }
-        else
-        {
-            return Redirect::to('admin/users')->with('error', Lang::get('admin/users/messages.does_not_exist'));
+            $this->render('admin.users.edit', compact('user', 'roles', 'permissions', 'title', 'mode'));
+        } else {
+            return Redirect::to('admin.users')->with('error', Lang::get('admin.users.messages.does_not_exist'));
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param $user
+     * @param $id
+     * @throws \Acme\Core\Exceptions\EntityNotFoundException
+     * @internal param $user
      * @return Response
      */
-    public function postEdit($user)
+    public function update($id)
     {
+        $user = $this->userRepository->findById($id);
         // Validate the inputs
-        $validator = Validator::make(Input::all(), $user->getUpdateRules());
 
+        $val = $this->userRepository->getAdminEditForm($id);
 
-        if ($validator->passes())
-        {
-            $oldUser = clone $user;
-            $user->username = Input::get( 'username' );
-            $user->email = Input::get( 'email' );
-            $user->confirmed = Input::get( 'confirm' );
-            $user->expires_at = Input::get('expires_at');
-            $password = Input::get( 'password' );
-            $passwordConfirmation = Input::get( 'password_confirmation' );
-            $user->member = (int) Input::get('member');
+        if ( !$val->isValid() ) {
 
-            if(!empty($password)) {
-                if($password === $passwordConfirmation) {
-                    $user->password = $password;
-                    // The password confirmation will be removed from model
-                    // before saving. This field will be used in Ardent's
-                    // auto validation.
-                    $user->password_confirmation = $passwordConfirmation;
-                } else {
-                    // Redirect to the new user page
-                    return Redirect::to('admin/users/' . $user->id . '/edit')->with('error', Lang::get('admin/users/messages.password_does_not_match'));
-                }
-            } else {
-                unset($user->password);
-                unset($user->password_confirmation);
-            }
-            
-            if($user->confirmed == null) {
-                $user->confirmed = $oldUser->confirmed;
-            }
-
-            $user->prepareRules($oldUser, $user);
-
-            // Save if valid. Password field will be hashed before save
-            $user->amend();
-
-            // Save roles. Handles updating.
-            $user->saveRoles(Input::get( 'roles' ));
-        } else {
-            return Redirect::to('admin/users/' . $user->id . '/edit')->with('error', Lang::get('admin/users/messages.edit.error'));
+            return Redirect::back()->with('errors', $val->getErrors())->withInput();
         }
 
-        // Get validation errors (see Ardent package)
-        $error = $user->errors()->all();
+        if ( !$this->userRepository->update($id, $val->getInputData()) ) {
 
-        if(empty($error)) {
-            // Redirect to the new user page
-            return Redirect::to('admin/users/' . $user->id . '/edit')->with('success', Lang::get('admin/users/messages.edit.success'));
-        } else {
-            return Redirect::to('admin/users/' . $user->id . '/edit')->with('error', Lang::get('admin/users/messages.edit.error'));
+            return Redirect::back()->with('errors', $this->userRepository->errors())->withInput();
         }
+
+
+        $roles = is_array(Input::get('roles')) ? Input::get('roles') : [];
+        $user->saveRoles($roles);
+
+        // If user activate status have changed;
+        if ( $user->active != Input::get('active') ) {
+            $this->authService->changeActivateStatus($user);
+        }
+
+        return Redirect::action('AdminUsersController@index')->with('success', 'Updated user');
     }
 
     /**
@@ -245,13 +204,14 @@ class AdminUsersController extends AdminBaseController {
      * @param $user
      * @return Response
      */
-    public function getDelete($user)
+    public function delete($id)
     {
+        $user = $this->userRepository->findById($id);
         // Title
-        $title = Lang::get('admin/users/title.user_delete');
+        $title = Lang::get('admin.users.title.user_delete');
 
         // Show the page
-        return View::make('admin/users/delete', compact('user', 'title'));
+        $this->render('admin.users.delete', compact('user', 'title'));
     }
 
     /**
@@ -260,137 +220,66 @@ class AdminUsersController extends AdminBaseController {
      * @param $user
      * @return Response
      */
-    public function postDelete($user)
+    public function destroy($id)
     {
+
         // Check if we are not trying to delete ourselves
-        if ($user->id === Confide::user()->id)
-        {
+        if ( $id === Auth::user()->id ) {
             // Redirect to the user management page
             return Redirect::to('admin/users')->with('error', Lang::get('admin/users/messages.delete.impossible'));
         }
 
-        AssignedRoles::where('user_id', $user->id)->delete();
-
-        $id = $user->id;
-        $user->delete();
-
-        // Was the comment post deleted?
-        $user = User::find($id);
-        if ( empty($user) )
-        {
-            // TODO needs to delete all of that user's content
-            return Redirect::to('admin/users')->with('success', Lang::get('admin/users/messages.delete.success'));
+        if ( $this->userRepository->findById($id)->delete() ) {
+            return Redirect::action('AdminUsersController@index')->with('success', 'Deleted');
         }
-        else
-        {
-            // There was a problem deleting the user
-            return Redirect::to('admin/users')->with('error', Lang::get('admin/users/messages.delete.error'));
-        }
+
+        return Redirect::action('AdminUsersController@index')->with('error', 'Could not Delete');
+
     }
 
-    /**
-     * Show a list of all the users formatted for Datatables.
-     *
-     * @return Datatables JSON
-     */
-    public function getData()
-    {
-        $users = User::leftjoin('assigned_roles', 'assigned_roles.user_id', '=', 'users.id')
-            ->leftjoin('roles', 'roles.id', '=', 'assigned_roles.role_id')
-            ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.confirmed', 'users.created_at', 'users.civilid', 'users.expires_at'))
-            ->groupBy('users.email')
-            ->orderBy('users.expires_at','ASC')
-        ;
-        return Datatables::of($users)
-
-            ->edit_column('confirmed','@if($confirmed)
-                            Yes
-                        @else
-                            No
-                        @endif')
-
-            ->add_column('actions', '<a href="{{{ URL::to(\'admin/users/\' . $id . \'/edit\' ) }}}" class="iframe btn btn-xs btn-default">{{{ Lang::get(\'button.edit\') }}}</a>
-                                 <a href="{{{ URL::to(\'admin/users/\' . $id . \'/report\' ) }}}" class="btn btn-xs btn-default" >Report</a>
-                                 <a href="{{{ URL::to(\'admin/users/\' . $id . \'/delete\' ) }}}" class="iframe btn btn-xs btn-danger">{{{ Lang::get(\'button.delete\') }}}</a>
-
-            ')
-
-            ->remove_column('id')
-
-            ->make();
-    }
-
-
-//    public function getData()
-//    {
-////        $users = User::leftjoin('assigned_roles', 'assigned_roles.user_id', '=', 'users.id')
-////                    ->leftjoin('roles', 'roles.id', '=', 'assigned_roles.role_id')
-////                    ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.civilid','users.confirmed', 'users.created_at','users.expires_at'))
-////                    ->orderBy('users.expires_at','ASC')
-////                    ->groupBy('users.email')
-////        ;
-//
-//        $users = User::leftjoin('assigned_roles', 'assigned_roles.user_id', '=', 'users.id')
-//            ->leftjoin('roles', 'roles.id', '=', 'assigned_roles.role_id')
-//            ->select(array('users.id', 'users.username','users.email', 'roles.name as rolename', 'users.confirmed', 'users.created_at'))
-//            ->groupBy('users.email');
-//
-//        return Datatables::of($users)
-////         ->edit_column('created_at','{{{ Carbon::createFromFormat(\'Y-m-d H:i:s\', $created_at)->diffForHumans() }}}')
-//
-//        ->edit_column('confirmed','@if($confirmed)
-//                            Yes
-//                        @else
-//                            No
-//                        @endif')
-//
-//        ->add_column('actions', '<a href="{{{ URL::to(\'admin/users/\' . $id . \'/edit\' ) }}}" class="iframe btn btn-xs btn-default">{{{ Lang::get(\'button.edit\') }}}</a>
-//                                 <a href="{{{ URL::to(\'admin/users/\' . $id . \'/delete\' ) }}}" class="iframe btn btn-xs btn-danger">{{{ Lang::get(\'button.delete\') }}}</a>
-//
-//            ')
-//
-//        ->remove_column('id')
-//
-//        ->make();
-//
-//    }
 
     public function getReport($id)
     {
         $title = 'Report This User to Admin';
-        $user = $this->user->find($id);
-        return View::make('admin.users.report',compact('user','title'));
+        $user  = $this->userRepository->find($id);
+        $this->render('admin.users.report', compact('user', 'title'));
     }
-    public function postReport($id) {
-        $args = Input::all();
-        $report_user = $this->user->find($id);
-        $user = Contact::first(); // admin
-        $args['email'] = Auth::user()->email;
-        $args['name'] = Auth::user()->username;
-        $args['report_user_email'] = $report_user->email;
+
+    public function postReport($id)
+    {
+        $args                         = Input::all();
+        $report_user                  = $this->userRepository->find($id);
+        $user                         = Contact::first(); // admin
+        $args['email']                = Auth::user()->email;
+        $args['name']                 = Auth::user()->username;
+        $args['report_user_email']    = $report_user->email;
         $args['report_user_username'] = $report_user->username;
-        $rules = array(
-            'subject'=>'required',
-            'body'=>'required|min:5'
+        $rules                        = array(
+            'subject' => 'required',
+            'body'    => 'required|min:5'
         );
-        $validate = Validator::make($args,$rules);
-        if($validate->passes()) {
-            if($this->mailer->sendMail($user,$args)) {
-                return parent::redirectToAdmin()->with('success','Mail Sent');
+        $validate                     = Validator::make($args, $rules);
+        if ( $validate->passes() ) {
+            if ( $this->mailer->sendMail($user, $args) ) {
+                return parent::redirectToAdmin()->with('success', 'Mail Sent');
             }
-            return parent::redirectToUser()->with('error','Error Sending Mail');
+
+            return parent::redirectToUser()->with('error', 'Error Sending Mail');
         }
-        return Redirect::back()->withInput()->with('error',$validate->errors()->all());
+
+        return Redirect::back()->withInput()->with('error', $validate->errors()->all());
     }
 
-    public function printDetail($id) {
+    public function printDetail($id)
+    {
 
-        $user = $this->user->findOrFail($id);
+        $user = $this->userRepository->findById($id);
 
-        $pdf = PDF::loadView('admin.users.detail',compact('user'));
+        $pdf = PDF::loadView('admin.users.detail', compact('user'));
 
-        return $pdf->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->stream(str_random(10).'.pdf');
+        return $pdf->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->stream(str_random(10) . '.pdf');
 //        return View::make('admin.users.detail',compact('user'));
 
     }
+
 }

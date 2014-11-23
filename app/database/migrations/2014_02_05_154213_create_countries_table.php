@@ -5,31 +5,33 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateCountriesTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('countries', function(Blueprint $table) {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('countries', function(Blueprint $table) {
             $table->engine = 'InnoDB';
-			$table->increments('id');
-			$table->string('name');
+            $table->increments('id');
             $table->string('name_en');
-			$table->timestamps();
-		});
-	}
+            $table->string('name_ar');
+            $table->string('iso_code')->nullable();
+            $table->string('currency')->nullable();
+            $table->timestamps();
+        });
+    }
 
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('countries');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('countries');
+    }
 
 }

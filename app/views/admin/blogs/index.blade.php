@@ -1,50 +1,45 @@
-@extends('admin.layouts.default')
+@extends('admin.master')
 
 {{-- Web site Title --}}
 @section('title')
-{{{ $title }}} :: @parent
+Blog Post
 @stop
-
-@section('keywords')Blogs administration @stop
-@section('author')Laravel 4 Bootstrap Starter SIte @stop
-@section('description')Blogs administration index @stop
 
 {{-- Content --}}
 @section('content')
 	<div class="page-header">
 		<h3>
-			{{{ $title }}}
+			Add a Blog Post
 
 			<div class="pull-right">
-				<a href="{{{ URL::to('admin/blogs/create') }}}" class="btn btn-small btn-info "><span class="glyphicon glyphicon-plus-sign"></span> Create</a>
+				<a href="{{ URL::action('AdminBlogsController@create') }}" class="btn btn-small btn-info iframe"><span class="glyphicon glyphicon-plus-sign"></span> Create</a>
 			</div>
 		</h3>
 	</div>
 
-<div id="wrap">
     <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
         <thead>
-            <tr>
-				<th class="col-md-4">{{{ Lang::get('admin/blogs/table.title') }}}</th>
-				<th class="col-md-2">{{{ Lang::get('admin/blogs/table.comments') }}}</th>
-				<th class="col-md-2">{{{ Lang::get('admin/blogs/table.created_at') }}}</th>
-				<th class="col-md-2">{{{ Lang::get('table.actions') }}}</th>
+			<tr>
+				<th class="col-md-4">Blog Title</th>
+				<th class="col-md-4">Add Photos</th>
+				<th class="col-md-2">Created at</th>
+				<th class="col-md-2">Actions</th>
 			</tr>
 		</thead>
-        <tbody>
+		<tbody>
             @foreach($posts as $post)
-            <tr class="gradeX">
+            <tr>
                 <td>{{ $post->title }}</td>
-                <td>{{ $post->comments }}</td>
-                <td>{{ $post->created_at->toFormattedDateString() }}</td>
+                <td><a href="{{ URL::action('AdminPhotosController@create', ['imageable_type' => 'Blog', 'imageable_id' => $post->id]) }}" class="btn btn-sm btn-success">Add Photos</a></td>
+                <td>{{ $post->created_at }}</td>
+                <td><a href="{{ URL::action('AdminBlogsController@edit', array($post->id)) }}" class="btn">Edit</a></td>
                 <td>
-                    <a href="{{  URL::to('admin/blogs/' . $post->id . '/edit' ) }}" class="iframe btn btn-xs btn-default">{{{ Lang::get('button.edit') }}}</a>
-                    <a href="{{  URL::to('admin/blogs/' . $post->id . '/delete' ) }}" class="iframe btn btn-xs btn-danger">{{{ Lang::get('button.delete') }}}</a>
+                    {{ Form::open(array('method' => 'DELETE', 'action' => array('AdminBlogsController@destroy', $post->id))) }}
+                        {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                    {{ Form::close() }}
                 </td>
             </tr>
             @endforeach
 		</tbody>
 	</table>
-</div>
-
 @stop

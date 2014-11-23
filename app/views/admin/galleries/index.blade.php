@@ -1,13 +1,12 @@
-@extends('admin.layouts.default')
-
+@extends('admin.master')
 {{-- Content --}}
 @section('content')
 
-<h1>All Categories</h1>
+<h1>Gallery</h1>
 
 <p>{{ link_to_action('AdminGalleriesController@create', 'Add new Gallery') }}</p>
 
-@if ($categories->count())
+@if ($galleries->count())
 <div id="wrap">
     <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
         <thead>
@@ -20,14 +19,14 @@
 		</thead>
 
 		<tbody>
-			@foreach ($categories as $category)
+			@foreach ($galleries as $gallery)
 				<tr>
-					<td>{{ $category->title }}</td>
-                    <td>{{ $category->date_start->toFormattedDateString() }}</td>
-                    <td><a href="{{ URL::action('AdminGalleriesController@getPhotos', $category->id ) }}" class="iframe btn btn-xs btn-default">Add / Edit Photos</a></td>
-                    <td><a href="{{ URL::action('AdminGalleriesController@edit',  $category->id ) }}" class="iframe btn btn-xs btn-default">Edit</a>
-
-                        {{ Form::open(array('method' => 'DELETE', 'action' => array('AdminGalleriesController@destroy', $category->id))) }}
+					<td>{{ $gallery->title }}</td>
+                    <td>{{ $gallery->date_start }}</td>
+                    <td><a href="{{ URL::action('AdminPhotosController@create', ['imageable_type' => 'Gallery', 'imageable_id' => $gallery->id]) }}" class="btn btn-xs btn-success">Add Photos</a></td>
+                    <td><a href="{{ URL::action('AdminVideosController@create', ['videoable_type' => 'Gallery', 'videoable_id' => $gallery->id]) }}" class="btn btn-xs btn-success">Add Videos</a></td>
+                    <td><a href="{{ URL::action('AdminGalleriesController@edit',  $gallery->id ) }}" class="iframe btn btn-xs btn-default">Edit</a>
+                        {{ Form::open(array('method' => 'DELETE', 'action' => array('AdminGalleriesController@destroy', $gallery->id))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-xs btn-danger')) }}
                         {{ Form::close() }}
                     </td>
@@ -36,8 +35,7 @@
 		</tbody>
 	</table>
 </div>
-@else
-	There are no categories
+
 @endif
 
 @stop

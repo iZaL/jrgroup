@@ -4,23 +4,23 @@
 |--------------------------------------------------------------------------
 | Application & Route Filters
 |--------------------------------------------------------------------------
-|
-| Below you will find the "before" and "after" events for the application
-| which may be used to do any work before or after a request into your
-| application. Here you may also register your custom route filters.
-|
 */
 
-App::before(function($request)
-{
-    //
+App::before(function ($request) {
+    // enforce no www
+    if ( preg_match('/^http:\/\/www./', $request->url()) ) {
+        $newUrl = preg_replace('/^http:\/\/www./', 'http://', $request->url());
+
+        return Redirect::to($newUrl);
+    }
 });
 
-
-App::after(function($request, $response)
-{
-    //
+App::after(function ($request, $response) {
+    if ( Auth::guest() ) {
+        if ( !stristr($request->path(), 'login') && !stristr($request->path(), 'signup') ) Session::put('auth.intended_redirect_url', $request->url());
+    }
 });
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters
@@ -32,31 +32,16 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
-{
-//    if (Auth::guest()) {
-//        Session::put('loginRedirect', Request::url());
-//        return Redirect::to('/');
-//    }
-    if (Auth::guest()) return Redirect::guest('/');
+Route::filter('auth', function () {
+
+    if ( Auth::guest() )
+        return  Redirect::guest('account/login')->with('info', trans('auth.alerts.must_login'));
 });
 
-Route::filter('auth.basic', function()
-{
+Route::filter('auth.basic', function () {
     return Auth::basic();
 });
 
-
-Route::filter('setDateLocale',function() {
-
-
-////   if(App::getLocale() == 'ar') {
-    setlocale(LC_TIME, 'Arabic');
-//    dd( strftime('%A %d %B %Y'));
-//    $dt = Carbon::now();
-//    dd($dt->formatLocalized('%d %B'));
-//   }
-});
 /*
 |--------------------------------------------------------------------------
 | Guest Filter
@@ -68,9 +53,8 @@ Route::filter('setDateLocale',function() {
 |
 */
 
-Route::filter('guest', function()
-{
-    if (Auth::check()) return Redirect::to('user/login/');
+Route::filter('guest', function () {
+    if ( Auth::check() ) return Redirect::action('AuthController@getLogin');
 });
 
 /*
@@ -84,52 +68,43 @@ Route::filter('guest', function()
 |
 */
 
-Route::filter('csrf', function()
-{
-    if (Session::getToken() != Input::get('csrf_token') &&  Session::getToken() != Input::get('_token'))
-    {
+Route::filter('csrf', function () {
+    if ( Session::getToken() !== Input::get('_token') ) {
         throw new Illuminate\Session\TokenMismatchException;
     }
 });
 
-Route::filter('Moderator', function()
-{
-    if (!(Entrust::hasRole('admin') || (Entrust::hasRole('moderator')))) // Checks the current user
+Route::filter('Moderator', function () {
+    if ( !(Entrust::hasRole('admin') || (Entrust::hasRole('moderator'))) ) // Checks the current user
     {
-        return Redirect::to('forbidden')->with('error','Sorry You Do not have access to this page');
+        return Redirect::to('forbidden')->with('error', 'Sorry You Do not have access to this page');
     }
 });
 
-Route::filter('Admin', function()
-{
-    if (!(Entrust::hasRole('admin') )) // Checks the current user
+Route::filter('Admin', function () {
+    if ( !(Entrust::hasRole('admin')) ) // Checks the current user
     {
-        return Redirect::to('forbidden')->with('errors','Sorry You Do not have access to this page');
+        return Redirect::to('forbidden')->with('errors', 'Sorry You Do not have access to this page');
     }
 });
 
 
-Route::filter('owner', function($route, $request)
-{
-    if(Auth::check())
-        if( $request->segment(3) != Auth::user()->id)
-        {
-            return Redirect::action('EventsController@dashboard')->with('error','You are not supposed to do that');
+Route::filter('owner', function ($route, $request) {
+    if ( Auth::check() )
+        if ( $request->segment(3) != Auth::user()->id ) {
+            return Redirect::action('EventsController@dashboard')->with('error', 'You are not supposed to do that');
         } else {
-            return ;
+            return;
         }
-    return Redirect::action('UserController@getLogin')->with('error','Please login');
+
+    return Redirect::action('UserController@getLogin')->with('error', 'Please login');
 });
 
-View::composer('site.master',function($view){
-//    View::composer(array('site.partials.latest-news','site.partials.latest-courses'), function($view)
-//    {
-//        $latest_event_posts = EventModel::latest(4);
-//        $latest_blog_posts  = Post::latest(4);
-//        $view->with(array('latest_event_posts'=>$latest_event_posts,'latest_blog_posts'=>$latest_blog_posts));
-//    });
-//    $latest_event_posts = App::make('EventModel')->latestSidebarPosts(4);
-//    $latest_blog_posts  = App::make('Post')->latestSidebarPosts(4);
-//    $view->with(array('latest_event_posts'=>$latest_event_posts,'latest_blog_posts'=>$latest_blog_posts));
-
+/**
+ * Route filter to allow users who are only not logged in
+ */
+Route::filter('noAuth', function () {
+    if ( Auth::check() ) return Redirect::home();
 });
+
+

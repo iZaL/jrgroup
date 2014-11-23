@@ -1,39 +1,30 @@
 <?php
 
+use Acme\Core\LocaleTrait;
+
 class Gallery extends BaseModel {
-	protected $guarded = array();
-    protected  $table = "galleries";
 
-    public static $rules = array(
-        'event_id' => 'integer',
-        'category_id' => 'integer | required'
-    );
+    use LocaleTrait;
 
-//    public function type() {
-//        return $this->type();
-//    }
+    protected $guarded = [];
 
-    public function category() {
-        return $this->belongsTo('Category','category_id')->where('type','=','Gallery');
-    }
+    protected $table = "galleries";
 
-    public function getDates()
+    protected $localeStrings = ['title', 'description'];
+
+    public function category()
     {
-        return array_merge(array(static::CREATED_AT, static::UPDATED_AT, static::DELETED_AT), array('date_start'));
+        return $this->belongsTo('Category', 'category_id')->where('type', '=', 'Gallery');
     }
 
-    public function setDateStartAttribute($value)
+    public function photos()
     {
-        $this->attributes['date_start'] = $this->dateStringToCarbon($value);
-    }
-    public function photos() {
-        return $this->morphMany('Photo','imageable');
-    }
-    public function videos() {
-        return $this->morphMany('Video','videoable');
+        return $this->morphMany('Photo', 'imageable');
     }
 
-    public function findByCategoryId($id){
-        return $this->where('category_id',$id);
+    public function videos()
+    {
+        return $this->morphMany('Video', 'videoable');
     }
+
 }

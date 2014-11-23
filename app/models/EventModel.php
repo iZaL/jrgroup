@@ -1,242 +1,125 @@
 <?php
 
-class EventModel extends BaseModel {
+use Acme\Core\LocaleTrait;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use McCool\LaravelAutoPresenter\PresenterInterface;
 
-    const PUBLIC_EVENT = 'PUBLIC';
-    const MEMBER_EVENT = 'MEMBERS';
-	protected $guarded = array();
+class EventModel extends BaseModel implements PresenterInterface {
 
+    use LocaleTrait;
 
+    use SoftDeletingTrait;
 
-	public static $rules = array(
-        'title'=>'required',
-        'description'=>'required',
-        'user_id' => 'required',
-        'category_id' => 'required',
-        'location_id' =>'required'
-    );
-    /**
-     * @var
-     */
+    protected $guarded = ['id'];
 
-    protected static function boot()
+    protected $localeStrings = ['title', 'description', 'address', 'street', 'button'];
+
+    protected $table = "events";
+
+    protected $dates = ['date_start', 'date_end'];
+
+    /*********************************************************************************************************
+     * Eloquent Relationships
+     ********************************************************************************************************/
+
+    public function user()
     {
-
-        parent::boot();
-
-        static::saving(function($model)
-        {
-            return $model->validate();
-        });
-    }
-
-    protected  $table = "events";
-
-    public function comments() {
-        return $this->morphMany('Comment','commentable');
-    }
-
-    /**
-     * get the person who added the event
-     */
-    public function user() {
         return $this->belongsTo('User');
     }
 
-    public function author() {
-        return $this->belongsTo('User','user_id')->select('id','username','email');
+    public function comments()
+    {
+        return $this->morphMany('Comment', 'commentable');
     }
 
-    // added !!!
-    public function categories() {
-        return $this->belongsTo('Category','category_id')->select('name','name_en','type','slug');
+    public function author()
+    {
+        return $this->belongsTo('User', 'user_id')->select('id', 'username', 'email');
     }
 
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     * get the followers of the Event
-     * @param int eventId
-     */
-    public function followers() {
-//        return $this->hasMany('Follower','event_id');
-        $followers = $this->belongsToMany('User', 'followers','event_id','user_id')->select('username','email');
-        return $followers;
+    public function categories()
+    {
+        return $this->belongsTo('Category', 'category_id')->select('name', 'name_en', 'type', 'slug');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     * get the subscribers for the Event
-     * @param int eventId
-     */
-    public function subscriptions() {
-        return $this->belongsToMany('User', 'subscriptions','event_id','user_id');
-//        return $this->hasMany('Subscription','event_id');
-    }
-    public function subscribers() {
-        return $this->belongsToMany('User', 'subscriptions','event_id','user_id');
-//        return $this->hasMany('Subscription','event_id');
+    public function followers()
+    {
+        return $this->belongsToMany('User', 'followers', 'event_id', 'user_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     * @param int eventId
-     * get the favorites user of the Event
-     */
-    public function favorites() {
-//        return $this->hasMany('Favorite','event_id');
-        return $this->belongsToMany('User', 'favorites','event_id','user_id');
-
+    public function favorites()
+    {
+        return $this->belongsToMany('User', 'favorites', 'event_id', 'user_id');
     }
 
-    /**
-     * gets the past events
-     */
-    public function getPastEvents(){
-        return DB::table('events AS e')
-            ->join('photos AS p', 'e.id', '=', 'p.imageable_id', 'LEFT')
-            ->where('p.imageable_type', '=', 'EventModel')
-            ->where('e.date_start','<',Carbon::now()->toDateTimeString());
+    public function subscriptions()
+    {
+        return $this->hasMany('Subscription', 'event_id');
     }
 
-    /**
-     * @param int $days
-     * @return \Illuminate\Database\Query\Builder|static
-     * get Recent Event by Days
-     */
-    public static  function getRecentEvents($days) {
-        $dt = Carbon::now()->addDays($days);
-        return DB::table('events AS e')
-            ->join('photos AS p', 'e.id', '=', 'p.imageable_id', 'LEFT')
-            ->where('p.imageable_type', '=', 'EventModel')
-            ->where('e.date_start','<',$dt->toDateTimeString());
+    public function subscribers()
+    {
+        return $this->belongsToMany('User', 'subscriptions', 'event_id', 'user_id')->whereNull('deleted_at');
     }
 
-    public function getRelatedEvents() {
-
+    public function category()
+    {
+        return $this->belongsTo('Category', 'category_id');
     }
 
-    public function category() {
-//        return $this->morphMany('Category','categorizable','categorizable_type');
-        return $this->belongsTo('Category','category_id');
-    }
-
-    public function  location() {
+    public function location()
+    {
         return $this->belongsTo('Location');
     }
 
-    /*
-     * @todo fix the query
-     * this method can be eager loaded as nested relationship, ex;location.query and
-     * can be accessed in view as location->country->name
-     *
-     */
-    public function country() {
-//        return $this->hasManyThrough('Country','Location','country_id','id');
-//        return $this->location()->country;
+    public function photos()
+    {
+        return $this->morphMany('Photo', 'imageable');
+    }
 
+    public function type()
+    {
+        return $this->hasOne('Type', 'event_id');
+    }
+
+    public function statuses()
+    {
+        return $this->belongsToMany('User', 'statuses', 'event_id', 'user_id')->withPivot(array('id', 'event_id', 'user_id', 'status'));
+    }
+
+    public function setting()
+    {
+        return $this->morphOne('Setting', 'settingable');
+    }
+
+    public function package()
+    {
+        return $this->belongsTo('Package');
+    }
+
+    public function tags()
+    {
+        return $this->morphToMany('Tag', 'taggable');
+    }
+
+    public function requests()
+    {
+        return $this->hasMany('EventRequest', 'event_id');
     }
 
     /**
-     * Return all the categories for Event
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Same as Above method
      */
-//    public function categories() {
-//        return $this->hasMany('Category'); // where
-//    }
-
-
-    public function photos() {
-        return $this->morphMany('Photo','imageable');
-    }
-
-    /**
-     * Fetches posts for latest Event
-     * @return array
-     *
-     */
-    public  function latestEvents()
+    public function reorganize()
     {
-        return DB::table('events as e')
-            ->join('photos as p', 'e.id', '=', 'p.imageable_id', 'LEFT')
-            ->where('p.imageable_type', '=', 'EventModel')
-            ->where('e.date_start','>',Carbon::now()->toDateTimeString())
-            ->orderBy('e.date_start','DESC')
-            ->orderBy('e.created_at','DESC')
-            ->take('5')
-            ->get(array('e.id'))
-            ;
+        return $this->belongsToMany('User', 'requests', 'event_id', 'user_id');
     }
 
-    /**
-     * Fetches posts for latest Event
-     * @return array
-     *
-     */
-    public  function feautredEvents()
-    {
-        return DB::table('events AS e')
-            ->join('photos AS p', 'e.id', '=', 'p.imageable_id', 'LEFT')
-            ->where('p.imageable_type', '=', 'EventModel')
-            ->where('e.date_start','>',Carbon::now()->toDateTimeString())
-            ->where('e.featured','1')
-            ->orderBy('e.date_start','DESC')
-            ->orderBy('e.created_at','DESC')
-            ->take('5')
-            ->get(array('e.id'))
-            ;
-    }
-
-    public function getSliderEvents($limit, $array) {
-        $events = DB::table('events AS e')
-            ->join('photos AS p', 'e.id', '=', 'p.imageable_id', 'LEFT')
-            ->whereIn('e.id',$array)
-            ->take($limit)
-            ->groupBy('e.id')
-            ->get(array('e.id','e.title','e.title_en','e.description','e.description_en','p.name','e.button','e.button_en'));
-        return $events;
-    }
-
-    public static  function fixEventCounts($id,$count) {
-        $event = EventModel::find($id);
-        $event->available_seats = $event->total_seats - $count;
-        $event->save();
-    }
-
-    public function formatEventDate($column)
-    {
-        $dt = Carbon::createFromTimestamp(strtotime($column));
-        return $dt->format('D, jS \\of M Y');
-    }
-    public function formatEventTime($column)
-    {
-        $dt = Carbon::createFromTimestamp(strtotime($column));
-        return $dt->format('g a');
-    }
-
-    public static function latestSidebarPosts($count) {
-        return EventModel::orderBy('created_at', 'DESC')->select('id','title','slug','title_en')->remember(10)->limit($count)->get();
-    }
-
-    protected function getHumanTimestampAttribute($column)
-    {
-        if ($this->attributes[$column])
-        {
-            return Carbon::parse($this->attributes[$column])->diffForHumans();
-        }
-
-        return null;
-    }
-//
-//    public function getDates() {
-//        return array('created_at','updated_at','date_start','date_end');
-//    }
-    public function getDates()
-    {
-        return array_merge(array(static::CREATED_AT, static::UPDATED_AT, static::DELETED_AT), array('date_start','date_end'));
-    }
-
+    /*********************************************************************************************************
+     * Setters
+     ********************************************************************************************************/
     public function setDateStartAttribute($value)
     {
         $this->attributes['date_start'] = $this->dateStringToCarbon($value);
@@ -247,33 +130,207 @@ class EventModel extends BaseModel {
         $this->attributes['date_end'] = $this->dateStringToCarbon($value);
     }
 
-    public function type() {
-        return $this->hasOne('Type','event_id');
+    public function setTotalSeatsAttribute($value)
+    {
+        $this->attributes['total_seats'] = (int) ($value);
     }
 
-    public function statuses() {
-        return $this->belongsToMany('User', 'statuses','event_id','user_id')->withPivot(array('id','event_id','user_id','status'));
-//        return $this->hasMany('Subscription','event_id');
+    /*********************************************************************************************************
+     * Getters
+     ********************************************************************************************************/
+
+    /** gets the past events */
+    public function getPastEvents()
+    {
+        return DB::table('events AS e')
+            ->join('photos AS p', 'e.id', '=', 'p.imageable_id', 'LEFT')
+            ->where('p.imageable_type', '=', 'EventModel')
+            ->where('e.date_start', '<', Carbon::now()->toDateTimeString());
     }
 
-    public function updateSeats()
+    public function getHumanCreatedAtAttribute()
+    {
+        return Carbon::parse($this->attributes['created_at'])->diffForHumans();
+
+        return null;
+    }
+
+    /**
+     * @param int $days
+     * @return \Illuminate\Database\Query\Builder|static
+     * get Recent Event by Days
+     */
+    public static function getRecentEvents($days)
+    {
+        $dt = Carbon::now()->addDays($days);
+
+        return DB::table('events AS e')
+            ->join('photos AS p', 'e.id', '=', 'p.imageable_id', 'LEFT')
+            ->where('p.imageable_type', '=', 'EventModel')
+            ->where('e.date_start', '<', $dt->toDateTimeString());
+    }
+
+//    public function updateAvailableSeatsOnCreate()
+//    {
+//        $this->available_seats = $this->total_seats;
+//        $this->save();
+//    }
+
+    public function getConfirmedUsers()
+    {
+        return $this->whereHas('subscriptions', function ($q) {
+            $q->where('subscriptions.status', '=', 'CONFIRMED');
+        })->get();
+    }
+
+    public function getDates()
+    {
+        return array_merge(array('created_at', 'updated_at'), $this->dates);
+    }
+
+    /** Get the presenter class. */
+    public function getPresenter()
+    {
+        return 'Acme\EventModel\Presenter';
+    }
+
+    /*********************************************************************************************************
+     * Model Scopes
+     ********************************************************************************************************/
+    public function scopeNotExpired($query)
+    {
+        return $query->where('date_start', '>', Carbon::now()->toDateTimeString());
+    }
+
+    /*********************************************************************************************************
+     * Custom Methods
+     ********************************************************************************************************/
+    public function formatEventDate($column)
+    {
+        $dt = Carbon::createFromTimestamp(strtotime($column));
+
+        return $dt->format('M jS  Y \\a\\t ga');
+    }
+
+    public function formatEventTime($column)
+    {
+        $dt = Carbon::createFromTimestamp(strtotime($column));
+
+        return $dt->format('g a');
+    }
+
+    /**
+     * Updates the Available Seats
+     */
+    public function updateAvailableSeats()
     {
         $totalSeats = $this->total_seats;
-        if ($totalSeats > 0 ) {
-            $totalSubscriptions = $this->subscriptions->count();
-            $this->available_seats = $totalSeats - $totalSubscriptions;
-            $this->save();
-            return $this;
-        }
-    }
+        // If Total Seats is Greater than 0
+        // Which means is not unlimited seats
+        if ( $totalSeats > 0 ) {
 
-    public function isMemberEvent() {
+            // Get the confirmed subscriptions count for the event
+            $totalSubscriptions    = $this->subscriptions()->where('status', 'CONFIRMED')->count();
 
-        if ($this->type->type == self::MEMBER_EVENT) {
-            return true;
+            // calculate the available seats
+            $available_seats = $totalSeats - $totalSubscriptions;
+
         } else {
-            return false;
+            $available_seats = 0;
         }
+
+        $this->available_seats = (int) ($available_seats);
+
+        $this->save();
     }
+
+    protected function dateStringToCarbon($date, $format = 'm/d/Y')
+    {
+        if ( !$date instanceof Carbon ) {
+            $validDate = false;
+            try {
+                $date      = Carbon::createFromFormat($format, $date);
+                $validDate = true;
+            }
+            catch ( Exception $e ) {
+            }
+
+            if ( !$validDate ) {
+                try {
+                    $date      = Carbon::parse($date);
+                    $validDate = true;
+                }
+                catch ( Exception $e ) {
+                }
+            }
+
+            if ( !$validDate ) {
+                $date = null;
+            }
+        }
+
+        return $date;
+    }
+
+    public function hasAvailableSeats()
+    {
+        return $this->available_seats > 0 ? true : false;
+    }
+
+    public function isAuthor($userId)
+    {
+        return $this->user_id === $userId ? true : false;
+    }
+
+    public function isFreeEvent()
+    {
+        if ( $this->free || $this->price < 1 ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function beforeDelete()
+    {
+
+        //delete settings
+        $this->setting()->delete();
+
+        //todo :delete taggables
+
+        // delete photos, images from server
+        $this->photos()->delete();
+
+        // delete followings
+        $followings = $this->hasMany('Follower', 'event_id');
+        foreach ( $followings->get(array('followers.id')) as $following ) {
+            $following->delete();
+        }
+
+        // delete favorites
+        $favorites = $this->hasMany('Favorite', 'event_id');
+        foreach ( $favorites->get(array('favorites.id')) as $favorite ) {
+            $favorite->delete();
+        }
+
+        // delete subscriptions
+        foreach ( $this->subscriptions()->get(array('subscriptions.id')) as $subscription ) {
+            $subscription->delete();
+        }
+
+        // delete requests
+        foreach ( $this->requests()->get(array('requests.id')) as $request ) {
+            $request->delete();
+        }
+
+    }
+
+    public function latest($count)
+    {
+        return $this->orderBy('created_at', 'DESC')->select('id','title_ar','slug','title_en')->remember(10)->limit($count)->get();
+    }
+
+
 }
 

@@ -10,7 +10,6 @@ class CertificateOption extends BaseModel {
     );
 
     public function type() {
-//        return $this->hasMany('CertificateOptionType','option_id');
         return $this->belongsToMany('CertificateType', 'certificate_option_type', 'option_id', 'type_id');
     }
 
@@ -21,7 +20,6 @@ class CertificateOption extends BaseModel {
     public function meta() {
         return $this->belongsTo('CertificateMeta','meta_id');
     }
-
 
 }
 

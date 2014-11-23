@@ -1,193 +1,141 @@
 <?php
-use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Validation\Validator;
-use Carbon\Carbon;
 
-class BaseModel extends Eloquent
-{
+use Illuminate\Database\Eloquent\Model;
 
-    // fallback $guarded
-    protected $guarded = array('_token', '_method', 'id');
-
-    //fallback $rules
+class BaseModel extends Model {
 
     /**
-     * Error message bag
+     * Create a new model.
      *
-     * @var Illuminate\Support\MessageBag
+     * @param  array $input
+     * @throws Exception
+     * @return mixed
      */
-    protected $errors;
+    public static function create(array $input)
+    {
+        static::beforeCreate($input);
+
+        $return = parent::create($input);
+
+        static::afterCreate($input, $return);
+
+        return $return;
+    }
 
     /**
-     * Validation rules
+     * @param array $input
+     */
+    public static function beforeCreate(array $input)
+    {
+    }
+
+    /**
+     * @param array $input
+     * @param $return
+     */
+    public static function afterCreate(array $input, $return)
+    {
+    }
+
+    /**
+     * Update an existing model.
+     * @param  array $input
+     * @throws Exception
+     * @return mixed
+     */
+    public function update(array $input = [])
+    {
+
+        $this->beforeUpdate($input);
+
+        $return = parent::update($input);
+
+        $this->afterUpdate($input, $return);
+
+        return $return;
+    }
+
+    /**
+     * Before updating an existing new model.
+     * @param  array $input
+     * @return mixed
+     */
+    public function beforeUpdate(array $input)
+    {
+    }
+
+    /**
+     * After updating an existing model.
+     * @param  array $input
+     * @param  mixed $return
+     * @return mixed
+     */
+    public function afterUpdate(array $input, $return)
+    {
+    }
+
+    public function beforeSave(array $input)
+    {
+    }
+
+    /**
+     * Delete an existing model.
      *
-     * @var Array
+     * @throws Exception
+     * @return mixed
      */
-    protected static $rules = array();
+    public function delete()
+    {
+        $this->beforeDelete();
+
+        $return = parent::delete();
+
+        $this->afterDelete($return);
+
+        return $return;
+    }
 
     /**
-     * Custom error messages
+     * Before deleting an existing model.
      *
-     * @var array
+     * @return mixed
      */
-    protected static $messages = array();
+    public function beforeDelete()
+    {
+    }
 
     /**
-     * Validator instance
+     * After deleting an existing model.
      *
-     * @var Illuminate\Validation\Validators
+     * @param  mixed $return
+     * @return mixed
      */
-    protected $validator;
-
-    public function __construct(array $attributes = array(), Validator $validator = null)
+    public function afterDelete($return)
     {
-        parent::__construct($attributes);
-
-        $this->validator = $validator ?: \App::make('validator');
     }
 
     /**
-     * Listen for save event
+     * @param $value
+     * Set Price Attribute to Double
+     * Match Type Case with database column type
      */
-    protected static function boot()
+    public function setPriceAttribute($value)
     {
-        parent::boot();
-
-        static::saving(function($model)
-        {
-            return $model->validate();
-        });
+        $this->attributes['price'] = (double) ($value);
     }
 
-    /**
-     * Validates current attributes against rules
-     */
-    public function validate()
+    /*********************************************************************************************************
+     * Model Scopes
+     ********************************************************************************************************/
+    public function scopeOfStatus($query, $status)
     {
-        $replace = ($this->getKey() > 0) ? $this->getKey() : '';
-        foreach (static::$rules as $key => $rule)
-        {
-            static::$rules[$key] = str_replace(':id', $replace, $rule);
-        }
-
-        $validator = $this->validator->make($this->attributes, static::$rules, static::$messages);
-
-        if ($validator->passes()) return true;
-
-        $this->setErrors($validator->messages());
-
-        return false;
+        return $query->whereStatus($status);
     }
 
-    /**
-     * Set error message bag
-     *
-     * @var Illuminate\Support\MessageBag
-     */
-    protected function setErrors($errors)
+    public function formattedCreated()
     {
-        $this->errors = $errors;
-    }
-
-    /**
-     * Retrieve error message bag
-     */
-    public function getErrors()
-    {
-        return $this->errors;
-    }
-
-    /**
-     * Return if there are any errors
-     *
-     * @return bool
-     */
-    public function hasErrors()
-    {
-        return ! empty($this->errors);
-    }
-
-    protected function getHumanTimestampAttribute($column)
-    {
-        if ($this->attributes[$column])
-        {
-            return Carbon::parse($this->attributes[$column])->diffForHumans();
-        }
-
-        return null;
-    }
-
-    public function getHumanCreatedAtAttribute()
-    {
-        return $this->getHumanTimestampAttribute("created_at");
-    }
-
-    public function getNiceDate($date)
-    {
-        return $this->getHumanTimestampAttribute($date);
-    }
-
-
-    public function getHumanEventDateStartAtAttribute()
-    {
-        return $this->getHumanTimestampAttribute("date_start");
-    }
-
-    public function getHumanEventDateEndAtAttribute()
-    {
-        return $this->getHumanTimestampAttribute("date_end");
-    }
-
-
-    public function getHumanUpdatedAtAttribute()
-    {
-        return $this->getHumanTimestampAttribute("updated_at");
-    }
-
-
-    /**
-     * Get single model by slug
-     *
-     * @param string slug
-     * @return object object of model
-     */
-    public  function bySlug($slug)
-    {
-        return $this->model->whereSlug($slug)->first();
-    }
-
-    protected function dateStringToCarbon($date, $format = 'm/d/Y')
-    {
-        if(!$date instanceof Carbon) {
-            $validDate = false;
-            try {
-                $date = Carbon::createFromFormat($format, $date);
-                $validDate = true;
-            } catch(Exception $e) { }
-
-            if(!$validDate) {
-                try {
-                    $date = Carbon::parse($date);
-                    $validDate = true;
-                } catch(Exception $e) { }
-            }
-
-            if(!$validDate) {
-                $date = NULL;
-            }
-        }
+        $dt = Carbon::createFromTimestamp(strtotime($this->created_at));
+        $date =  $dt->format('d-m-y \\a\\t ga'); // 05-11-2014 at 1pm
         return $date;
     }
-
-
-    public function setMobileAttribute($value)
-    {
-        $this->attributes['mobile'] = (int)($value);
-    }
-
-    public function setPhoneAttribute($value)
-    {
-        $this->attributes['phone'] = (int)($value);
-    }
 }
-?>

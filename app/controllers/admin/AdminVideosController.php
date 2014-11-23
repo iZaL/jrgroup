@@ -1,34 +1,92 @@
 <?php
 
-class AdminVideosController extends BaseController {
+use Acme\Photo\ImageService;
+use Acme\Photo\PhotoRepository;
+use Illuminate\Support\Facades\Redirect;
+
+class AdminVideosController extends AdminBaseController {
+
+    private $videoRepository;
+
+    private $photoImageService;
+
+    function __construct(\Acme\Video\VideoRepository $videoRepository, ImageService $photoImageService)
+    {
+        $this->videoRepository   = $videoRepository;
+        $this->photoImageService = $photoImageService;
+        parent::__construct();
+    }
+
+    public function index()
+    {
+        $videos = $this->videoRepository->getAll();
+        $this->render('admin.videos.index', compact('videos'));
+    }
+
+    public function create()
+    {
+        $videoableType = Input::get('videoable_type');
+        $videoableId   = Input::get('videoable_id');
+        if ( empty($videoableType) || empty($videoableId) ) {
+            return Redirect::action('AdminVideosController@index')->with('warning', trans('word.error'));
+        }
+
+        $this->render('admin.videos.create', compact('videoableType', 'videoableId'));
+    }
 
     /**
-     * @var Galler
+     * Store the Image
+     * Resolve the Dependent class for polymorphic relation
+     *
      */
-    private $gallery;
-
-    function __construct(Video $model,Gallery $gallery)
+    public function store()
     {
-        $this->model = $model;
+        $val = $this->videoRepository->getCreateForm();
 
-        parent::__construct();
-        $this->beforeFilter('Admin');
-        $this->gallery = $gallery;
-    }
+        if ( !$val->isValid() ) {
 
-	public function destroy($id)
-	{
-        $photo=  $this->model->findOrFail($id);
-        if ($photo->delete()) {
-            //  return Redirect::home();
-            return Redirect::back()->with('success','Photo Deleted');
+            if ( Request::ajax() ) return false;
+
+            return Redirect::back()->withInput()->withErrors($val->getErrors());
         }
-        return Redirect::back()->with('error','Error: Photo Not Found');
-	}
 
-    public function attach($id,$name) {
-        $gallery = $this->gallery->find($id);
-        $keyword = $name;
-        dd($keyword);
+        if (! $this->isYoutubeVideo(Input::get('url')) ) {
+
+            return Redirect::action('AdminVideosController@index')->with('error', 'Not a Valid Youtube URL');
+        }
+
+        $this->videoRepository->create(array_merge(['videoable_id'=>Input::get('id'),'videoable_type'=>Input::get('videoable_type')],$val->getInputData())) ;
+        return Redirect::action('AdminVideosController@index')->with('success', trans('word.saved'));
+
+
     }
+
+    /**
+     * @param $id Photo ID
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     */
+    public function destroy($id)
+    {
+        $photo = $this->photoRepository->findById($id);
+        if ( $photo->delete() ) {
+
+            $this->photoImageService->destroy($photo->name);
+
+            return Redirect::back()->with('success', 'Photo Deleted');
+        }
+
+        return Redirect::back()->with('error', 'Error: Photo Not Found');
+    }
+
+    /**
+     * @param $value
+     * @return bool
+     * @todo Implenet
+     */
+    private function isYoutubeVideo($value)
+    {
+        return true;
+    }
+
 }

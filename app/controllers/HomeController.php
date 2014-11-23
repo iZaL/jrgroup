@@ -1,44 +1,50 @@
 <?php
 
+use Acme\Ad\AdRepository;
+use Acme\EventModel\EventRepository;
+
 class HomeController extends BaseController {
 
+    private $eventRepository;
+
+    private $adRepository;
 
     /**
-     * @var EventModel
+     * @param EventRepository $eventRepository
+     * @param AdRepository $adRepository
      */
-    private $event;
-
-    public function __construct(EventModel $event){
-
-        $this->event = $event;
+    function __construct(EventRepository $eventRepository, AdRepository $adRepository)
+    {
+        $this->eventRepository = $eventRepository;
+        $this->adRepository    = $adRepository;
         parent::__construct();
-
     }
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
 
     public function index()
     {
-        $event = $this->event->with('photos')
-//            ->whereHas('photos',function($q) {
-//                $q->where('photos.id','>','1');
-//            })
-            ->where('events.date_start','<', Carbon::now()->toDateTimeString())
+//        $events = $this->eventRepository->getSliderEvents();
+//        $ads    = $this->adRepository->getAds();
+//        $this->render('site.home', compact('events', 'ads'));
+        $event = $this->eventRepository->model->with('photos')
+//            ->where('events.date_start','<', Carbon::now()->toDateTimeString())
             ->orderBy('events.date_start','DESC')
             ->limit(1)
-            ->get(array('events.id','events.title'))
             ->first()
         ;
-        return $this->view('site.home',compact('event'));
+        $ads    = $this->adRepository->getAds();
+
+        return $this->render('site.home',compact('event','ads'));
+
     }
+
+    /**
+     * @return array|null|static[]
+     * just for test purpose
+     */
+    public function slider()
+    {
+        $events = $this->eventRepository->getSliderEvents();
+        return $events;
+    }
+
 }

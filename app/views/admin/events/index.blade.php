@@ -1,52 +1,69 @@
-@extends('admin.layouts.default')
+@extends('admin.master')
 
-{{-- Content --}}
 @section('content')
-<h1>Events</h1>
-<p>{{ link_to_action('AdminEventsController@create', 'Add new event') }}</p>
+<p class="btn btn-default">{{ link_to_action('AdminEventsController@create', 'Add New Event') }}</p>
 
-@if ($events->count())
-<div id="wrap">
-    <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
-        <thead>
-			<tr>
-                <td>ID</td>
-				<th>Category</th>
-				<th>Location</th>
-				<th>Title</th>
-				<th>Date_start</th>
-				<th>Date_end</th>
-				<th>Address</th>
-                <th>Posted</th>
-                <th>Settings</th>
-                <th>Action</th>
-			</tr>
-		</thead>
+<div class="row " style="margin-top: 20px;">
+    <div class="col-md-12 ">
 
-		<tbody>
-			@foreach ($events as $event)
-				<tr>
+        @if ($events->count())
+        <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+            <thead>
+            <tr>
+                <td>Event ID</td>
+                <th>Title</th>
+                <th>Start Date</th>
+                <th>Event Settings</th>
+                <th>Total Seats</th>
+                <th>Available Seats</th>
+                <th>Event Type</th>
+                <th>Add/Edit Photos</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @foreach ($events as $event)
+                <tr>
                     <td>{{{ $event->id }}}</td>
-					<td>{{{ $event->category->name }}}</td>
-					<td>{{{ $event->location->name }}}</td>
-					<td>{{{ $event->title }}}</td>
-					<td>{{{ $event->date_start }}}</td>
-					<td>{{{ $event->date_end }}}</td>
-					<td>{{{ $event->address }}}</td>
-                    <td>{{{ $event->getHumanCreatedAtAttribute() }}} </td>
-                    <td><a href="{{ URL::action('AdminEventsController@settings',$event->id)}}">Settings</a></td>
-                    <td><a href="{{ URL::action('AdminEventsController@edit', $event->id) }}" class="btn btn-xs btn-default">Edit</a>
+                    <td>{{{ $event->title }}}</td>
+                    <td>{{{ $event->date_start }}}</td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                          <a href="{{ URL::action('AdminEventsController@getDetails',$event->id)}}" class="btn btn-default">Details</a>
+                          <a href="{{action('AdminEventsController@getSubscriptions',$event->id) }}" class="btn btn-default">Subscriptions</a>
+                        </div>
+                    </td>
+                    <td> {{ $event->total_seats }}</td>
+                    <td> {{ $event->available_seats }}</td>
+                    <td>
+                         {{ $event->isFreeEvent() ? 'Free' : 'Paid' }}
+                    </td>
+                    <td><a href="{{ URL::action('AdminPhotosController@create', ['imageable_type' => 'EventModel', 'imageable_id' => $event->id]) }}" class="btn btn-xs btn-success">Add Photos</a></td>
+                    <td>
                         {{ Form::open(array('method' => 'DELETE', 'action' => array('AdminEventsController@destroy', $event->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-xs btn-danger')) }}
+                        <a href="{{ URL::action('AdminEventsController@edit', array($event->id)) }}" class="btn btn-xs btn-warning">Edit</a>
+                            {{ Form::submit('Delete', array('class' => 'btn btn-xs btn-danger delete-btns')) }}
                         {{ Form::close() }}
                     </td>
-				</tr>
-			@endforeach
-		</tbody>
-	</table>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-12">
+                {{ $events->links() }}
+            </div>
+        </div>
+        @else
+        <div class="alert alert-danger alert-block">
+            There are no events
+        </div>
+        @endif
+
+    </div>
 </div>
-@else
-	There are no events
-@endif
 
 @stop
+@section('script')
+

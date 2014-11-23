@@ -20,6 +20,9 @@ ClassLoader::addDirectories(array(
     app_path().'/database/seeds',
 
 ));
+
+App::setLocale(Session::get('lang', 'ar'));
+
 //\Debugbar::disable();
 /*
 |--------------------------------------------------------------------------
@@ -110,4 +113,6 @@ App::down(function()
 */
 
 require __DIR__.'/../filters.php';
+require __DIR__.'/../helpers.php';
+
 

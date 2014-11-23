@@ -1,4 +1,4 @@
-@extends('admin.layouts.default')
+@extends('admin.master')
 
 {{-- Content --}}
 @section('content')
@@ -20,7 +20,16 @@
 			@foreach ($categories as $category)
 				<tr>
 					<td>{{ $category->name }}</td>
-					<td>{{ $category->type }}</td>
+					<td>
+                        @if($category->type == 'EventModel')
+                        Event
+                        @elseif($category->type == 'Post')
+                        Blog
+                        @elseif($category->type == 'Gallery')
+                        Gallery
+                        @endif
+
+					</td>
                     <td><a href="{{ URL::action('AdminCategoriesController@edit',  array($category->id), array('class' => 'btn btn-info')) }}">Edit</a></td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'action' => array('AdminCategoriesController@destroy', $category->id))) }}

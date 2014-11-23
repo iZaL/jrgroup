@@ -1,56 +1,41 @@
-@if(!Auth::check())
-{{ Form::open(array('action'=>'UserController@postLogin','method'=>'POST')) }}
-    <div class="form-group">
-        <div class="input-group">
-            <div class="input-icon">
-                <i class="fa fa-user"></i>
-                {{ Form::text('email', NULL,array('class'=>'form-control','placeholder' => Lang::get('confide.username_e_mail'))) }}
+<div class="panel panel-default">
+    <div class="panel-heading"> {{ trans('word.login') }} </div>
+    <div class="panel-body">
+        <ul class="dropdown">
+            <!-- Hide this In Mobile -->
+            <div class="hidden-xs">
+                @if(!Auth::check())
+                    @include('site.auth._login-form')
+                @else
+                    @include('site.auth._settings-button')
+                @endif
             </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="input-group">
-            <div class="input-icon">
-                <i class="fa fa-lock"></i>
-                {{ Form::password('password', array('class'=>'form-control','placeholder' => Lang::get('confide.password'))) }}
+
+            <!-- Show this in mobile -->
+            <div class="visible-xs">
+                @if(!Auth::check())
+                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" >
+                        <i class="fa  fa-lock"></i> &nbsp;{{ trans('word.login') }}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        @include('site.auth._login-form')
+                    </ul>
+                @else
+                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" >
+                        <i class="fa  fa-cog"></i> &nbsp;{{ trans('word.settings') }}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        @include('site.auth._settings-button')
+                    </ul>
+
+                @endif
             </div>
-        </div>
-    </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-default">{{ Lang::get('site.nav.login') }}</button>
-        <a href="{{ action('UserController@create') }}" type="submit" class="btn btn-default">
-            {{ Lang::get('site.nav.register') }}
-        </a>
+        </ul>
     </div>
-{{ Form::close() }}
-@else
-    <div class="bottom20">
-        <li class="dropdown-header">
-            <a type="button" class="btn btn-default btn-sm" href="{{ action('UserController@getLogout') }}">
-                <i class="fa fa-sign-out" style="font-size: 11px;"></i>&nbsp;{{ Lang::get('site.nav.logout') }}
-            </a>
-        </li>
-        <li class="dropdown-header">
-            <a type="button" class="btn btn-default btn-sm" href="{{ action('UserController@getProfile', Auth::user()->id) }}">
-                <i class="fa fa-user" style="font-size: 11px;"></i>&nbsp;{{ Lang::get('site.general.profile') }}
-            </a>
-        </li>
-        <li class="dropdown-header">
-            {{ (Helper::isMod()) ? '<a type="button" class="btn btn-default btn-sm" href="'. URL::to('admin') .'">
-                <i class="fa fa-cog" style="font-size: 11px;"></i>&nbsp;'. Lang::get('site.general.admin_panel') .'
-            </a>' : '' }}
-        </li>
-        <li class="dropdown-header">
-            {{ (Helper::isMod()) ? '<a type="button" class="btn btn-default btn-sm" href="'. URL::action('BlogsController@create') .'">
-                <i class="fa fa-cog" style="font-size: 11px;"></i>&nbsp;'. Lang::get('site.general.add_blog_post') .'
-            </a>' : '' }}
-        </li>
-        <li class="dropdown-header">
-            {{ (Helper::isMod()) ? '<a type="button" class="btn btn-default btn-sm" href="'. URL::action('CertificateRequestsController@create') .'">
-                <i class="fa fa-cog" style="font-size: 11px;"></i>&nbsp;'. Lang::get('site.general.request_certificate') .'
-            </a>' : '' }}
-        </li>
-    </div>
+</div>
 
-@endif
+
+

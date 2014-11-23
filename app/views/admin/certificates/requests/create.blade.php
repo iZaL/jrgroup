@@ -1,5 +1,4 @@
-@extends('admin.layouts.default')
-
+@extends('admin.master')
 {{-- Content --}}
 @section('content')
 {{ HTML::style('assets/css/ion.rangeSlider.css') }}

@@ -1,4 +1,4 @@
-@extends('admin.layouts.default')
+@extends('admin.master')
 
 {{-- Content --}}
 @section('content')
@@ -8,16 +8,15 @@
 {{ Form::model($category, array('method' => 'PATCH', 'role'=>'form', 'action' => array('AdminCategoriesController@update', $category->id))) }}
     <div class="form-group">
         {{ Form::label('arabic_name', 'Arabic Name:') }}
-        {{ Form::text('name', NULL,array('class'=>'form-control')) }}
+        {{ Form::text('name_ar', NULL,array('class'=>'form-control')) }}
     </div>
     <div class="form-group">
         {{ Form::label('english_name', 'English Name:') }}
         {{ Form::text('name_en', NULL,array('class'=>'form-control')) }}
     </div>
-
     <div class="form-group">
-        {{ Form::label('type', 'Type:',array('class'=>'control-label')) }}
-        {{ Form::select('type',['EventModel' => 'Event','Post' => 'Blog','Gallery' => 'Gallery'],NULL,array('class'=>'form-control')) }}
+        {{ Form::label('type', 'Type:') }}
+        {{ Form::select('type',['EventModel' => 'Event','Post' => 'Blog','Gallery'=>'Gallery'],NULL,array('class'=>'form-control')) }}
     </div>
     <div class="form-group">
         {{ Form::submit('Update', array('class' => 'btn btn-info')) }}

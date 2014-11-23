@@ -1,22 +1,13 @@
-@extends('site.master')
-@section('title')
-    Events
-@stop
-@section('style')
-    @parent
-@stop
-@section('scripts')
-    @parent
-@stop
+@extends('site.layouts._two_column')
 
 @section('breadcrumb')
-    <li class="active">{{ Lang::get('site.general.courses') }}</li>
+    <li class="active">{{ Lang::get('word.events') }}</li>
 @stop
 
 @section('content')
 <div class="row">
     @foreach($events as $event)
-    <div class="col-sm-6 col-md-4">
+    <div class="col-sm-6 col-md-6">
         <div class="thumbnail gallery">
             @if(count($event->photos))
             <a href="{{ action('EventsController@show',$event->id) }}" >
@@ -30,15 +21,11 @@
             <div class="caption">
                 <p class="text-center">
                     <a href="{{ action('EventsController@show',$event->id) }}" >
-                        {{ Str::limit(LocaleHelper::getLocaled($event->title,$event->title_en),25) }}
+                        {{ Str::limit(strip_tags($event->title),25) }}
                     </a>
                 </p>
                 <a href="#" class="pull-right"><span class="glyphicon glyphicon-camera"></span>
-
                     {{ $event->date_start->format('Y m D') }}
-                </a>
-                <a href="#" class="pull-left"><span class="glyphicon glyphicon-camera"></span>
-                    K.D 345
                 </a>
             </div>
         </div>

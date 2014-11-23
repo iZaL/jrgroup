@@ -1,5 +1,4 @@
-@extends('admin.layouts.default')
-
+@extends('admin.master')
 {{-- Content --}}
 @section('content')
 
@@ -20,7 +19,7 @@
 
 <div class="form-group">
     {{ Form::label('arabic_name', 'Title Arabic:') }}
-    {{ Form::text('title', NULL,array('class'=>'form-control')) }}
+    {{ Form::text('title_ar', NULL,array('class'=>'form-control')) }}
 </div>
 
 <div class="form-group">
@@ -30,7 +29,7 @@
 
 <div class="form-group">
     {{ Form::label('arabic_name', 'Description Arabic:') }}
-    {{ Form::textarea('description', NULL,array('class'=>'form-control')) }}
+    {{ Form::textarea('description_ar', NULL,array('class'=>'form-control')) }}
 </div>
 
 <div class="form-group">
@@ -52,12 +51,6 @@
     {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
 </div>
 {{ Form::close() }}
-
-@if ($errors->any())
-<ul>
-    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-</ul>
-@endif
 
 <script>
     $(function(){

@@ -16,7 +16,8 @@ class CreateCertificateOptions extends Migration {
 		{
 			$table->increments('id');
             $table->integer('meta_id')->unsigned()->index();
-            $table->string('name');
+            $table->string('name_en');
+            $table->string('name_ar');
 			$table->timestamps();
 		});
 	}

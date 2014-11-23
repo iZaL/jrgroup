@@ -1,25 +1,29 @@
-@extends('site.master')
+<!-- Extends From Two Column Layou -->
+@extends('site.layouts._two_column')
 
 @section('style')
     @parent
+    <style>
+    .image-home img {
+        height:500px;
+        width: 100%;
+    }
+    </style>
+
 @stop
-@section('scripts')
+
+@section('sidebar')
+    @include('site.partials.login')
     @parent
 @stop
 
+<!-- Content Section -->
 @section('content')
-<div class="row">
-    <div class="col-md-3 col-sm-3">
-        @include('site.partials.login')
-        @include('site.partials.latest-courses')
-        @include('site.partials.latest-news')
-        @include('site.partials.newsletter')
-    </div>
-    <div class="col-md-9 col-sm-9">
+    <div class="image-home">
         @if(isset($event->photos))
             @if(count($event->photos))
             <a href="{{ action('EventsController@show',$event->id) }}" >
-                {{ HTML::image('uploads/large/'.$event->photos[0]->name.'','image1',array('class'=>'img-responsive img-thumbnail','width'=>'100%')) }}
+                {{ HTML::image('uploads/large/'.$event->photos[0]->name.'','image1',array('class'=>'img-responsive img-thumbnail')) }}
             </a>
             @endif
         @else
@@ -30,7 +34,7 @@
             </div>
         </div>
         @endif
-        @include('site.partials.ads')
     </div>
-</div>
+
+    @include('site.partials.ads')
 @stop
