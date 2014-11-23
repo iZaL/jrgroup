@@ -20,8 +20,8 @@ class CreateContactsTable extends Migration {
             $table->text('address_en');
             $table->text('address_ar');
             $table->string('email');
-            $table->integer('phone');
-            $table->integer('mobile');
+            $table->string('phone');
+            $table->string('mobile');
             $table->timestamps();
         });
     }
